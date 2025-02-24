@@ -46,10 +46,6 @@ sysinfo.txt
 MemoryCaptures/
 Recordings/
 
-# Rider Plugin
-Assets/Plugins/Editor/JetBrains/
-Assets/Plugins/Editor/JetBrains.meta
-
 # FMOD
 FMOD/*/.cache/
 Assets/FMODStudioCache.asset
@@ -62,5 +58,4 @@ fmod_editor.log
 *.unitypackage
 
 # Custom
-Assets/Plugins/ClientOnly/
-Assets/Plugins/ClientOnly.meta
+Assets/WIP/
