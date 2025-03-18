@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb1491971afb8d44c82016c47693f8cf, type: 3}
+  m_Name: PlayerPreferences
+  m_EditorClassIdentifier: 
+  m_mode: 1
+  m_inputModeKeyMaps:
+  - m_mode: 0
+    m_keyEventPairs: []
+  - m_mode: 1
+    m_keyEventPairs:
+    - m_key: 101
+      m_type: 7
+    - m_key: 32
+      m_type: 8
+    - m_key: 113
+      m_type: 9
+    - m_key: 27
+      m_type: 10
+    - m_key: 324
+      m_type: 11
+    - m_key: 323
+      m_type: 12
+  - m_mode: 2
+    m_keyEventPairs:
+    - m_key: 333
+      m_type: 7
+    - m_key: 332
+      m_type: 8
+    - m_key: 331
+      m_type: 9
+    - m_key: 337
+      m_type: 10
+    - m_key: 339
+      m_type: 11
+    - m_key: 335
+      m_type: 12
+  m_inputModeAxisMaps:
+  - m_mode: 0
+    m_axisEventPairs:
+    - m_axis: 
+      m_type: 0
+  - m_mode: 1
+    m_axisEventPairs:
+    - m_axis: Mouse Scroll Wheel
+      m_type: 2
+  - m_mode: 2
+    m_axisEventPairs:
+    - m_axis: DPad Vertical
+      m_type: 2
+  m_inputModeDualAxisMaps:
+  - m_mode: 0
+    m_dualAxisEventPairs: []
+  - m_mode: 1
+    m_dualAxisEventPairs:
+    - m_dualAxis:
+        m_xAxis: WASD Horizontal
+        m_yAxis: WASD Vertical
+      m_type: 0
+    - m_dualAxis:
+        m_xAxis: Mouse X
+        m_yAxis: Mouse Y
+      m_type: 1
+  - m_mode: 2
+    m_dualAxisEventPairs:
+    - m_dualAxis:
+        m_xAxis: Left Stick Horizontal
+        m_yAxis: Left Stick Vertical
+      m_type: 0
+    - m_dualAxis:
+        m_xAxis: Right Stick Horizontal
+        m_yAxis: Right Stick Vertical
+      m_type: 1
