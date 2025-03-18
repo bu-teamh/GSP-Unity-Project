@@ -6,7 +6,7 @@ using GSP.Mediator;
 
 public class MainCameraComponent : MonoBehaviour
 {
-    private MediatorComponent m_mediator;
+    private MediatorComponentInterface m_mediator;
     private MainCameraTargetComponent m_cameraTarget;
 
     //public float distFromTarget;
@@ -23,8 +23,8 @@ public class MainCameraComponent : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        m_mediator = FindFirstObjectByType<MediatorComponent>();
-    }
+		m_mediator = MediatorComponent.Instance;
+	}
 
     void Start()
     {

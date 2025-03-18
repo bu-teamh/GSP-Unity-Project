@@ -35,13 +35,8 @@ public class PlayerComponent : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private Quaternion targetRot;
 
-    //-- even more bs values --
-
-
-
     // --- end shtuff
 
-    // Start is called before the first frame update
     void Awake()
     {
         m_mediator = MediatorComponent.Instance;

@@ -14,9 +14,8 @@ public class MediatorComponent : MonoBehaviour, MediatorComponentInterface
 
     private static MediatorComponent m_instance;
 
-    private Mediator m_mediator;
+    private MediatorInterface m_mediator;
 
-    // Start is called before the first frame update
     void Awake()
     {
         // Ensure only one instance of this component exists.

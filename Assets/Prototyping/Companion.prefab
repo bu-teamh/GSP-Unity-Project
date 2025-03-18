@@ -213,10 +213,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: 
-  playerController: {fileID: 0}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2147483648
   maxDist: 9
   minDist: 2.5
   maxSpeed: 15
@@ -299,11 +298,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2355947442471836495}
     m_Modifications:
-    - target: {fileID: 8164078558771037576, guid: bb8e70525f9f2654382d0f0f0e5cf4e3,
-        type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ce40c5102412be74fb3b65bd7985b8d3,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -375,6 +369,11 @@ PrefabInstance:
       value: demo_lant_obj
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ce40c5102412be74fb3b65bd7985b8d3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: bb8e70525f9f2654382d0f0f0e5cf4e3,
         type: 3}
       propertyPath: m_Layer
       value: 7

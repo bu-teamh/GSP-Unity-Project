@@ -6,7 +6,7 @@ using GSP.Mediator;
 
 public class CompanionComponent : MonoBehaviour
 {
-    private MediatorComponent m_mediator;
+    private MediatorComponentInterface m_mediator;
     private PlayerComponent m_player;
 
 
@@ -41,8 +41,8 @@ public class CompanionComponent : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        m_mediator = FindFirstObjectByType<MediatorComponent>();
-        m_mediator.SetObject(MediatedObject.Companion, this);
+		m_mediator = MediatorComponent.Instance;
+		m_mediator.SetObject(MediatedObject.Companion, this);
     }
 
     void Start()
