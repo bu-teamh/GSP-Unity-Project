@@ -6,7 +6,7 @@ using GSP.Mediator;
 using GSP.Events;
 using GSP.States;
 
-public class Interactible : MonoBehaviour
+public class InteractibleComponent : MonoBehaviour
 {
 	private MediatorComponentInterface m_mediator;
 	private LocalEventHandlerComponentInterface m_handler;

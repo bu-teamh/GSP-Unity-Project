@@ -28,7 +28,7 @@ namespace GSP.States
 
 		public void Update(GameEvent _ev)
 		{
-			m_nextState = m_currentState.Update(_ev);
+			//m_nextState = m_currentState.Update(_ev);
 		}
 
 		public bool HasEvents()
