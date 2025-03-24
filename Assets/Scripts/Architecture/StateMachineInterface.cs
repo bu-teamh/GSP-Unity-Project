@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using GSP.Events;
 using UnityEngine;
 
-public class StateMachineInterface : MonoBehaviour
+namespace GSP.States
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public interface StateMachineInterface
+	{
+		void Update(GameEvent _ev);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		bool HasEvents();
+
+		GameEvent Dequeue();
+	}
 }

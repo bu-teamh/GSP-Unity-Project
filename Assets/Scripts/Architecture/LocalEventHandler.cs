@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace GSP.Events
 {
-    public class LocalEventHandlerComponent : LocalEventHandlerComponentInterface
+    public class LocalEventHandler : LocalEventHandlerInterface
     {
         private EventManagerComponentInterface m_eventManager;
 
         private Queue<GameEvent> m_eventQueue;
 
-        public LocalEventHandlerComponent()
+        public LocalEventHandler()
         {
             m_eventManager = EventManagerComponent.Instance;
 

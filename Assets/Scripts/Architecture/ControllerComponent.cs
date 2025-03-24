@@ -6,11 +6,11 @@ using GSP.Mediator;
 using GSP.Events;
 using GSP.States;
 
-public class InteractibleComponent : MonoBehaviour
+public class ControllerComponent : MonoBehaviour
 {
 	private MediatorComponentInterface m_mediator;
-	private LocalEventHandlerComponentInterface m_handler;
-	private StateMachine m_stateMachine;
+	private LocalEventHandlerInterface m_handler;
+	private StateMachineInterface m_stateMachine;
 	//an animator
 	//a sound-player that is injected into the animator
 	//an attributes collection 
@@ -25,7 +25,7 @@ public class InteractibleComponent : MonoBehaviour
 	void Awake()
 	{
 		m_mediator = MediatorComponent.Instance;
-		m_handler = new LocalEventHandlerComponent();
+		m_handler = new LocalEventHandler();
 		m_stateMachine = new StateMachine(this, m_initialState);
 
 		m_mediator.SetObject(m_declaredMediatedObject, this);

@@ -10,7 +10,7 @@ using GSP.Events;
 public class MediatorComponent : MonoBehaviour, MediatorComponentInterface
 {
     public static MediatorComponentInterface Instance => m_instance;
-    private LocalEventHandlerComponentInterface m_localEventHandler;
+    private LocalEventHandlerInterface m_localEventHandler;
 
     private static MediatorComponent m_instance;
 
@@ -26,7 +26,7 @@ public class MediatorComponent : MonoBehaviour, MediatorComponentInterface
 
         m_instance = this;
 
-        m_localEventHandler = new LocalEventHandlerComponent();
+        m_localEventHandler = new LocalEventHandler();
 
         m_mediator = new Mediator();
     }

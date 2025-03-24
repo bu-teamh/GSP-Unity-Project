@@ -1,6 +1,6 @@
 namespace GSP.Events
 {
-    public interface LocalEventHandlerComponentInterface
+    public interface LocalEventHandlerInterface
     {
         bool HasEvents();
 

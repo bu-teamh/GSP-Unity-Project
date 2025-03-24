@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 
 namespace GSP.States
 {
-	public class StateMachine
+	public class StateMachine : StateMachineInterface
 	{
 		private object m_gameObject;
 
