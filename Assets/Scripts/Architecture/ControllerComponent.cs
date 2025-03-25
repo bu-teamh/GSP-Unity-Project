@@ -13,20 +13,19 @@ public class ControllerComponent : MonoBehaviour
 	private StateMachineInterface m_stateMachine;
 	//an animator
 	//a sound-player that is injected into the animator
-	//an attributes collection 
 
 	private Dictionary<MediatedObject, object> m_mediations;
 
 	public MediatedObject m_declaredMediatedObject;
 	public List<MediatedObject> m_mediatedObjects;
 	public List<EventArchetype> m_subscribedEvents;
-	//public GameState m_initialState;
+	public InitialState m_initialState;
 
 	void Awake()
 	{
 		m_mediator = MediatorComponent.Instance;
 		m_handler = new LocalEventHandler();
-		//m_stateMachine = new StateMachine(this, m_initialState);
+		m_stateMachine = new StateMachine(this, m_initialState);
 
 		m_mediator.SetObject(m_declaredMediatedObject, this);
 

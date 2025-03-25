@@ -1,34 +1,40 @@
+#nullable enable
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 using GSP.Events;
 using Unity.VisualScripting;
+using System.Data.Common;
+using System;
 
 namespace GSP.States
 {
 	public class StateMachine : StateMachineInterface
 	{
-		private object m_gameObject;
-
 		private BaseState m_currentState;
 		private BaseState m_nextState;
 
-		private Queue<GameEvent> m_broadcasts;
+		private Queue<GameEvent> m_broadcasts = new Queue<GameEvent>();
 
 		public StateMachine(
 			object _object,
-			BaseState _initial
+			InitialState _initial
 			)
 		{
-			m_gameObject = _object;
-			m_currentState = _initial;
-			m_nextState = _initial;
+			m_currentState = (BaseState)Activator.CreateInstance(InitialStates.m_map[_initial], _object);
+			m_nextState = m_currentState;
 		}
 
-		public void Update(GameEvent _ev)
+		public void Update(GameEvent? _ev = null)
 		{
-			//m_nextState = m_currentState.Update(_ev);
+			m_nextState = m_currentState.Update(_ev);
+		}
+
+		public void FixedUpdate()
+		{
+
 		}
 
 		public bool HasEvents()
