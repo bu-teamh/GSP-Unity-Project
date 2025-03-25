@@ -15,14 +15,37 @@ public class PlayerTeleport : MonoBehaviour
 	public CharacterController p_characterController = null;
 	public CharacterController c_characterController = null;
 
+	//public RoomTransition transition = null;
+
+	public Vector3 Destination;
+
 
 	//[SerializeField] public Transform randomObject;
 
-	//public RoomTransition transition;
+	public RoomTransition transition = null;
 	private void Awake()
 	{
 		c_characterController = companion.GetComponent<CharacterController>();
 		p_characterController = this.GetComponent<CharacterController>();
+	}
+	private void Update()
+	{
+		if(isTriggered)
+		{
+			ExposureUp();
+			print(Destination);
+			p_characterController.Move(Destination);
+			Vector3 c_Destination = Destination.normalized;
+			c_Destination.z += 2;
+			c_characterController.Move(c_Destination);
+			// randomObject.position = transition.GetDestination().position;
+			//this.transform.position = transition.GetDestination().position;
+			//companion.transform.position = transition.GetDestination().position;
+
+			ExposureDown();
+
+			isTriggered = false;
+		}
 	}
 	private void OnTriggerEnter(Collider other)
 	{
@@ -30,25 +53,10 @@ public class PlayerTeleport : MonoBehaviour
 		if(other.CompareTag("Teleport"))
 		{
 			print(other.name);
+			isTriggered = true;
+			RoomTransition transition = other.GetComponent<RoomTransition>();
+			Destination = transition.GetDestination().position;
 			
-			if (!isTriggered)
-			{
-				isTriggered = true;
-
-				RoomTransition transition = other.GetComponent<RoomTransition>();
-
-				ExposureUp();
-				print(transition.GetDestination().position);
-				p_characterController.Move(transition.GetDestination().position);
-				c_characterController.Move(transition.GetDestination().position);
-				// randomObject.position = transition.GetDestination().position;
-				//this.transform.position = transition.GetDestination().position;
-				//companion.transform.position = transition.GetDestination().position;
-
-
-				ExposureDown();
-				//isTriggered = true;
-			}
 		}
 	}
 
@@ -57,6 +65,8 @@ public class PlayerTeleport : MonoBehaviour
 		if(other.CompareTag("Teleport"))
 		{
 			isTriggered = false;
+			Destination = Vector3.zero;
+			transition = null;
 		}
 	}
 

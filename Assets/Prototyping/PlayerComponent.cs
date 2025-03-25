@@ -15,7 +15,7 @@ public class PlayerComponent : MonoBehaviour
 
     private InputManagerComponentInterface m_inputManager;
 
-    private LocalEventHandlerComponentInterface m_handler;
+    private LocalEventHandlerInterface m_handler;
 
     //begin trash tech demo sshtuff --- 
     private bool m_move;
@@ -42,7 +42,7 @@ public class PlayerComponent : MonoBehaviour
         m_mediator = MediatorComponent.Instance;
         m_mediator.SetObject(MediatedObject.Player, this);
 
-        m_handler = new LocalEventHandlerComponent();
+        m_handler = new LocalEventHandler();
 
 
         //demo stuff
