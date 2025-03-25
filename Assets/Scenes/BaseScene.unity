@@ -4087,6 +4087,7 @@ MonoBehaviour:
   p_characterController: {fileID: 2020993627}
   c_characterController: {fileID: 2094508239}
   Destination: {x: 0, y: 0, z: 0}
+  MainCamera: {fileID: 825041417}
   transition: {fileID: 0}
 --- !u!1 &2037588233
 GameObject:

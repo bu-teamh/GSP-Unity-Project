@@ -19,6 +19,9 @@ public class PlayerTeleport : MonoBehaviour
 
 	public Vector3 Destination;
 
+	public Camera MainCamera;
+	Vector3 Offset;
+
 
 	//[SerializeField] public Transform randomObject;
 
@@ -27,6 +30,7 @@ public class PlayerTeleport : MonoBehaviour
 	{
 		c_characterController = companion.GetComponent<CharacterController>();
 		p_characterController = this.GetComponent<CharacterController>();
+		Offset = MainCamera.transform.position - this.transform.position;
 	}
 	private void Update()
 	{
@@ -39,6 +43,7 @@ public class PlayerTeleport : MonoBehaviour
 
 			this.transform.position = Destination;
 			companion.transform.position = Destination;
+			MainCamera.transform.position = Offset + Destination;
 
 			ExposureDown();
 
