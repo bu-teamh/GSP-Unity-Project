@@ -11,14 +11,14 @@ namespace GSP.States
 	{
 		private object m_gameObject;
 
-		private GameState m_currentState;
-		private GameState m_nextState;
+		private BaseState m_currentState;
+		private BaseState m_nextState;
 
 		private Queue<GameEvent> m_broadcasts;
 
 		public StateMachine(
 			object _object,
-			GameState _initial
+			BaseState _initial
 			)
 		{
 			m_gameObject = _object;
