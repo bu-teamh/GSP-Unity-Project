@@ -20,13 +20,13 @@ public class ControllerComponent : MonoBehaviour
 	public MediatedObject m_declaredMediatedObject;
 	public List<MediatedObject> m_mediatedObjects;
 	public List<EventArchetype> m_subscribedEvents;
-	public GameState m_initialState;
+	//public GameState m_initialState;
 
 	void Awake()
 	{
 		m_mediator = MediatorComponent.Instance;
 		m_handler = new LocalEventHandler();
-		m_stateMachine = new StateMachine(this, m_initialState);
+		//m_stateMachine = new StateMachine(this, m_initialState);
 
 		m_mediator.SetObject(m_declaredMediatedObject, this);
 
