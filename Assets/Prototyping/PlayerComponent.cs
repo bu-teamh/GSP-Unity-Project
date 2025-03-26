@@ -65,6 +65,7 @@ public class PlayerComponent : MonoBehaviour
     {
         if (m_handler.HasEvents())
         {
+            /*
             GameEvent ev = m_handler.Dequeue();
 
             if (ev.m_type == EventArchetype.Input)
@@ -81,10 +82,12 @@ public class PlayerComponent : MonoBehaviour
                     }
                 }
             }
+			*/
         }
 
         if (m_move)
         {
+			//#######################
             System.Numerics.Vector2 axisState = m_inputManager.GetDualAxisState(EventSubtype.Move);
 
             Vector3 rawDirection = new Vector3(-axisState.X, 0.0f, axisState.Y);
@@ -100,6 +103,7 @@ public class PlayerComponent : MonoBehaviour
             velocity.y = 0.0f;
 
             targetRot = Quaternion.LookRotation(velocity);
+			//#######################
         }
         else if (!m_move)
         {

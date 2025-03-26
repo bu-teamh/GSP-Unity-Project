@@ -22,10 +22,6 @@ namespace GSP.Events
         Move,
         DirectAim,
         ToggleCombat,
-        Up,
-        Left,
-        Down,
-        Right,
         Interact,
         Defend,
         SwitchControl,
@@ -40,6 +36,3 @@ namespace GSP.Events
         KeyUp
     }
 }
-
-//now
-

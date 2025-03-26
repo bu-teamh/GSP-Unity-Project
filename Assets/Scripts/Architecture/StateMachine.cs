@@ -23,7 +23,21 @@ namespace GSP.States
 			InitialState _initial
 			)
 		{
-			m_currentState = (BaseState)Activator.CreateInstance(InitialStates.m_map[_initial], _object);
+
+			Debug.Log("State machine awake called");
+
+			Debug.Log("initial state: " + _initial + " /// _object" + _object);
+
+			try
+			{
+				m_currentState = (BaseState)Activator.CreateInstance(InitialStates.m_map[_initial], _object);
+			}
+			catch (Exception e)
+			{
+				Debug.Log("Exception happened" + e);
+			}
+
+
 			//m_nextState = m_currentState;
 		}
 

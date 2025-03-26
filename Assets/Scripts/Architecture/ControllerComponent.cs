@@ -1,4 +1,4 @@
-#nullable enable
+//#nullable enable
 
 using System.Collections;
 using System.Collections.Generic;
@@ -7,61 +7,77 @@ using UnityEngine;
 using GSP.Mediator;
 using GSP.Events;
 using GSP.States;
+using GSP.InputHandling;
 
-public class ControllerComponent : MonoBehaviour
+namespace GSP.Controller
 {
-	private MediatorComponentInterface m_mediator;
-	private LocalEventHandlerInterface m_handler;
-	private StateMachineInterface m_stateMachine;
-	//an animator
-	//a sound-player that is injected into the animator
-
-	private Dictionary<MediatedObject, object> m_mediations;
-
-	public MediatedObject m_declaredMediatedObject;
-	public List<MediatedObject> m_mediatedObjects;
-	public List<EventArchetype> m_subscribedEvents;
-	public InitialState m_initialState;
-
-	void Awake()
+	public class ControllerComponent : MonoBehaviour, ControllerComponentInterface
 	{
-		m_mediator = MediatorComponent.Instance;
-		m_handler = new LocalEventHandler();
-		m_stateMachine = new StateMachine(this, m_initialState);
+		private MediatorComponentInterface m_mediator;
+		private LocalEventHandlerInterface m_handler;
+		private StateMachineInterface m_stateMachine;
+		//an animator
+		//a sound-player that is injected into the animator
 
-		m_mediator.SetObject(m_declaredMediatedObject, this);
+		public Dictionary<MediatedObject, object> m_mediations = new Dictionary<MediatedObject, object>();
+		//public IReadOnlyDictionary<, EventSubtype> InputModeKeyMap => m_inputModeKeyMap;
 
-		foreach (var archetype in new HashSet<EventArchetype>(m_subscribedEvents))
+		public MediatedObject m_declaredMediatedObject;
+		public List<MediatedObject> m_mediatedObjects;
+		public List<EventArchetype> m_subscribedEvents;
+		public InitialState m_initialState;
+
+		public CharacterController m_chararacterController;
+
+		void Awake()
 		{
-			m_handler.Subscribe(archetype);
-		}
-	}
+			m_mediator = MediatorComponent.Instance;
+			m_handler = new LocalEventHandler();
+			m_stateMachine = new StateMachine(this, m_initialState);
 
-	void Start()
-	{
-		foreach (var mediatedObject in new HashSet<MediatedObject>(m_mediatedObjects))
-		{
-			m_mediations[mediatedObject] = m_mediator.GetObject(mediatedObject, this);
-		}
-	}
+			m_mediator.SetObject(m_declaredMediatedObject, this);
 
-	void Update()
-	{
-		GameEvent? ev = null;
+			foreach (var archetype in new HashSet<EventArchetype>(m_subscribedEvents))
+			{
+				m_handler.Subscribe(archetype);
+			}
 
-		if (m_handler.Dequeue(ref ev))
-		{
-			m_stateMachine.Process(ev);
+			Debug.Log("Awake called");
 		}
 
-		m_stateMachine.Update();
+		void Start()
+		{
+			foreach (var mediatedObject in new HashSet<MediatedObject>(m_mediatedObjects))
+			{
+				m_mediations[mediatedObject] = m_mediator.GetObject(mediatedObject, this);
+			}
+		}
 
-		m_stateMachine.FixedUpdate();
+		void Update()
+		{
+			GameEvent ev = null;
+
+			if (m_handler.HasEvents())
+			{
+				print("Has events");
+			}
+
+			if (m_handler.Dequeue(ref ev))
+			{
+				print(ev);
+				m_stateMachine.Process(ev);
+			}
+
+			m_stateMachine.Update();
+
+			m_stateMachine.FixedUpdate();
 
 
 
-		//Pass current event to animator
+			//Pass current event to animator
 
-		//
+			//
+		}
 	}
 }
+

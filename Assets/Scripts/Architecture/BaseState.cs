@@ -6,23 +6,30 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Xml.Linq;
 using GSP.Events;
+using GSP.InputHandling;
 using UnityEngine;
+
+using GSP.Mediator;
+using GSP.Controller;
 
 namespace GSP.States
 {
 	public class BaseState
 	{
-		protected object? m_gameObject;
+		protected static ControllerComponent m_gameObject;
 
 		protected Dictionary<
 			EventArchetype,
 			Dictionary<
 				EventSubtype,
-				Type
+				Dictionary<
+					EventFlag,
+					Type
+					>
 				>
 			> ? m_eventStateMap;
 
-		public BaseState(object _object)
+		public BaseState(ControllerComponent _object)
 		{
 			m_gameObject = _object;
 		}
@@ -60,9 +67,12 @@ namespace GSP.States
 					{
 						if (m_eventStateMap[_event.m_type].ContainsKey(_event.m_subtype))
 						{
-							Type state = m_eventStateMap[_event.m_type][_event.m_subtype];
+							if (m_eventStateMap[_event.m_type][_event.m_subtype].ContainsKey(_event.m_flag))
+							{
+								Type state = m_eventStateMap[_event.m_type][_event.m_subtype][_event.m_flag];
 
-							nextState = (BaseState)Activator.CreateInstance(state, this);
+								nextState = (BaseState)Activator.CreateInstance(state, this);
+							}
 						}
 					}
 				}
@@ -80,9 +90,22 @@ namespace GSP.States
 	{
 		// --- --- --- ---
 		// attributes for player are defined here - the child class, as mentioend earlier
+
+		protected float m_acceleration = 40;
+		protected float m_deceleration = 10;
+		protected float m_maxSpeed = 15;
+		protected float m_maxSpeedRot = 1080;
+		protected float m_rotDapming = 5;
+		protected float m_dampingThreshold = 10;
+
+		protected Vector3 m_velocity = Vector3.zero;
+		protected Quaternion m_targetRot;
+
+		protected InputManagerComponentInterface m_inputManager = (InputManagerComponentInterface)m_gameObject.m_mediations[MediatedObject.InputManager];
+
 		// --- --- --- ---
 
-		public PlayerBaseState(object _object) : base(_object) { }
+		public PlayerBaseState(ControllerComponent _object) : base(_object) { }
 
 		public PlayerBaseState(BaseState _state) : base(_state) { }
 
@@ -104,7 +127,7 @@ namespace GSP.States
 	public class PlayerIdleState : PlayerBaseState
 	{
 
-		public PlayerIdleState(object _object) : base(_object)
+		public PlayerIdleState(ControllerComponent _object) : base(_object)
 		{
 			InitialiseMap();
 		}
@@ -116,9 +139,17 @@ namespace GSP.States
 
 		protected override void InitialiseMap()
 		{
-			//m_eventStateMap[bl] =
-
-
+			//Event
+			m_eventStateMap[EventArchetype.Input] = new Dictionary<EventSubtype, Dictionary<EventFlag, Type>>
+			{
+				//Subtypes
+				{
+					EventSubtype.Move, new Dictionary<EventFlag, Type>
+					{
+						{ EventFlag.KeyDown, typeof(PlayerMoveState) }
+					}
+				}
+			};
 		}
 
 		public override void Update()
@@ -135,11 +166,74 @@ namespace GSP.States
 			// m_gameObject.m_handler.Enqueue(ev)
 			// and then add that event type to state map to react to that event in this state
 
+			m_velocity = Vector3.Lerp(m_velocity, Vector3.zero, m_deceleration * Time.deltaTime);
+
+			m_gameObject.m_chararacterController.Move(m_velocity * Time.deltaTime);
+
 			return;
 		}
 
 		public override void FixedUpdate()
 		{
+
+			return;
+		}
+	}
+
+	public class PlayerMoveState : PlayerBaseState
+	{
+
+		public PlayerMoveState(ControllerComponent _object) : base(_object)
+		{
+			InitialiseMap();
+		}
+
+		public PlayerMoveState(BaseState _state) : base(_state)
+		{
+			InitialiseMap();
+		}
+
+		protected override void InitialiseMap()
+		{
+			//Event
+			m_eventStateMap[EventArchetype.Input] = new Dictionary<EventSubtype, Dictionary<EventFlag, Type>>
+			{
+				//Subtypes
+				{
+					EventSubtype.Move, new Dictionary<EventFlag, Type>
+					{
+						{ EventFlag.KeyUp, typeof(PlayerIdleState) }
+					}
+				}
+			};
+		}
+
+		public override void Update()
+		{
+			base.Update();
+
+			return;
+		}
+
+		public override void FixedUpdate()
+		{
+			System.Numerics.Vector2 axisState = m_inputManager.GetDualAxisState(EventSubtype.Move);
+
+			Vector3 rawDirection = new Vector3(-axisState.X, 0.0f, axisState.Y);
+
+			Quaternion rotation = Quaternion.Euler(0.0f, -45.0f, 0.0f);
+
+			Vector3 offsetDirection = rotation * rawDirection;
+
+			m_velocity += offsetDirection * m_acceleration * Time.deltaTime;
+			m_velocity = Vector3.ClampMagnitude(m_velocity, m_maxSpeed);
+
+			//clamp on y plane
+			m_velocity.y = 0.0f;
+
+			m_targetRot = Quaternion.LookRotation(m_velocity);
+
+			m_gameObject.m_chararacterController.Move(m_velocity * Time.deltaTime);
 
 			return;
 		}
