@@ -1,8 +1,10 @@
 #nullable enable
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Xml.Linq;
 using GSP.Events;
 using UnityEngine;
 
@@ -16,7 +18,7 @@ namespace GSP.States
 			EventArchetype,
 			Dictionary<
 				EventSubtype,
-				BaseState
+				Type
 				>
 			> ? m_eventStateMap;
 
@@ -42,12 +44,11 @@ namespace GSP.States
 
 		protected virtual void InitialiseMap() { }
 
-		public virtual BaseState? Update(GameEvent? _event = null)
-		{
-			return null;
-		}
+		public virtual void Update() { }
 
-		protected BaseState? QueryNextState(GameEvent? _event)
+		public virtual void FixedUpdate() { }
+
+		public BaseState? QueryNextState(GameEvent _event)
 		{
 			BaseState? nextState = null;
 
@@ -59,13 +60,15 @@ namespace GSP.States
 					{
 						if (m_eventStateMap[_event.m_type].ContainsKey(_event.m_subtype))
 						{
-							nextState = m_eventStateMap[_event.m_type][_event.m_subtype];
+							Type state = m_eventStateMap[_event.m_type][_event.m_subtype];
+
+							nextState = (BaseState)Activator.CreateInstance(state, this);
 						}
 					}
 				}
 				else
 				{
-					//bug handle, this shouldnt be null in normal behaviour
+					//bug to handle, becos this eventStateMap shouldnt be null in normal behaviour
 				}
 			}
 	
@@ -85,15 +88,17 @@ namespace GSP.States
 
 		protected override void InitialiseMap() { }
 
-		public override BaseState? Update(GameEvent? _event = null)
+		public override void Update()
 		{
 			//this base class should never return a state after doing logic, only manipulate attributes, otherwise there could be a conflict
 
 			// this has functionality that should be done during ALL states
 			//if block, if event = w, do x, else do y
 
-			return null;
+			return;
 		}
+
+		public override void FixedUpdate() { }
 	}
 
 	public class PlayerIdleState : PlayerBaseState
@@ -111,13 +116,15 @@ namespace GSP.States
 
 		protected override void InitialiseMap()
 		{
-			//m_eventStateMap[bla] =  
+			//m_eventStateMap[bl] =
+
+
 		}
 
-		public override BaseState? Update(GameEvent? _event = null)
+		public override void Update()
 		{
 			// does base class update method
-			base.Update(_event);
+			base.Update();
 
 			//if block, if event = w, do x, else do y, nextstate = z
 			// this state inherits from base state and has functionality that should be only done during specific state
@@ -128,7 +135,13 @@ namespace GSP.States
 			// m_gameObject.m_handler.Enqueue(ev)
 			// and then add that event type to state map to react to that event in this state
 
-			return QueryNextState(_event);
+			return;
+		}
+
+		public override void FixedUpdate()
+		{
+
+			return;
 		}
 	}
 }

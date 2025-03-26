@@ -7,9 +7,11 @@ namespace GSP.States
 {
 	public interface StateMachineInterface
 	{
-		void Update(GameEvent _ev);
+		public void Process(GameEvent _ev);
 
-		bool HasEvents();
+		void Update();
+
+		void FixedUpdate();
 
 		GameEvent Dequeue();
 	}

@@ -1,3 +1,5 @@
+#nullable enable
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Search;
@@ -23,9 +25,18 @@ namespace GSP.Events
             return m_eventQueue.Count > 0;
         }
 
-        public GameEvent Dequeue()
+        public bool Dequeue(ref GameEvent? _ev)
         {
-            return m_eventQueue.Dequeue();
+			bool flag = false;
+
+			if (m_eventQueue.Count > 0)
+			{
+				_ev = m_eventQueue.Dequeue();
+
+				flag = true;
+			}
+
+			return flag;
         }
 
         public void Enqueue(GameEvent _ev) 

@@ -14,7 +14,7 @@ namespace GSP.States
 	public class StateMachine : StateMachineInterface
 	{
 		private BaseState m_currentState;
-		private BaseState m_nextState;
+		//private BaseState m_nextState;
 
 		private Queue<GameEvent> m_broadcasts = new Queue<GameEvent>();
 
@@ -24,22 +24,29 @@ namespace GSP.States
 			)
 		{
 			m_currentState = (BaseState)Activator.CreateInstance(InitialStates.m_map[_initial], _object);
-			m_nextState = m_currentState;
+			//m_nextState = m_currentState;
 		}
 
-		public void Update(GameEvent? _ev = null)
+		public void Process(GameEvent _ev)
 		{
-			m_nextState = m_currentState.Update(_ev);
+			BaseState? state = m_currentState.QueryNextState(_ev);
+
+			if (state != null)
+			{
+				m_currentState = state;
+			}
+
+			return;
+		}
+
+		public void Update()
+		{
+			m_currentState.Update();
 		}
 
 		public void FixedUpdate()
 		{
-
-		}
-
-		public bool HasEvents()
-		{
-			return m_broadcasts.Count > 0;
+			m_currentState.FixedUpdate();
 		}
 
 		public GameEvent Dequeue()

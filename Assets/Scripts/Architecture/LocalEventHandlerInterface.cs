@@ -1,12 +1,14 @@
+#nullable enable
+
 namespace GSP.Events
 {
     public interface LocalEventHandlerInterface
     {
         bool HasEvents();
 
-        GameEvent Dequeue();
+		bool Dequeue(ref GameEvent? _ev);
 
-        void Enqueue(GameEvent _ev);
+		void Enqueue(GameEvent _ev);
 
         void Dispatch(GameEvent _ev);
 

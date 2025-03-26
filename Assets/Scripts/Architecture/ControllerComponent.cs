@@ -1,3 +1,5 @@
+#nullable enable
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,15 +47,18 @@ public class ControllerComponent : MonoBehaviour
 
 	void Update()
 	{
-		if (m_handler.HasEvents())
+		GameEvent? ev = null;
+
+		if (m_handler.Dequeue(ref ev))
 		{
-			m_stateMachine.Update(m_handler.Dequeue());
+			m_stateMachine.Process(ev);
 		}
 
-		while (m_stateMachine.HasEvents())
-		{
-			m_handler.Dispatch(m_stateMachine.Dequeue());
-		}
+		m_stateMachine.Update();
+
+		m_stateMachine.FixedUpdate();
+
+
 
 		//Pass current event to animator
 
