@@ -9,6 +9,10 @@ public class PlayerTeleport : MonoBehaviour
 	[SerializeField] private bool isTriggered = false;
 
 	[SerializeField] private Volume m_volume;
+	[SerializeField] public float weightIncrement;
+
+	[SerializeField] private int Counter;
+	[SerializeField] public bool isExposed = false;
 
 	[SerializeField] public GameObject companion;
 
@@ -32,32 +36,51 @@ public class PlayerTeleport : MonoBehaviour
 		p_characterController = this.GetComponent<CharacterController>();
 		Offset = MainCamera.transform.position - this.transform.position;
 	}
-	private void Update()
+
+	private void FixedUpdate()
 	{
 		if (isTriggered)
 		{
-			ExposureUp();
-			print(Destination);
-			p_characterController.enabled = false;
-			c_characterController.enabled = false;
+			if (m_volume.weight < 1.0f && !isExposed)
+			{
+				m_volume.weight += weightIncrement;
+			}
+			else if (Counter == 0)
+			{
+				isExposed = true;
+				p_characterController.enabled = false;
+				c_characterController.enabled = false;
 
-			this.transform.position = Destination;
-			companion.transform.position = Destination;
-			MainCamera.transform.position = Offset + Destination;
-
-			ExposureDown();
-
-			isTriggered = false;
+				MainCamera.transform.position = Offset + Destination;
+				this.transform.position = Destination;
+				companion.transform.position = Destination;
+			}
+			if (m_volume.weight > 0.0f && isExposed)
+			{
+				if (Counter < 20)
+				{
+					Counter += 1;
+				}
+				else
+				{
+					print("isdecrease");
+					m_volume.weight -= weightIncrement;
+				}
+			}
+			else if (m_volume.weight <= weightIncrement)
+			{
+				Counter = 0;
+				isExposed = false;
+				isTriggered = false;
+			}
 		}
 		p_characterController.enabled = true;
 		c_characterController.enabled = true;
 	}
 	private void OnTriggerEnter(Collider other)
 	{
-		print("Enter" + other.name);
 		if (other.CompareTag("Teleport"))
 		{
-			print(other.name);
 			isTriggered = true;
 			RoomTransition transition = other.GetComponent<RoomTransition>();
 			Destination = transition.GetDestination().position;
@@ -65,49 +88,5 @@ public class PlayerTeleport : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerExit(Collider other)
-	{
-		if (other.CompareTag("Teleport"))
-		{
-			isTriggered = false;
-			Destination = Vector3.zero;
-			transition = null;
-		}
-	}
 
-	public void ExposureUp()
-	{
-		StartCoroutine(IncreaseExposure());
-	}
-
-	public void ExposureDown()
-	{
-		StartCoroutine(DecreaseExposure());
-	}
-
-	IEnumerator IncreaseExposure()
-	{
-		while (m_volume.weight <= 1)
-		{
-			m_volume.weight += 0.01f;
-			yield return new WaitForSeconds(Time.deltaTime);
-		}
-
-		for (int i = 0; i < 50; i++)
-		{
-			yield return new WaitForSeconds(Time.deltaTime);
-		}
-
-		yield return null;
-	}
-
-	IEnumerator DecreaseExposure()
-	{
-		while (m_volume.weight >= 0)
-		{
-			m_volume.weight -= 0.01f;
-			yield return new WaitForSeconds(Time.deltaTime * 2);
-		}
-		yield return null;
-	}
 }
