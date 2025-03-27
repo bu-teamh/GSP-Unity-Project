@@ -6,15 +6,18 @@ using GSP.Mediator;
 
 public class CompanionComponent : MonoBehaviour
 {
+	/* - DELETE TO UNCOMMENT ENTIRE THING
     private MediatorComponentInterface m_mediator;
-    private PlayerComponent m_player;
+    //deleted protoype //private PlayerComponent m_player;
 
 
-    public string model;
-    private Transform lanternModelTransform;
-    private CharacterController controller;
+    public string model; // dont think i need this
+    private Transform lanternModelTransform; //dont need this
+    private CharacterController controller; // dont need this
     //public CharacterController playerController;
-    public LayerMask groundLayer;
+
+	//copied to base state done --
+	public LayerMask groundLayer;
 
     public float maxDist;
     public float minDist;
@@ -30,11 +33,14 @@ public class CompanionComponent : MonoBehaviour
     public float mouseFollowSpeed;
     public float mouseDecelThreshold;
     public float hovHeight;
+	//---
 
+	//--copied to base state
     private Vector3 velocity = Vector3.zero;
     private Quaternion targetRot;
     private Vector3 lastMousePos;
-    //private Vector3 aimVector;
+    //private Vector3 aimVector; //dk what this is not copied
+	//-- 
 
     private bool isGrabbed = false;
 
@@ -135,6 +141,7 @@ public class CompanionComponent : MonoBehaviour
                 //Debug.Log("Object moved to position: " + transform.position);
             }
         }
+
         /*
         if (isGrabbed)
         {
@@ -154,8 +161,10 @@ public class CompanionComponent : MonoBehaviour
             }
         }
         */
+	/* - DELETE TO UNCOMMENT ENTIRE THING
         else
         {
+			//#################### float towards player
             float distance = Vector3.Distance(transform.position, m_player.transform.position);
 
             Vector3 direction = (m_player.transform.position - transform.position).normalized;
@@ -176,6 +185,7 @@ public class CompanionComponent : MonoBehaviour
             }
         }
 
+		//#################### rottations
         //clamp on y plane
         //currently clamped to zero but at some point must consider factoring height from player height not ground height (otherwise on tall shit the lantern might clamp to ground if floats over edge)
         velocity.y = 0.0f;
@@ -187,12 +197,13 @@ public class CompanionComponent : MonoBehaviour
         velocity.y = vely;
 
         controller.Move(velocity * Time.deltaTime);
+		//############
 
-        //rb.MovePosition(rb.position + velocity * Time.deltaTime);
-        //transform.Translate(velocity * Time.deltaTime, Space.World);
+		//rb.MovePosition(rb.position + velocity * Time.deltaTime);
+		//transform.Translate(velocity * Time.deltaTime, Space.World);
 
-        // Rotate the object to face the direction it's traveling
-        /*
+		// Rotate the object to face the direction it's traveling
+		/*
         if (velocity != Vector3.zero)
         {
             Quaternion targetRot = Quaternion.LookRotation(velocity);
@@ -200,55 +211,56 @@ public class CompanionComponent : MonoBehaviour
 
         }
         */
+	//#######################################
+	/* - DELETE TO UNCOMMENT ENTIRE THING
+	if (velocity != Vector3.zero)
+	{
+		if (lanternModelTransform != null)
+		{
+			// Calculate the target rotation based on the direction
+			targetRot = Quaternion.LookRotation(velocity);
 
-        if (velocity != Vector3.zero)
-        {
-            if (lanternModelTransform != null)
-            {
-                // Calculate the target rotation based on the direction
-                targetRot = Quaternion.LookRotation(velocity);
+			// Extract the y-component of the target rotation
+			targetRot = Quaternion.Euler(0, targetRot.eulerAngles.y, 0);
 
-                // Extract the y-component of the target rotation
-                targetRot = Quaternion.Euler(0, targetRot.eulerAngles.y, 0);
+			Quaternion currentRot = lanternModelTransform.rotation;
 
-                Quaternion currentRot = lanternModelTransform.rotation;
+			// Apply damping to smooth out the final rotation
+			if (Quaternion.Angle(currentRot, targetRot) < dampingThreshold)
+			{
+				lanternModelTransform.rotation = Quaternion.Slerp(currentRot, targetRot, rotDamping);
+			}
+			else
+			{
+				lanternModelTransform.rotation = Quaternion.RotateTowards(currentRot, targetRot, maxRotSpeed * Time.deltaTime);
+				//playerModelTransform.rotation = Quaternion.Slerp(playerModelTransform.rotation, targetRotation, maxRotSpeed * Time.deltaTime);
+			}
+		}
+	}
+	//##############################################
 
-                // Apply damping to smooth out the final rotation
-                if (Quaternion.Angle(currentRot, targetRot) < dampingThreshold)
-                {
-                    lanternModelTransform.rotation = Quaternion.Slerp(currentRot, targetRot, rotDamping);
-                }
-                else
-                {
-                    lanternModelTransform.rotation = Quaternion.RotateTowards(currentRot, targetRot, maxRotSpeed * Time.deltaTime);
-                    //playerModelTransform.rotation = Quaternion.Slerp(playerModelTransform.rotation, targetRotation, maxRotSpeed * Time.deltaTime);
-                }
-            }
-        }
+	/*
+	if (velocity != Vector3.zero)
+	{
+		if (lanternModelTransform != null)
+		{
+			targetRot = Quaternion.LookRotation(velocity);
 
-        /*
-        if (velocity != Vector3.zero)
-        {
-            if (lanternModelTransform != null)
-            {
-                targetRot = Quaternion.LookRotation(velocity);
+			Quaternion currentRot = lanternModelTransform.rotation;
 
-                Quaternion currentRot = lanternModelTransform.rotation;
-
-                // Apply damping to smooth out the final rotation
-                if (Quaternion.Angle(currentRot, targetRot) < dampingThreshold)
-                {
-                    lanternModelTransform.rotation = Quaternion.Slerp(currentRot, targetRot, rotDamping);
-                }
-                else
-                {
-                    lanternModelTransform.rotation = Quaternion.RotateTowards(currentRot, targetRot, maxRotSpeed * Time.deltaTime);
-                    //playerModelTransform.rotation = Quaternion.Slerp(playerModelTransform.rotation, targetRotation, maxRotSpeed * Time.deltaTime);
-                }
-            }
-        }
-        */
-
-    }
-
+			// Apply damping to smooth out the final rotation
+			if (Quaternion.Angle(currentRot, targetRot) < dampingThreshold)
+			{
+				lanternModelTransform.rotation = Quaternion.Slerp(currentRot, targetRot, rotDamping);
+			}
+			else
+			{
+				lanternModelTransform.rotation = Quaternion.RotateTowards(currentRot, targetRot, maxRotSpeed * Time.deltaTime);
+				//playerModelTransform.rotation = Quaternion.Slerp(playerModelTransform.rotation, targetRotation, maxRotSpeed * Time.deltaTime);
+			}
+		}
+	}
+	*/
 }
+/* - DELETE TO UNCOMMENT ENTIRE THING }
+*/

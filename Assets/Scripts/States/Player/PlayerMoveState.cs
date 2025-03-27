@@ -1,0 +1,71 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Xml.Linq;
+using GSP.Events;
+using GSP.InputHandling;
+using UnityEngine;
+
+using GSP.Mediator;
+using GSP.Controller;
+
+namespace GSP.States
+{
+	public class PlayerMoveState : PlayerBaseState
+	{
+
+		public PlayerMoveState(ControllerComponent _object) : base(_object) { }
+
+		public PlayerMoveState(BaseState _state) : base(_state) { }
+
+		protected override void InitializeMap()
+		{
+			Debug.Log("Move state initialized");
+
+			//Event
+			m_eventStateMap[EventArchetype.Input] = new Dictionary<EventSubtype, Dictionary<EventFlag, Type>>
+			{
+				//Subtypes
+				{
+					EventSubtype.Move, new Dictionary<EventFlag, Type>
+					{
+						{ EventFlag.KeyUp, typeof(PlayerIdleState) }
+					}
+				}
+			};
+		}
+
+		public override void Update()
+		{
+			base.Update();
+
+			return;
+		}
+
+		public override void FixedUpdate()
+		{
+			base.FixedUpdate();
+
+			System.Numerics.Vector2 axisState = m_inputManager.GetDualAxisState(EventSubtype.Move);
+
+			Vector3 rawDirection = new Vector3(-axisState.X, 0.0f, axisState.Y);
+
+			Quaternion rotation = Quaternion.Euler(0.0f, -45.0f, 0.0f);
+
+			Vector3 offsetDirection = rotation * rawDirection;
+
+			m_velocity += offsetDirection * m_acceleration * Time.deltaTime;
+			m_velocity = Vector3.ClampMagnitude(m_velocity, m_maxSpeed);
+
+			//clamp on y plane
+			m_velocity.y = 0.0f;
+
+			m_targetRot = Quaternion.LookRotation(m_velocity);
+
+			m_gameObject.m_chararacterController.Move(m_velocity * Time.deltaTime);
+
+			return;
+		}
+	}
+}

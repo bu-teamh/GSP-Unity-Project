@@ -1,5 +1,3 @@
-#nullable enable
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,39 +6,31 @@ using GSP.Events;
 using Unity.VisualScripting;
 using System.Data.Common;
 using System;
+using System.Xml.Linq;
 
 namespace GSP.States
 {
 	public class StateMachine : StateMachineInterface
 	{
+		private object m_gameObject;
+
 		private BaseState m_currentState;
 		//private BaseState m_nextState;
 
 		private Queue<GameEvent> m_broadcasts = new Queue<GameEvent>();
 
-		public StateMachine(
-			object _object,
-			InitialState _initial
-			)
+		public StateMachine(object _object)
 		{
-
-			Debug.Log("State machine awake called");
-
-			Debug.Log("initial state: " + _initial + " /// _object" + _object);
-
-			try
-			{
-				m_currentState = (BaseState)Activator.CreateInstance(InitialStates.m_map[_initial], _object);
-			}
-			catch (Exception e)
-			{
-				Debug.Log("Exception happened" + e);
-			}
-
-
-			//m_nextState = m_currentState;
+			m_gameObject = _object;
 		}
 
+		public void Start(InitialState _initial)
+		{
+			m_currentState = (BaseState)Activator.CreateInstance(InitialStates.m_map[_initial], m_gameObject);
+			m_currentState.Initialize();
+		}
+
+		#nullable enable
 		public void Process(GameEvent _ev)
 		{
 			BaseState? state = m_currentState.QueryNextState(_ev);
@@ -48,10 +38,12 @@ namespace GSP.States
 			if (state != null)
 			{
 				m_currentState = state;
+				m_currentState.Initialize();
 			}
 
 			return;
 		}
+		#nullable disable
 
 		public void Update()
 		{

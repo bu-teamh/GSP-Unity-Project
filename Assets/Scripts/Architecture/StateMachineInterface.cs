@@ -7,7 +7,9 @@ namespace GSP.States
 {
 	public interface StateMachineInterface
 	{
-		public void Process(GameEvent _ev);
+		void Start(InitialState _initial);
+
+		void Process(GameEvent _ev);
 
 		void Update();
 

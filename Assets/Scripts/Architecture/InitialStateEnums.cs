@@ -5,8 +5,10 @@ namespace GSP.States
 {
 	public enum InitialState
 	{
-		Player,
-		Companion
+		PlayerInitialState,
+		CompanionInitialState,
+		MainCameraTargetInitialState,
+		MainCameraInitialState
 	}
 
 	public class InitialStates
@@ -14,8 +16,10 @@ namespace GSP.States
 		public static Dictionary<InitialState, Type> m_map
 			= new Dictionary<InitialState, Type>
 			{
-				{ InitialState.Player, typeof(PlayerIdleState) },
-				{ InitialState.Companion, typeof(PlayerIdleState) }
+				{ InitialState.PlayerInitialState, typeof(PlayerIdleState) },
+				{ InitialState.CompanionInitialState, typeof(CompanionIdleState) },
+				{ InitialState.MainCameraTargetInitialState, typeof(MainCameraTargetPassiveState) },
+				{ InitialState.MainCameraInitialState, typeof(MainCameraPassiveState) }
 			};
 	}
 }

@@ -15,9 +15,9 @@ namespace GSP.Controller
 	{
 		private MediatorComponentInterface m_mediator;
 		private LocalEventHandlerInterface m_handler;
-		private StateMachineInterface m_stateMachine;
-		//an animator
+		public StateMachineInterface m_stateMachine;
 		//a sound-player that is injected into the animator
+		//an animator
 
 		public Dictionary<MediatedObject, object> m_mediations = new Dictionary<MediatedObject, object>();
 		//public IReadOnlyDictionary<, EventSubtype> InputModeKeyMap => m_inputModeKeyMap;
@@ -33,7 +33,7 @@ namespace GSP.Controller
 		{
 			m_mediator = MediatorComponent.Instance;
 			m_handler = new LocalEventHandler();
-			m_stateMachine = new StateMachine(this, m_initialState);
+			m_stateMachine = new StateMachine(this);
 
 			m_mediator.SetObject(m_declaredMediatedObject, this);
 
@@ -49,34 +49,36 @@ namespace GSP.Controller
 		{
 			foreach (var mediatedObject in new HashSet<MediatedObject>(m_mediatedObjects))
 			{
-				m_mediations[mediatedObject] = m_mediator.GetObject(mediatedObject, this);
+				if (mediatedObject != MediatedObject.Unmediated)
+				{
+					m_mediations[mediatedObject] = m_mediator.GetObject(mediatedObject, this);
+				}
 			}
+
+			m_stateMachine.Start(m_initialState);
 		}
 
 		void Update()
 		{
 			GameEvent ev = null;
 
-			if (m_handler.HasEvents())
-			{
-				print("Has events");
-			}
-
 			if (m_handler.Dequeue(ref ev))
 			{
-				print(ev);
 				m_stateMachine.Process(ev);
 			}
 
+			//update attributes
 			m_stateMachine.Update();
 
-			m_stateMachine.FixedUpdate();
-
-
-
-			//Pass current event to animator
+			//Pass current state to animator
 
 			//
+		}
+
+		void FixedUpdate()
+		{
+			//do physics
+			m_stateMachine.FixedUpdate();
 		}
 	}
 }
