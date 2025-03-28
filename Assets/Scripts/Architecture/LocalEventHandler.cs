@@ -7,18 +7,23 @@ using UnityEngine;
 
 namespace GSP.Events
 {
-    public class LocalEventHandler : LocalEventHandlerInterface
-    {
-        private EventManagerComponentInterface m_eventManager;
+	public class LocalEventHandler : LocalEventHandlerInterface
+	{
+		private EventManagerComponentInterface m_eventManager;
 
-        private Queue<GameEvent> m_eventQueue;
+		private Queue<GameEvent> m_eventQueue;
 
-        public LocalEventHandler()
-        {
-            m_eventManager = EventManagerComponent.Instance;
+		public LocalEventHandler()
+		{
+			m_eventManager = EventManagerComponent.Instance;
 
-            m_eventQueue = new Queue<GameEvent>();
-        }
+			m_eventQueue = new Queue<GameEvent>();
+		}
+
+		public void PumpEvents()
+		{
+			m_eventQueue.Clear();
+		}
 
         public bool HasEvents()
         {

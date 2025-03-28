@@ -22,6 +22,7 @@ namespace GSP.Controller
 		public Dictionary<MediatedObject, object> m_mediations = new Dictionary<MediatedObject, object>();
 		//public IReadOnlyDictionary<, EventSubtype> InputModeKeyMap => m_inputModeKeyMap;
 
+
 		public MediatedObject m_declaredMediatedObject;
 		public List<MediatedObject> m_mediatedObjects;
 		public List<EventArchetype> m_subscribedEvents;
@@ -31,31 +32,54 @@ namespace GSP.Controller
 
 		void Awake()
 		{
+			//need to check inside this function whether game object should be disabled at start
+			//and if so, disable
+
 			m_mediator = MediatorComponent.Instance;
 			m_handler = new LocalEventHandler();
 			m_stateMachine = new StateMachine(this);
 
+			//only should do this if mediated object is delcared otherwise don't do this
 			m_mediator.SetObject(m_declaredMediatedObject, this);
 
+			Debug.Log("Awake called");
+		}
+
+		void OnEnable()
+		{
 			foreach (var archetype in new HashSet<EventArchetype>(m_subscribedEvents))
 			{
 				m_handler.Subscribe(archetype);
 			}
 
-			Debug.Log("Awake called");
+			m_stateMachine.Start(m_initialState);
+
+			//needs to add to mediated collection
+		}
+
+		void OnDisable()
+		{
+			m_handler.Unsubscribe();
+			m_handler.PumpEvents();
+
+			//Release state
+			m_stateMachine.FreeState();
+
+			//needs to remove from mediated collection
+
+			//
 		}
 
 		void Start()
 		{
 			foreach (var mediatedObject in new HashSet<MediatedObject>(m_mediatedObjects))
 			{
+				//need to change this, MediatedObjects.unmediated is an abomination of a hack
 				if (mediatedObject != MediatedObject.Unmediated)
 				{
 					m_mediations[mediatedObject] = m_mediator.GetObject(mediatedObject, this);
 				}
 			}
-
-			m_stateMachine.Start(m_initialState);
 		}
 
 		void Update()
@@ -79,6 +103,16 @@ namespace GSP.Controller
 		{
 			//do physics
 			m_stateMachine.FixedUpdate();
+		}
+
+		public void Trigger()
+		{
+			gameObject.SetActive(true);
+		}
+
+		public void Disable()
+		{
+			gameObject.SetActive(false);
 		}
 	}
 }
