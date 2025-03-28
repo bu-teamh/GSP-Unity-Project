@@ -41,6 +41,7 @@ namespace GSP.States
 						{ EventFlag.Empty, typeof(EnemyAttackState) }
 					}
 				},
+
 				{
 					//I.e. Input.Move...
 					EventSubtype.PlayerLost, new Dictionary<EventFlag, Type>
@@ -70,6 +71,7 @@ namespace GSP.States
 			if(!Physics.CheckSphere(m_gameObject.transform.position, m_sightRange, m_gameObject.m_playerMask))
 			{
 				GameEvent ev = new GameEvent(EventArchetype.Internal, EventSubtype.PlayerLost, EventPriority.Urgent, EventFlag.Empty, this);
+				m_gameObject.m_handler.Enqueue(ev);
 			}
 			return;
 		}

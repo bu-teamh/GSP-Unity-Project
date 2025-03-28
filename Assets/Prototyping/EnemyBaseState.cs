@@ -25,7 +25,7 @@ namespace GSP.States
 		//And your constant physics attributes
 
 		protected float m_walkPointRange = 5.0f;
-		protected float m_attackDelay = 0.5f;
+		//protected float m_attackDelay = 0.5f;
 		protected float m_sightRange = 9.0f;
 		protected float m_attackRange = 3.0f;
 
@@ -35,6 +35,9 @@ namespace GSP.States
 		protected Vector3 m_walkPoint;
 		protected bool m_walkPointSet;
 		protected bool m_alreadyAttacked;
+
+		protected int m_timer = 0;
+		protected int m_timerTime = 50;
 
 		//Define attributes for mediated objects listed in Inspector here
 

@@ -82,8 +82,18 @@ namespace GSP.States
 			if (!m_alreadyAttacked)
 			{
 				m_alreadyAttacked = true;
-				m_gameObject.Invoke(nameof(ResetAttack), m_attackDelay);
 			}
+
+			if (m_alreadyAttacked && m_timer < m_timerTime)
+			{
+				m_timer++;
+			}
+			else
+			{
+				m_timer = 0;
+				m_alreadyAttacked = false;
+			}
+
 			return;
 		}
 
