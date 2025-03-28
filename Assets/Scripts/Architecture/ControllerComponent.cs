@@ -43,17 +43,25 @@ namespace GSP.Controller
 			m_mediator.SetObject(m_declaredMediatedObject, this);
 
 			Debug.Log("Awake called");
-		}
 
-		void OnEnable()
-		{
 			foreach (var archetype in new HashSet<EventArchetype>(m_subscribedEvents))
 			{
 				m_handler.Subscribe(archetype);
 			}
+		}
+
+		void OnEnable()
+		{
+			foreach (var mediatedObject in new HashSet<MediatedObject>(m_mediatedObjects))
+			{
+				//need to change this, MediatedObjects.unmediated is an abomination of a hack
+				if (mediatedObject != MediatedObject.Unmediated)
+				{
+					m_mediations[mediatedObject] = m_mediator.GetObject(mediatedObject, this);
+				}
+			}
 
 			m_stateMachine.Start(m_initialState);
-
 			//needs to add to mediated collection
 		}
 
@@ -80,6 +88,8 @@ namespace GSP.Controller
 					m_mediations[mediatedObject] = m_mediator.GetObject(mediatedObject, this);
 				}
 			}
+
+			m_stateMachine.Start(m_initialState);
 		}
 
 		void Update()
