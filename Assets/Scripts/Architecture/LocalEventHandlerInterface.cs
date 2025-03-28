@@ -4,6 +4,8 @@ namespace GSP.Events
 {
     public interface LocalEventHandlerInterface
     {
+		void PumpEvents();
+
         bool HasEvents();
 
 		bool Dequeue(ref GameEvent? _ev);

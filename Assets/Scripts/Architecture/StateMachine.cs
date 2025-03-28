@@ -30,6 +30,11 @@ namespace GSP.States
 			m_currentState.Initialize();
 		}
 
+		public void FreeState()
+		{
+			m_currentState = null;
+		}
+
 		#nullable enable
 		public void Process(GameEvent _ev)
 		{

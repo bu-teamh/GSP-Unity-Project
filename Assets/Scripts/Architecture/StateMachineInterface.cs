@@ -9,6 +9,8 @@ namespace GSP.States
 	{
 		void Start(InitialState _initial);
 
+		void FreeState();
+
 		void Process(GameEvent _ev);
 
 		void Update();

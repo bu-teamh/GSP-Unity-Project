@@ -1,7 +1,11 @@
+using UnityEngine;
+
 namespace GSP.Controller
 {
 	public interface ControllerComponentInterface
 	{
-		//Empty interface
+		public void Trigger();
+
+		public void Disable();
 	}
 }
