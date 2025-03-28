@@ -8,6 +8,7 @@ using UnityEngine;
 using GSP.Mediator;
 using GSP.Controller;
 using UnityEngine.UIElements;
+using Unity.VisualScripting;
 
 namespace GSP.States
 {
@@ -54,9 +55,9 @@ namespace GSP.States
 
 		public override void FixedUpdate()
 		{
-			//set velocity for float toward player
 			base.FixedUpdate();
 
+			//set velocity for float toward player
 			float distance = Vector3.Distance(m_gameObject.transform.position, m_player.transform.position);
 
 			Vector3 direction = (m_player.transform.position - m_gameObject.transform.position).normalized;
@@ -77,11 +78,10 @@ namespace GSP.States
 			}
 
 			//--------------------- move char controller
-			//clamp on y plane
-			//currently clamped to zero but at some point must consider factoring height from player height not ground height (otherwise on tall shit the lantern might clamp to ground if floats over edge)
-			m_velocity.y = 0.0f;
+			//clamp on y plane to player's height
+			m_velocity.y = m_player.transform.position.y;
 
-			float vely = (m_hovHeight - m_gameObject.transform.position.y) * m_accel * Time.deltaTime;
+			float vely = ((m_player.transform.position.y + m_hovHeight) - m_gameObject.transform.position.y) * m_yaccel * Time.deltaTime;
 
 			vely = Mathf.Clamp(vely, -m_maxSpeed, m_maxSpeed);
 

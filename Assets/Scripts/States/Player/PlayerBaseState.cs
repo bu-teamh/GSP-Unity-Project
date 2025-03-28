@@ -20,6 +20,9 @@ namespace GSP.States
 
 		// physics attributes (pos, rot, speed etc) for fixed update
 
+		protected float m_gravity;
+		//protected Vector3 
+
 		protected float m_acceleration = 40;
 		protected float m_deceleration = 10;
 		protected float m_maxSpeed = 15;

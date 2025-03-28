@@ -26,6 +26,7 @@ namespace GSP.States
 		protected float m_maxSpeed = 15.0f;
 		protected float m_maxRotSpeed = 360.0f;
 		protected float m_accel = 33.0f;
+		protected float m_yaccel = 100.0f;
 		protected float m_decel =3.5f;
 		protected float m_repelAccelMultplr = 1.6f;
 		protected float m_dampingThreshold = 5.0f;
