@@ -63,7 +63,7 @@ namespace GSP.States
 
 			m_targetRot = Quaternion.LookRotation(m_velocity);
 
-			m_gameObject.m_chararacterController.Move(m_velocity * Time.deltaTime);
+			m_gameObject.m_characterController.Move(m_velocity * Time.deltaTime);
 
 			return;
 		}

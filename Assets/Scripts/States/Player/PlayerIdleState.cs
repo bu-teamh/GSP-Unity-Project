@@ -57,7 +57,7 @@ namespace GSP.States
 
 			m_velocity = Vector3.Lerp(m_velocity, Vector3.zero, m_deceleration * Time.deltaTime);
 
-			m_gameObject.m_chararacterController.Move(m_velocity * Time.deltaTime);
+			m_gameObject.m_characterController.Move(m_velocity * Time.deltaTime);
 
 			return;
 		}
