@@ -4,9 +4,9 @@ namespace GSP.Events
 {
     public interface EventManagerInterface
     {
-        void SubscribeListener(LocalEventHandlerComponentInterface _listener, EventArchetype _type);
+        void SubscribeListener(LocalEventHandlerInterface _listener, EventArchetype _type);
 
-        void UnsubscribeListener(LocalEventHandlerComponentInterface _listener);
+        void UnsubscribeListener(LocalEventHandlerInterface _listener);
 
         void ProcessQueue();
 

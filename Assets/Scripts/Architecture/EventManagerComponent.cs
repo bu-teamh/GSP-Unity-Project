@@ -38,12 +38,12 @@ namespace GSP.Events
             m_eventManager.Enqueue(_ev);
         }
 
-        public void SubscribeListener(LocalEventHandlerComponentInterface _listener, EventArchetype _type)
+        public void SubscribeListener(LocalEventHandlerInterface _listener, EventArchetype _type)
         {
             m_eventManager.SubscribeListener(_listener, _type);
         }
 
-        public void UnsubscribeListener(LocalEventHandlerComponentInterface _listener)
+        public void UnsubscribeListener(LocalEventHandlerInterface _listener)
         {
             m_eventManager.UnsubscribeListener(_listener);
         }

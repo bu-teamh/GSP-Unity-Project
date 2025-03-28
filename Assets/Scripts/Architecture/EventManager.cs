@@ -10,19 +10,19 @@ namespace GSP.Events
     {
         private List<GameEvent> m_eventQueue;
 
-        private Dictionary<EventArchetype, HashSet<LocalEventHandlerComponentInterface>> m_subscriberMap;
+        private Dictionary<EventArchetype, HashSet<LocalEventHandlerInterface>> m_subscriberMap;
         
         public EventManager()
         {
             m_eventQueue = new List<GameEvent>();
-            m_subscriberMap = new Dictionary<EventArchetype, HashSet<LocalEventHandlerComponentInterface>>();
+            m_subscriberMap = new Dictionary<EventArchetype, HashSet<LocalEventHandlerInterface>>();
         }
 
-        public void SubscribeListener(LocalEventHandlerComponentInterface _listener, EventArchetype _type)
+        public void SubscribeListener(LocalEventHandlerInterface _listener, EventArchetype _type)
         {
             if (!m_subscriberMap.ContainsKey(_type))
             {
-                m_subscriberMap[_type] = new HashSet<LocalEventHandlerComponentInterface>();
+                m_subscriberMap[_type] = new HashSet<LocalEventHandlerInterface>();
             }
 
             m_subscriberMap[_type].Add(_listener);
@@ -30,7 +30,7 @@ namespace GSP.Events
             Debug.Log($"$Added {_listener} to type {_type}");
         }
 
-        public void UnsubscribeListener(LocalEventHandlerComponentInterface _listener) 
+        public void UnsubscribeListener(LocalEventHandlerInterface _listener) 
         {
             foreach (var kvp in m_subscriberMap) 
             {

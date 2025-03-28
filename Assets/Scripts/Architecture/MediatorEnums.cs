@@ -7,6 +7,7 @@ namespace GSP.Mediator
 {
     public enum MediatedObject
     {
+		Unmediated,
         Player,
         Companion,
         CameraTarget,

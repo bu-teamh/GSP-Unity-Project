@@ -18,7 +18,7 @@ namespace GSP.InputHandling
     public class InputManagerComponent : MonoBehaviour, InputManagerComponentInterface
     {
         private InputManagerInterface m_inputManager;
-        private LocalEventHandlerComponentInterface m_localEventHandler;
+        private LocalEventHandlerInterface m_localEventHandler;
 
         private MediatorComponentInterface m_mediator;
 
@@ -32,7 +32,7 @@ namespace GSP.InputHandling
         private void Awake()
         {
             m_inputManager = new InputManager();
-            m_localEventHandler = new LocalEventHandlerComponent();
+            m_localEventHandler = new LocalEventHandler();
 
             m_mediator = MediatorComponent.Instance;
             m_mediator.SetObject(MediatedObject.InputManager, this);

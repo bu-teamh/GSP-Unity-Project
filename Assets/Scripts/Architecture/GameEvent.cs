@@ -21,6 +21,8 @@ namespace GSP.Events
 
         public object m_author;
 
+		//public object m_subject;
+
         //constructor
         public GameEvent(EventArchetype _type, EventSubtype _subtype, EventPriority _priority, EventFlag _flag, object _author)
         {
