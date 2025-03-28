@@ -29,7 +29,7 @@ namespace GSP.Controller
 		public List<EventArchetype> m_subscribedEvents;
 		public InitialState m_initialState;
 
-		public CharacterController m_chararacterController;
+		public CharacterController m_characterController;
 		public NavMeshAgent m_agent;
 
 		public LayerMask m_playerMask;
