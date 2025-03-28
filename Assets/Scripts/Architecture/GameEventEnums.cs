@@ -6,7 +6,8 @@ namespace GSP.Events
 {
     public enum EventArchetype
     {
-        Input
+        Input,
+		Internal
     }
 
     public enum EventPriority
@@ -27,12 +28,18 @@ namespace GSP.Events
         SwitchControl,
         ToggleMenu,
         Aim,
-        Shoot
+        Shoot,
+		PlayerSpotted,
+		PlayerInRange,
+		PlayerOutRange,
+		PlayerLost,
+		Death
     }
 
     public enum EventFlag
     {
         KeyDown,
-        KeyUp
+        KeyUp,
+		Empty
     }
 }

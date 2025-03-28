@@ -8,7 +8,8 @@ namespace GSP.States
 		PlayerInitialState,
 		CompanionInitialState,
 		MainCameraTargetInitialState,
-		MainCameraInitialState
+		MainCameraInitialState,
+		EnemyInitialState
 	}
 
 	public class InitialStates
@@ -19,7 +20,8 @@ namespace GSP.States
 				{ InitialState.PlayerInitialState, typeof(PlayerIdleState) },
 				{ InitialState.CompanionInitialState, typeof(CompanionIdleState) },
 				{ InitialState.MainCameraTargetInitialState, typeof(MainCameraTargetPassiveState) },
-				{ InitialState.MainCameraInitialState, typeof(MainCameraPassiveState) }
+				{ InitialState.MainCameraInitialState, typeof(MainCameraPassiveState) },
+				{ InitialState.EnemyInitialState, typeof(EnemyPatrolState) }
 			};
 	}
 }

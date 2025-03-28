@@ -3084,8 +3084,8 @@ GameObject:
   - component: {fileID: 1476329603}
   - component: {fileID: 1476329602}
   - component: {fileID: 1476329601}
-  - component: {fileID: 1476329600}
   - component: {fileID: 1476329604}
+  - component: {fileID: 1476329606}
   - component: {fileID: 1476329605}
   m_Layer: 0
   m_Name: Enemy
@@ -3094,29 +3094,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &1476329600
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1476329599}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1476329601
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3213,26 +3190,47 @@ MonoBehaviour:
   m_GameObject: {fileID: 1476329599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5e267c5ec52a6f4e895d65be3716e88, type: 3}
+  m_Script: {fileID: 11500000, guid: f710891684ce5054985cabce50d155e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 1476329604}
-  player: {fileID: 1920857026}
-  _groundMask:
-    serializedVersion: 2
-    m_Bits: 2147483648
-  _playerMask:
+  m_declaredMediatedObject: 0
+  m_mediatedObjects: 010000000200000005000000
+  m_subscribedEvents: 
+  m_initialState: 4
+  m_chararacterController: {fileID: 1476329606}
+  m_agent: {fileID: 1476329604}
+  m_playerMask:
     serializedVersion: 2
     m_Bits: 8
-  walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 5
-  _attackDelay: 0.5
-  _sightRange: 9
-  _attackRange: 3
-  _inSight: 0
-  _inRange: 0
-  _inSightTrash: 0
-  _inRangeTrash: 0
+  m_groundMask:
+    serializedVersion: 2
+    m_Bits: 2147483648
+--- !u!143 &1476329606
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476329599}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1496735323
 GameObject:
   m_ObjectHideFlags: 0
@@ -3910,12 +3908,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 163652496}
   m_SourcePrefab: {fileID: 100100000, guid: 4a28ca8638f788b42a4f6eb6866419f0, type: 3}
---- !u!4 &1920857026 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7423600642951855052, guid: 4a28ca8638f788b42a4f6eb6866419f0,
-    type: 3}
-  m_PrefabInstance: {fileID: 1920857025}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1935914094
 GameObject:
   m_ObjectHideFlags: 0
@@ -3926,6 +3918,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1935914096}
   - component: {fileID: 1935914095}
+  - component: {fileID: 1935914097}
   m_Layer: 0
   m_Name: NavMeshSurface
   m_TagString: Untagged
@@ -3979,6 +3972,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1935914097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935914094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d45a01e2ad8f0f4cb25a963de901f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1946026122
 GameObject:
   m_ObjectHideFlags: 0

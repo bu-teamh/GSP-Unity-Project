@@ -11,6 +11,7 @@ namespace GSP.Mediator
         Player,
         Companion,
         CameraTarget,
-        InputManager
+        InputManager,
+		NavMesh
     }
 }

@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 using GSP.Mediator;
 using GSP.Events;
@@ -14,7 +15,7 @@ namespace GSP.Controller
 	public class ControllerComponent : MonoBehaviour, ControllerComponentInterface
 	{
 		private MediatorComponentInterface m_mediator;
-		private LocalEventHandlerInterface m_handler;
+		public LocalEventHandlerInterface m_handler;
 		public StateMachineInterface m_stateMachine;
 		//a sound-player that is injected into the animator
 		//an animator
@@ -29,6 +30,10 @@ namespace GSP.Controller
 		public InitialState m_initialState;
 
 		public CharacterController m_chararacterController;
+		public NavMeshAgent m_agent;
+
+		public LayerMask m_playerMask;
+		public LayerMask m_groundMask;
 
 		void Awake()
 		{
