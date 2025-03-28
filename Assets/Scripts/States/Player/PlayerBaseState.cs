@@ -9,6 +9,7 @@ using UnityEngine;
 
 using GSP.Mediator;
 using GSP.Controller;
+using UnityEngine.Rendering;
 
 namespace GSP.States
 {
@@ -20,8 +21,10 @@ namespace GSP.States
 
 		// physics attributes (pos, rot, speed etc) for fixed update
 
-		protected float m_gravity;
-		//protected Vector3 
+		protected float m_gravity = 10.0f;
+		protected float m_maxSpeedY = 30.0f;
+		protected float m_currentHeight = 0.0f;
+		protected Vector3 m_yvelocity = Vector3.zero;
 
 		protected float m_acceleration = 40;
 		protected float m_deceleration = 10;
@@ -83,6 +86,27 @@ namespace GSP.States
 					//playerModelTransform.rotation = Quaternion.Slerp(playerModelTransform.rotation, targetRotation, maxRotSpeed * Time.deltaTime);
 				}
 			}
+
+			Debug.Log(m_gameObject.transform.position.y);
+
+			float e = 0.0001f;
+
+			if ((m_gameObject.transform.position.y - m_currentHeight) >= e)
+			{
+				Debug.Log("velocity reset");
+				m_yvelocity = Vector3.zero;
+			}
+
+			m_yvelocity.y += m_gravity * Time.fixedDeltaTime;
+
+			m_yvelocity.y = -Mathf.Min(m_yvelocity.y, m_maxSpeedY);
+
+			Debug.Log(m_yvelocity);
+			m_gameObject.m_characterController.Move(m_yvelocity);
+
+			m_currentHeight = m_gameObject.transform.position.y;
+
+			return;
 		}
 	}
 }
