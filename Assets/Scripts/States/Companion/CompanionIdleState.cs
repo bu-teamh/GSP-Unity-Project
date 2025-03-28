@@ -87,7 +87,7 @@ namespace GSP.States
 
 			m_velocity.y = vely;
 
-			m_gameObject.m_chararacterController.Move(m_velocity * Time.deltaTime);
+			m_gameObject.m_characterController.Move(m_velocity * Time.deltaTime);
 
 			return;
 		}
