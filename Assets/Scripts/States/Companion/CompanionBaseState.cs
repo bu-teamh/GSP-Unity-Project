@@ -79,27 +79,6 @@ namespace GSP.States
 
 		public override void FixedUpdate()
 		{
-			if (m_velocity != Vector3.zero)
-			{
-				// Calculate the target rotation based on the direction
-				m_targetRot = Quaternion.LookRotation(m_velocity);
-
-				// Extract the y-component of the target rotation
-				m_targetRot = Quaternion.Euler(0, m_targetRot.eulerAngles.y, 0);
-
-				Quaternion currentRot = m_gameObject.transform.rotation;
-
-				// Apply damping to smooth out the final rotation
-				if (Quaternion.Angle(currentRot, m_targetRot) < m_dampingThreshold)
-				{
-					m_gameObject.transform.rotation = Quaternion.Slerp(currentRot, m_targetRot, m_rotDamping);
-				}
-				else
-				{
-					m_gameObject.transform.rotation = Quaternion.RotateTowards(currentRot, m_targetRot, m_maxRotSpeed * Time.deltaTime);
-					//playerModelTransform.rotation = Quaternion.Slerp(playerModelTransform.rotation, targetRotation, maxRotSpeed * Time.deltaTime);
-				}
-			}
 		}
 	}
 }

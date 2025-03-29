@@ -20,19 +20,19 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			/*
+			
 			//Event
 			m_eventStateMap[EventArchetype.Input] = new Dictionary<EventSubtype, Dictionary<EventFlag, Type>>
 			{
 				//Subtypes
 				{
-					EventSubtype.Move, new Dictionary<EventFlag, Type>
+					EventSubtype.Aim, new Dictionary<EventFlag, Type>
 					{
-						{ EventFlag.KeyDown, typeof(PlayerMoveState) }
+						{ EventFlag.KeyDown, typeof(CompanionAimState) }
 					}
 				}
 			};
-			*/
+			
 		}
 
 		public override void Update()
@@ -43,6 +43,8 @@ namespace GSP.States
 			//if block, if event = w, do x, else do y, nextstate = z
 			// this state inherits from base state and theefore this should have functionality that should be only done during specific state
 			// on top of general logic
+
+		
 
 			//you should not instruct the gameobject to go to a specific state from here:
 			//if it is called for, you need to send an event like so:
@@ -58,6 +60,32 @@ namespace GSP.States
 			base.FixedUpdate();
 
 			//set velocity for float toward player
+
+
+			// Base Companion Stuff
+			if (m_velocity != Vector3.zero)
+			{
+				// Calculate the target rotation based on the direction
+				m_targetRot = Quaternion.LookRotation(m_velocity);
+
+				// Extract the y-component of the target rotation
+				m_targetRot = Quaternion.Euler(0, m_targetRot.eulerAngles.y, 0);
+
+				Quaternion currentRot = m_gameObject.transform.rotation;
+
+				// Apply damping to smooth out the final rotation
+				if (Quaternion.Angle(currentRot, m_targetRot) < m_dampingThreshold)
+				{
+					m_gameObject.transform.rotation = Quaternion.Slerp(currentRot, m_targetRot, m_rotDamping);
+				}
+				else
+				{
+					m_gameObject.transform.rotation = Quaternion.RotateTowards(currentRot, m_targetRot, m_maxRotSpeed * Time.deltaTime);
+					//playerModelTransform.rotation = Quaternion.Slerp(playerModelTransform.rotation, targetRotation, maxRotSpeed * Time.deltaTime);
+				}
+			}
+			// ---------
+
 			float distance = Vector3.Distance(m_gameObject.transform.position, m_player.transform.position);
 
 			Vector3 direction = (m_player.transform.position - m_gameObject.transform.position).normalized;
