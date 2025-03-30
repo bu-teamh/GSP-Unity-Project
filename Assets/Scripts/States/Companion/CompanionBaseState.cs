@@ -37,6 +37,9 @@ namespace GSP.States
 		protected float m_mouseDecelThreshold = 1.0f;
 		protected float m_hovHeight = 3.0f;
 
+		// this is for companion physics sphere (WIP)
+		//protected float m_attackRange = 5.0f;  
+
 		//stored stuff (physics, not globals)
 		protected Vector3 m_velocity = Vector3.zero;
 		protected Quaternion m_targetRot;

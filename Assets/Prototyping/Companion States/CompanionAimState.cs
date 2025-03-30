@@ -70,6 +70,8 @@ namespace GSP.States
 			base.FixedUpdate();
 
 			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
+			m_gameObject.m_volume.weight = 0.8f;
+			Time.timeScale = 0.5f;
 
 			//Poll the input mananger the current axis state of the mouse x/y (updates only when mouse is moved)
 			System.Numerics.Vector2 axisState = m_inputManager.GetDualAxisState(EventSubtype.DirectAim);

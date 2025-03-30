@@ -9,6 +9,7 @@ using GSP.Mediator;
 using GSP.Events;
 using GSP.States;
 using GSP.InputHandling;
+using UnityEngine.Rendering;
 
 namespace GSP.Controller
 {
@@ -34,6 +35,9 @@ namespace GSP.Controller
 
 		public LayerMask m_playerMask;
 		public LayerMask m_groundMask;
+		//public LayerMask m_enemyMask;
+
+		public Volume m_volume;
 
 		void Awake()
 		{

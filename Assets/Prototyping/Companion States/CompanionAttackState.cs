@@ -60,10 +60,15 @@ namespace GSP.States
 			base.FixedUpdate();
 
 			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
-
+			//Collider [] EnemiesInRange = Physics.OverlapSphere(m_gameObject.transform.position, m_attackRange, m_gameObject.m_enemyMask);
+			//foreach (Collider collider in EnemiesInRange)
+			//{
+			//	Debug.Log(collider.name);
+			//}
 
 			Debug.Log("Attack");
-
+			m_gameObject.m_volume.weight = 0f;
+			Time.timeScale = 1.0f;
 			m_gameObject.m_characterController.Move(m_gameObject.transform.forward * m_accel * 2 * Time.deltaTime);
 
 			return;
