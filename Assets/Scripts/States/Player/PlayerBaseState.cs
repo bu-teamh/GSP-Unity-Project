@@ -21,9 +21,10 @@ namespace GSP.States
 
 		// physics attributes (pos, rot, speed etc) for fixed update
 
-		protected float m_gravity = 10.0f;
-		protected float m_maxSpeedY = 30.0f;
-		protected float m_currentHeight = 0.0f;
+		protected float m_epsilon = 0.0001f;
+
+		protected float m_gravity = -3.5f;
+		protected float m_currentHeight;
 		protected Vector3 m_yvelocity = Vector3.zero;
 
 		protected float m_acceleration = 40;
@@ -87,24 +88,19 @@ namespace GSP.States
 				}
 			}
 
-			Debug.Log(m_gameObject.transform.position.y);
-
-			float e = 0.0001f;
-
-			if ((m_gameObject.transform.position.y - m_currentHeight) >= e)
-			{
-				Debug.Log("velocity reset");
-				m_yvelocity = Vector3.zero;
-			}
+			//Gravity simulation
+			m_currentHeight = m_gameObject.transform.position.y;
 
 			m_yvelocity.y += m_gravity * Time.fixedDeltaTime;
 
-			m_yvelocity.y = -Mathf.Min(m_yvelocity.y, m_maxSpeedY);
+			m_yvelocity.y = Mathf.Clamp(m_yvelocity.y, m_gravity, 0.0f);
 
-			Debug.Log(m_yvelocity);
 			m_gameObject.m_characterController.Move(m_yvelocity);
 
-			m_currentHeight = m_gameObject.transform.position.y;
+			if (!((m_gameObject.transform.position.y - m_currentHeight) < -m_epsilon))
+			{
+				m_yvelocity = Vector3.zero;
+			}
 
 			return;
 		}
