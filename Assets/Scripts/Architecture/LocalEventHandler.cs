@@ -25,11 +25,6 @@ namespace GSP.Events
 			m_eventQueue.Clear();
 		}
 
-        public bool HasEvents()
-        {
-            return m_eventQueue.Count > 0;
-        }
-
         public bool Dequeue(ref GameEvent? _ev)
         {
 			bool flag = false;
