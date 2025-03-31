@@ -54,7 +54,7 @@ public class MediatorComponent : MonoBehaviour, MediatorComponentInterface
 
 		if (m_mediator.m_mediatedGroupsOwnership[MediatedGroup.Enemies].Count > 0)
 		{
-			Debug.Log($"There are {m_mediator.m_mediatedGroupsOwnership[MediatedGroup.Enemies].Count} enemies alive");
+			//Debug.Log($"There are {m_mediator.m_mediatedGroupsOwnership[MediatedGroup.Enemies].Count} enemies alive");
 		}
 
 		GameEvent ev = null;
