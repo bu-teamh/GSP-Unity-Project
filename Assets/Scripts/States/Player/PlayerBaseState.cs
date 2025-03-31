@@ -49,7 +49,7 @@ namespace GSP.States
 
 		protected override void GetMediations()
 		{
-			m_inputManager = (InputManagerComponentInterface)m_gameObject.m_mediations[MediatedObject.InputManager];
+			m_inputManager = (InputManagerComponentInterface)m_gameObject.m_mediatedObjects[MediatedObject.InputManager];
 		}
 
 		public override void Update()

@@ -8,6 +8,7 @@ using UnityEngine;
 using GSP.Mediator;
 using GSP.Controller;
 using System.Collections;
+using System.Linq;
 
 namespace GSP.States
 {
@@ -70,6 +71,12 @@ namespace GSP.States
 		public virtual void Update() { }
 
 		public virtual void FixedUpdate() { }
+
+		public HashSet<T> CastGroup<T>(HashSet<object> _group)
+		{
+			return new HashSet<T>(_group.Cast<T>()); // Safely cast objects to the specified type T
+		}
+
 
 		public void SetTransition(Type _state, EventArchetype _type, EventSubtype _subtype, EventFlag _flag = EventFlag.None)
 		{

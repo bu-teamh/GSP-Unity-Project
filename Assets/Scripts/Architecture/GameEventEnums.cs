@@ -7,7 +7,8 @@ namespace GSP.Events
     public enum EventArchetype
     {
         Input,
-		Internal
+		Internal,
+		Lifetime
     }
 
     public enum EventPriority
@@ -29,11 +30,16 @@ namespace GSP.Events
         ToggleMenu,
         Aim,
         Shoot,
+
+		//Emeny emuns
 		PlayerSpotted,
 		PlayerInRange,
 		PlayerOutRange,
 		PlayerLost,
-		Death
+		Death,
+
+		//Lifetime enums
+		Disable
     }
 
     public enum EventFlag

@@ -39,8 +39,8 @@ namespace GSP.States
 
 		protected override void GetMediations()
 		{
-			m_player = (ControllerComponent)m_gameObject.m_mediations[MediatedObject.Player];
-			m_companion = (ControllerComponent)m_gameObject.m_mediations[MediatedObject.Companion];
+			m_player = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Player];
+			m_companion = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Companion];
 		}
 
 		public override void Update()

@@ -21,12 +21,14 @@ namespace GSP.Controller
 		//a sound-player that is injected into the animator
 		//an animator
 
-		public Dictionary<MediatedObject, object> m_mediations = new Dictionary<MediatedObject, object>();
+		public Dictionary<MediatedObject, object> m_mediatedObjects = new Dictionary<MediatedObject, object>();
+		public Dictionary<MediatedGroup, HashSet<ControllerComponent>> m_mediatedGroups = new Dictionary<MediatedGroup, HashSet<ControllerComponent>>();
 		//public IReadOnlyDictionary<, EventSubtype> InputModeKeyMap => m_inputModeKeyMap;
 
-
 		public MediatedObject m_declaredMediatedObject;
-		public List<MediatedObject> m_mediatedObjects;
+		public List<MediatedGroup> m_declaredMediatedGroups;
+		public List<MediatedObject> m_requestedMediatedObjects;
+		public List<MediatedGroup> m_requestedMediatedGroups;
 		public List<EventArchetype> m_subscribedEvents;
 		public InitialState m_initialState;
 
@@ -50,55 +52,40 @@ namespace GSP.Controller
 
 			//only should do this if mediated object is delcared otherwise don't do this
 			m_mediator.SetObject(m_declaredMediatedObject, this);
-
-			Debug.Log("Awake called");
-
-			foreach (var archetype in new HashSet<EventArchetype>(m_subscribedEvents))
-			{
-				m_handler.Subscribe(archetype);
-			}
-		}
-
-		void OnEnable()
-		{
-			foreach (var mediatedObject in new HashSet<MediatedObject>(m_mediatedObjects))
-			{
-				//need to change this, MediatedObjects.unmediated is an abomination of a hack
-				if (mediatedObject != MediatedObject.Unmediated)
-				{
-					m_mediations[mediatedObject] = m_mediator.GetObject(mediatedObject, this);
-				}
-			}
-
-			m_stateMachine.Start(m_initialState);
-			//needs to add to mediated collection
-		}
-
-		void OnDisable()
-		{
-			m_handler.Unsubscribe();
-			m_handler.PumpEvents();
-
-			//Release state
-			m_stateMachine.FreeState();
-
-			//needs to remove from mediated collection
-
-			//
 		}
 
 		void Start()
 		{
-			foreach (var mediatedObject in new HashSet<MediatedObject>(m_mediatedObjects))
-			{
-				//need to change this, MediatedObjects.unmediated is an abomination of a hack
-				if (mediatedObject != MediatedObject.Unmediated)
-				{
-					m_mediations[mediatedObject] = m_mediator.GetObject(mediatedObject, this);
-				}
-			}
+			Initialize();
+		}
 
-			m_stateMachine.Start(m_initialState);
+
+		void OnEnable()
+		{
+			Initialize();
+		}
+
+		void OnDisable()
+		{
+			//Unsubscribe from all events
+			m_handler.Unsubscribe();
+
+			//Get rid of any extraneous events still in the queue
+			m_handler.PumpEvents();
+
+			//Release the current state for garbage collection
+			m_stateMachine.FreeState();
+
+			//Send event to remove itself from mediator
+			GameEvent ev = new GameEvent(
+				EventArchetype.Lifetime,
+				EventSubtype.Disable,
+				EventPriority.Critical,
+				EventFlag.None,
+				this
+			);
+
+			m_handler.Dispatch(ev);
 		}
 
 		void Update()
@@ -122,6 +109,42 @@ namespace GSP.Controller
 		{
 			//do physics
 			m_stateMachine.FixedUpdate();
+		}
+
+		private void Initialize()
+		{
+			//Subscribe to events
+			foreach (var archetype in new HashSet<EventArchetype>(m_subscribedEvents))
+			{
+				m_handler.Subscribe(archetype);
+			}
+
+			//Add object to any mediated groups to which it should belong (delcared in inspector)
+			foreach (var mediatedGroup in m_declaredMediatedGroups)
+			{
+				m_mediator.AddToGroup(mediatedGroup, this);
+			}
+
+			//Get references to requested mediated unique objects
+			foreach (var mediatedObject in new HashSet<MediatedObject>(m_requestedMediatedObjects))
+			{
+				//need to change this, MediatedObjects.unmediated is an abomination of a hack
+				if (mediatedObject != MediatedObject.Unmediated)
+				{
+					m_mediatedObjects[mediatedObject] = m_mediator.GetObject(mediatedObject, this);
+				}
+			}
+
+			//Get references to collections of mediated objects
+			foreach (var mediatedGroup in new HashSet<MediatedGroup>(m_requestedMediatedGroups))
+			{
+				m_mediatedGroups[mediatedGroup] = m_mediator.GetGroup(mediatedGroup, this);
+			}
+
+			//Initialise the state machine with the initial state
+			m_stateMachine.Start(m_initialState);
+
+			return;
 		}
 
 		public void Trigger()

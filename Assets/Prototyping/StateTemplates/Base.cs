@@ -34,6 +34,7 @@ namespace GSP.States.Template
 
 		protected ControllerComponent m_player; // If it's a game object, it should be type ControllerComponent...
 		protected InputManagerComponentInterface m_inputManager; //... if it's a manager, use its interface identifier
+		protected HashSet<ControllerComponent> m_enemies; //If it's a collection, cast it to HashSet<ControllerComponent> !
 
 		//Constructor doesn't need touching
 		public EntityBaseState(ControllerComponent _object) : base(_object) { }
@@ -44,8 +45,9 @@ namespace GSP.States.Template
 		//Here, assign the mediated objects like so
 		protected override void GetMediations()
 		{
-			m_player = (ControllerComponent)m_gameObject.m_mediations[MediatedObject.Player];
-			m_inputManager = (InputManagerComponentInterface)m_gameObject.m_mediations[MediatedObject.InputManager];
+			m_player = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Player];
+			m_inputManager = (InputManagerComponentInterface)m_gameObject.m_mediatedObjects[MediatedObject.InputManager];
+			m_enemies = m_gameObject.m_mediatedGroups[MediatedGroup.Enemies];
 		}
 
 		public override void Update()

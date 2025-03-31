@@ -14,4 +14,9 @@ namespace GSP.Mediator
         InputManager,
 		NavMesh
     }
+
+	public enum MediatedGroup
+	{
+		Enemies
+	}
 }
