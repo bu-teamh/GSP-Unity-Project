@@ -12,6 +12,7 @@ using GSP.InputHandling;
 using GSP.Events;
 using GSP.Mediator;
 using GSP.Controller;
+using Unity.VisualScripting;
 
 namespace GSP.States
 {
@@ -28,7 +29,6 @@ namespace GSP.States
 		//I might change this dictionary another time to something else as it's very annoying to format
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(CompanionIdleState), EventArchetype.Input, EventSubtype.Aim, EventFlag.KeyUp);
 			SetTransition(typeof(CompanionAttackState), EventArchetype.Input, EventSubtype.Shoot, EventFlag.KeyDown);
 		}
 
@@ -74,6 +74,12 @@ namespace GSP.States
 				intersect.y = m_gameObject.transform.position.y;
 
 				Vector3 m_direction = intersect - m_gameObject.transform.position;
+
+				//Debug.DrawLine(m_gameObject.transform.position, intersect);
+				m_lineRenderer.enabled = true;
+
+				m_lineRenderer.SetPosition(0, m_gameObject.transform.position);
+				m_lineRenderer.SetPosition(1,intersect);
 
 				m_targetRot = Quaternion.LookRotation(m_direction);
 

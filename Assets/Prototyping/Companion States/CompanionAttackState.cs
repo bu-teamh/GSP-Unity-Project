@@ -52,11 +52,11 @@ namespace GSP.States
 			//{
 			//	Debug.Log(collider.name);
 			//}
-
+			m_lineRenderer.enabled = false;
 			Debug.Log("Attack");
 			m_gameObject.m_volume.weight = 0f;
 			Time.timeScale = 1.0f;
-			m_gameObject.m_characterController.Move(m_gameObject.transform.forward * m_accel * 2 * Time.deltaTime);
+			m_gameObject.m_characterController.Move(m_gameObject.transform.forward * m_accel * 2 * Time.fixedDeltaTime);
 
 			return;
 		}

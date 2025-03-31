@@ -44,11 +44,13 @@ namespace GSP.States
 		protected Vector3 m_velocity = Vector3.zero;
 		protected Quaternion m_targetRot;
 		protected Vector3 m_lastMousePos;
+		protected UnityEngine.LineRenderer m_lineRenderer;
 
 		//define attributes for mediated objects need to know about here
 
 		protected ControllerComponent m_player;
 		protected InputManagerComponentInterface m_inputManager;
+
 
 		// --- --- --- ---
 
@@ -60,6 +62,8 @@ namespace GSP.States
 		{
 			m_player = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Player];
 			m_inputManager = (InputManagerComponentInterface)m_gameObject.m_mediatedObjects[MediatedObject.InputManager];
+
+			m_lineRenderer = m_gameObject.GetComponent<LineRenderer>();
 		}
 
 		public override void Update()

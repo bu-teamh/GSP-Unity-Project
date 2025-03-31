@@ -68,7 +68,7 @@ namespace GSP.States
 				}
 				else
 				{
-					m_gameObject.transform.rotation = Quaternion.RotateTowards(currentRot, m_targetRot, m_maxRotSpeed * Time.deltaTime);
+					m_gameObject.transform.rotation = Quaternion.RotateTowards(currentRot, m_targetRot, m_maxRotSpeed * Time.fixedDeltaTime);
 					//playerModelTransform.rotation = Quaternion.Slerp(playerModelTransform.rotation, targetRotation, maxRotSpeed * Time.deltaTime);
 				}
 			}
@@ -80,12 +80,12 @@ namespace GSP.States
 
 			if (distance > m_maxDist)
 			{
-				m_velocity += direction * m_accel * Time.deltaTime;
+				m_velocity += direction * m_accel * Time.fixedDeltaTime;
 				m_velocity = Vector3.ClampMagnitude(m_velocity, m_maxSpeed);
 			}
 			else if (distance < m_minDist)
 			{
-				m_velocity -= direction * (m_accel * m_repelAccelMultplr) * Time.deltaTime;
+				m_velocity -= direction * (m_accel * m_repelAccelMultplr) * Time.fixedDeltaTime;
 				m_velocity = Vector3.ClampMagnitude(m_velocity, m_maxSpeed);
 			}
 			else
@@ -97,13 +97,13 @@ namespace GSP.States
 			//clamp on y plane to player's height
 			m_velocity.y = m_player.transform.position.y;
 
-			float vely = ((m_player.transform.position.y + m_hovHeight) - m_gameObject.transform.position.y) * m_yaccel * Time.deltaTime;
+			float vely = ((m_player.transform.position.y + m_hovHeight) - m_gameObject.transform.position.y) * m_yaccel * Time.fixedDeltaTime;
 
 			vely = Mathf.Clamp(vely, -m_maxSpeed, m_maxSpeed);
 
 			m_velocity.y = vely;
 
-			m_gameObject.m_characterController.Move(m_velocity * Time.deltaTime);
+			m_gameObject.m_characterController.Move(m_velocity * Time.fixedDeltaTime);
 
 			return;
 		}
