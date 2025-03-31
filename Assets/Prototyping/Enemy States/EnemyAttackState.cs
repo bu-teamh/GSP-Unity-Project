@@ -28,29 +28,8 @@ namespace GSP.States
 		//I might change this dictionary another time to something else as it's very annoying to format
 		protected override void InitializeMap()
 		{
-			//Event type (this one is Input events)
-			m_eventStateMap[EventArchetype.Internal] = new Dictionary<EventSubtype, Dictionary<EventFlag, Type>>
-			{
-				//Event subtype for chosen type (Input)
-				{
-					//I.e. Input.Move...
-					EventSubtype.PlayerOutRange, new Dictionary<EventFlag, Type>
-					{
-						//Event flags
-						//I.e. Input.Move.KeyDown...
-						{ EventFlag.Empty, typeof(EnemyChaseState) }
-					}
-				},
-				{
-					//I.e. Input.Move...
-					EventSubtype.Death, new Dictionary<EventFlag, Type>
-					{
-						//Event flags
-						//I.e. Input.Move.KeyDown...
-						{ EventFlag.Empty, typeof(EnemyDieState) }
-					}
-				}
-			};
+			SetTransition(typeof(EnemyChaseState), EventArchetype.Internal, EventSubtype.PlayerOutRange);
+			SetTransition(typeof(EnemyDieState), EventArchetype.Internal, EventSubtype.Death);
 		}
 
 		public override void Update()
@@ -72,7 +51,7 @@ namespace GSP.States
 			if(!Physics.CheckSphere(m_gameObject.transform.position, m_attackRange, m_gameObject.m_playerMask))
 			{
 				Debug.Log("event sent that player is out of range");
-				GameEvent ev = new GameEvent(EventArchetype.Internal, EventSubtype.PlayerOutRange, EventPriority.Urgent, EventFlag.Empty, this);
+				GameEvent ev = new GameEvent(EventArchetype.Internal, EventSubtype.PlayerOutRange, EventPriority.Urgent, EventFlag.None, this);
 				m_gameObject.m_handler.Enqueue(ev);
 			}
 

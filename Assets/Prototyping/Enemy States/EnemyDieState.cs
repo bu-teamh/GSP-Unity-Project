@@ -28,20 +28,7 @@ namespace GSP.States
 		//I might change this dictionary another time to something else as it's very annoying to format
 		protected override void InitializeMap()
 		{
-			//Event type (this one is Input events)
-			m_eventStateMap[EventArchetype.Input] = new Dictionary<EventSubtype, Dictionary<EventFlag, Type>>
-			{
-				//Event subtype for chosen type (Input)
-				{
-					//I.e. Input.Move...
-					EventSubtype.Move, new Dictionary<EventFlag, Type>
-					{
-						//Event flags
-						//I.e. Input.Move.KeyDown...
-						{ EventFlag.KeyDown, typeof(PlayerMoveState) }
-					}
-				}
-			};
+			//empty for now?
 		}
 
 		public override void Update()

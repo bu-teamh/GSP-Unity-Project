@@ -28,30 +28,8 @@ namespace GSP.States
 		//I might change this dictionary another time to something else as it's very annoying to format
 		protected override void InitializeMap()
 		{
-			//Event type (this one is Input events)
-			m_eventStateMap[EventArchetype.Internal] = new Dictionary<EventSubtype, Dictionary<EventFlag, Type>>
-			{
-				//Event subtype for chosen type (Input)
-				{
-					//I.e. Input.Move...
-					EventSubtype.PlayerInRange, new Dictionary<EventFlag, Type>
-					{
-						//Event flags
-						//I.e. Input.Move.KeyDown...
-						{ EventFlag.Empty, typeof(EnemyAttackState) }
-					}
-				},
-
-				{
-					//I.e. Input.Move...
-					EventSubtype.PlayerLost, new Dictionary<EventFlag, Type>
-					{
-						//Event flags
-						//I.e. Input.Move.KeyDown...
-						{ EventFlag.Empty, typeof(EnemyPatrolState) }
-					}
-				}
-			};
+			SetTransition(typeof(EnemyAttackState), EventArchetype.Internal, EventSubtype.PlayerInRange);
+			SetTransition(typeof(EnemyPatrolState), EventArchetype.Internal, EventSubtype.PlayerLost);
 		}
 
 		public override void Update()
@@ -64,13 +42,13 @@ namespace GSP.States
 
 			if (Physics.CheckSphere(m_gameObject.transform.position, m_attackRange, m_gameObject.m_playerMask))
 			{
-				GameEvent ev = new GameEvent(EventArchetype.Internal, EventSubtype.PlayerInRange, EventPriority.Urgent, EventFlag.Empty, this);
+				GameEvent ev = new GameEvent(EventArchetype.Internal, EventSubtype.PlayerInRange, EventPriority.Urgent, EventFlag.None, this);
 				m_gameObject.m_handler.Enqueue(ev);
 			}
 
 			if(!Physics.CheckSphere(m_gameObject.transform.position, m_sightRange, m_gameObject.m_playerMask))
 			{
-				GameEvent ev = new GameEvent(EventArchetype.Internal, EventSubtype.PlayerLost, EventPriority.Urgent, EventFlag.Empty, this);
+				GameEvent ev = new GameEvent(EventArchetype.Internal, EventSubtype.PlayerLost, EventPriority.Urgent, EventFlag.None, this);
 				m_gameObject.m_handler.Enqueue(ev);
 			}
 			return;

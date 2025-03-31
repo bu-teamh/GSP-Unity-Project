@@ -18,19 +18,7 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			Debug.Log("Idle state initialized");
-
-			//Event
-			m_eventStateMap[EventArchetype.Input] = new Dictionary<EventSubtype, Dictionary<EventFlag, Type>>
-			{
-				//Subtypes
-				{
-					EventSubtype.Move, new Dictionary<EventFlag, Type>
-					{
-						{ EventFlag.KeyDown, typeof(PlayerMoveState) }
-					}
-				}
-			};
+			SetTransition(typeof(PlayerMoveState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyDown);
 		}
 
 		public override void Update()

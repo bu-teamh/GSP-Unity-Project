@@ -20,19 +20,7 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			
-			//Event
-			m_eventStateMap[EventArchetype.Input] = new Dictionary<EventSubtype, Dictionary<EventFlag, Type>>
-			{
-				//Subtypes
-				{
-					EventSubtype.Aim, new Dictionary<EventFlag, Type>
-					{
-						{ EventFlag.KeyDown, typeof(CompanionAimState) }
-					}
-				}
-			};
-			
+			SetTransition(typeof(CompanionAimState), EventArchetype.Input, EventSubtype.Aim, EventFlag.KeyDown);
 		}
 
 		public override void Update()

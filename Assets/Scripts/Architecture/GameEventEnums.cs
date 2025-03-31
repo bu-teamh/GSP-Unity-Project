@@ -40,6 +40,6 @@ namespace GSP.Events
     {
         KeyDown,
         KeyUp,
-		Empty
+		None
     }
 }
