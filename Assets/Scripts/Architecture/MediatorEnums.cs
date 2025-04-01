@@ -17,6 +17,7 @@ namespace GSP.Mediator
 
 	public enum MediatedGroup
 	{
-		Enemies
+		Enemies,
+		Projectiles
 	}
 }

@@ -34,6 +34,7 @@ namespace GSP.Controller
 
 		public CharacterController m_characterController;
 		public NavMeshAgent m_agent;
+		public GameObject m_creator;
 
 		public LayerMask m_playerMask;
 		public LayerMask m_groundMask;
