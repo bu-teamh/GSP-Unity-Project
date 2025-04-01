@@ -147,7 +147,7 @@ namespace GSP.Controller
 			return;
 		}
 
-		public void Trigger()
+		public void Enable()
 		{
 			gameObject.SetActive(true);
 		}

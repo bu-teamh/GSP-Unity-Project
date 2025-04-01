@@ -4,7 +4,7 @@ namespace GSP.Controller
 {
 	public interface ControllerComponentInterface
 	{
-		public void Trigger();
+		public void Enable();
 
 		public void Disable();
 	}
