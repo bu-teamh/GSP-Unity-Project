@@ -19,7 +19,7 @@ namespace GSP.States
 			{
 				{ InitialState.PlayerInitialState, typeof(PlayerIdleState) },
 				{ InitialState.CompanionInitialState, typeof(CompanionIdleState) },
-				{ InitialState.MainCameraTargetInitialState, typeof(MainCameraTargetPassiveState) },
+				{ InitialState.MainCameraTargetInitialState, typeof(MainCameraTargetFollowState) },
 				{ InitialState.MainCameraInitialState, typeof(MainCameraPassiveState) },
 				{ InitialState.EnemyInitialState, typeof(EnemyPatrolState) }
 			};

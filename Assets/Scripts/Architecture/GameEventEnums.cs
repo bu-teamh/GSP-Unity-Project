@@ -39,13 +39,20 @@ namespace GSP.Events
 		Death,
 
 		//Lifetime enums
-		Disable
+		Disable,
+
+		//Camera enums
+		CombatCam
     }
 
     public enum EventFlag
     {
         KeyDown,
         KeyUp,
-		None
+		None,
+
+		//used for combat camera 
+		Active,
+		Inactive
     }
 }

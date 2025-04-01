@@ -24,7 +24,7 @@ namespace GSP.States
 		protected float m_farthestDist = 14.0f;
 		protected float m_lantMinDist = 2.5f;
 		protected float m_lantMaxDist = 9.0f;
-		protected float m_smoothPosSpeed = 20.0f;
+		protected float m_smoothPosSpeed = 5.0f;
 		protected float m_smoothDistSpeed = 0.8f;
 
 		//stored stuff
