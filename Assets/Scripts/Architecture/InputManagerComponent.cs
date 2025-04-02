@@ -269,6 +269,25 @@ namespace GSP.InputHandling
 
         public System.Numerics.Vector2 GetDualAxisState(EventSubtype _subtype)
         {
+			/*
+			switch (m_inputManager.Mode)
+			{
+				case InputMode.Keyboard:
+
+					break;
+
+				case InputMode.KeyboardMouse:
+
+
+
+					break;
+
+				case InputMode.Controller:
+
+					break;
+			}
+			*/
+
             return m_inputManager.DualAxisStates[_subtype];
         }
 

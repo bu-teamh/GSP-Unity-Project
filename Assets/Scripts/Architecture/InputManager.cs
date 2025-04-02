@@ -11,6 +11,8 @@ namespace GSP.InputHandling
     {
         private PlayerPreferences m_playerPreferences;
 
+		private InputMode m_mode;
+
         private readonly Dictionary<KeyCode, EventSubtype> m_inputModeKeyMap;
         private readonly Dictionary<string, EventSubtype> m_inputModeAxisMap;
         private readonly Dictionary<DualAxis, EventSubtype> m_inputModeDualAxisMap;
@@ -18,6 +20,7 @@ namespace GSP.InputHandling
         private Dictionary<EventSubtype, float> m_axisStates;
         private Dictionary<EventSubtype, System.Numerics.Vector2> m_dualAxisStates;
 
+		public InputMode Mode => m_mode;
         public IReadOnlyDictionary<KeyCode, EventSubtype> InputModeKeyMap => m_inputModeKeyMap;
         public IReadOnlyDictionary<string, EventSubtype> InputModeAxisMap => m_inputModeAxisMap;
         public IReadOnlyDictionary<DualAxis, EventSubtype> InputModeDualAxisMap => m_inputModeDualAxisMap;
@@ -72,6 +75,8 @@ namespace GSP.InputHandling
             {
                 m_inputModeDualAxisMap[mapping.m_dualAxis] = mapping.m_type;
             }
+
+			m_mode = _mode;
         }
 
         public void SetAxisState(EventSubtype _input, float _state)

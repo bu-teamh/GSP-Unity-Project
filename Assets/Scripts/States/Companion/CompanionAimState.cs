@@ -54,6 +54,7 @@ namespace GSP.States
 
 			//Poll the input mananger the current axis state of the mouse x/y (updates only when mouse is moved)
 			System.Numerics.Vector2 axisState = m_inputManager.GetDualAxisState(EventSubtype.DirectAim);
+			Debug.Log("axis state:" + axisState);
 
 			//Concvert to unity world vector
 			Vector3 directAim = new Vector3(axisState.X, axisState.Y, 0.0f);
