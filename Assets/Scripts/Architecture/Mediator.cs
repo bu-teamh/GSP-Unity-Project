@@ -38,8 +38,10 @@ namespace GSP.Mediator
 			{
 				m_mediatedGroupsOwnership[group] = new HashSet<ControllerComponent>();
 
-				return;
-			}	
+				Debug.Log("Mediator created group:" + group);
+			}
+
+			return;
 		}
 
         public object GetObject(

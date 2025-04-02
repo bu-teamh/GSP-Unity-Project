@@ -140,6 +140,7 @@ namespace GSP.Controller
 			foreach (var mediatedGroup in new HashSet<MediatedGroup>(m_requestedMediatedGroups))
 			{
 				m_mediatedGroups[mediatedGroup] = m_mediator.GetGroup(mediatedGroup, this);
+				//Debug.Log("medated group" + mediatedGroup + "called by" + gameObject.name);
 			}
 
 			//Initialise the state machine with the initial state

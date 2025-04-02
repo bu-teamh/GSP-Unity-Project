@@ -19,6 +19,7 @@ namespace GSP.States
 		protected override void InitializeMap()
 		{
 			SetTransition(typeof(PlayerMoveState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyDown);
+			SetTransition(typeof(PlayerDashState), EventArchetype.Input, EventSubtype.Dodge, EventFlag.KeyDown);
 		}
 
 		public override void Update()

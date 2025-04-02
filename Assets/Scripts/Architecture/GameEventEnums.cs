@@ -30,6 +30,7 @@ namespace GSP.Events
         ToggleMenu,
         Aim,
         Shoot,
+		Dodge,
 
 		//Emeny emuns
 		PlayerSpotted,

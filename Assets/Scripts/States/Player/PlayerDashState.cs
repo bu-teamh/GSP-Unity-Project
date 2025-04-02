@@ -18,7 +18,8 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(PlayerMoveState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyDown);
+			SetTransition(typeof(PlayerMoveState), EventArchetype.Input, EventSubtype.Dodge, EventFlag.KeyUp);
+			SetTransition(typeof(PlayerIdleState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyUp);
 		}
 
 		public override void Update()
@@ -42,10 +43,7 @@ namespace GSP.States
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
-
-			m_velocity = Vector3.Lerp(m_velocity, Vector3.zero, m_deceleration * Time.deltaTime);
-
-			m_characterController.Move(m_velocity * Time.deltaTime);
+			m_characterController.Move(m_velocity * 3.0f * Time.deltaTime);
 
 			return;
 		}

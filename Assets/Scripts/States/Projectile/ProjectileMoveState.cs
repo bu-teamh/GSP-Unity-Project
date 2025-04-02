@@ -50,20 +50,44 @@ namespace GSP.States
 			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
 
 			Collider[] nearbyObjects = Physics.OverlapSphere(m_transform.position, (m_rigidbody.transform.localScale.magnitude / 2));
-			foreach (Collider collider in nearbyObjects)
+
+			HashSet<Collider> nearbyNotProj = new HashSet<Collider>(nearbyObjects);
+			HashSet<Collider> projectiles = new HashSet<Collider>();
+
+			foreach (ControllerComponent proj in m_projectiles)
+			{
+				projectiles.Add(proj.GetComponent<Collider>());
+			}
+
+			foreach (var near in nearbyObjects)
+			{
+				if (projectiles.Contains(near))
+				{
+					nearbyNotProj.Remove(near);
+				}
+			}
+
+			foreach (Collider collider in nearbyNotProj)
 			{
 				if(collider.GetComponentInParent<ControllerComponent>() == m_player)
 				{
 					Debug.Log("Hit Player");
 				}
+				
 			}
-			if(nearbyObjects.Length > 0)
+			if(nearbyNotProj.Count > 0)
 			{
-				GameObject.Destroy(m_gameObject);
-			}
+				m_gameObject.Disable();
+				Debug.Log("destroyed projectile + " + m_gameObject.name);
 
+				foreach (Collider collider in nearbyNotProj)
+				{
+					Debug.Log("this" + m_gameObject.GetInstanceID() + "collided with " + collider.name + " " + collider.GetInstanceID());
+				}
+			}
 
 			m_rigidbody.velocity = m_transform.forward * m_speed;
+
 			return;
 		}
 

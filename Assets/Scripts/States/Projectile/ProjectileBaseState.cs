@@ -35,6 +35,7 @@ namespace GSP.States
 		//Define attributes for mediated objects listed in Inspector here
 		protected ControllerComponent m_player;
 		protected HashSet<ControllerComponent> m_enemies;
+		protected HashSet<ControllerComponent> m_projectiles;
 
 
 		//Constructor doesn't need touching
@@ -48,6 +49,7 @@ namespace GSP.States
 		{
 			m_player = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Player];
 			m_enemies = m_gameObject.m_mediatedGroups[MediatedGroup.Enemies];
+			m_projectiles = m_gameObject.m_mediatedGroups[MediatedGroup.Projectiles];
 		}
 
 		protected override void Awake()
