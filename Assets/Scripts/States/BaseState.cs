@@ -67,9 +67,11 @@ namespace GSP.States
 
 		public void Initialize()
 		{
-				GetMediations();
-				InitializeMap();
-				Awake();
+			m_eventStateMap.Clear();
+
+			GetMediations();
+			InitializeMap();
+			Awake();
 
 			return;
 		}

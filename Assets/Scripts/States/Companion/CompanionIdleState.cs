@@ -27,7 +27,7 @@ namespace GSP.States
 		{
 			// does base class update method
 			base.Update();
-
+			Debug.Log("idle");
 			//if block, if event = w, do x, else do y, nextstate = z
 			// this state inherits from base state and theefore this should have functionality that should be only done during specific state
 			// on top of general logic

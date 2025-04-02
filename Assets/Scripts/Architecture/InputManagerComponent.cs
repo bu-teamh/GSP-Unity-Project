@@ -258,7 +258,7 @@ namespace GSP.InputHandling
                 _flag,
                 this
             );
-
+			Debug.Log("Type " + _type + " + " + "Flag " + _flag);
             m_localEventHandler.Dispatch(ev);
         }
 
