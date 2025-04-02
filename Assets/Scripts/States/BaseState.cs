@@ -69,6 +69,7 @@ namespace GSP.States
 		{
 				GetMediations();
 				InitializeMap();
+				Awake();
 
 			return;
 		}
@@ -78,6 +79,9 @@ namespace GSP.States
 
 		//This method must be implemented in the inherited <Component><Behaviour>State classes (unique to individual states).
 		protected virtual void InitializeMap() { }
+
+		//This method is called before the first Update cycle and after the transitions an mediations have been initialized. 
+		protected virtual void Awake() { }
 
 		public virtual void Update() { }
 
