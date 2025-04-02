@@ -271,6 +271,65 @@ namespace GSP.InputHandling
         {
             return m_inputManager.DualAxisStates[_subtype];
         }
-    }
+
+		public bool KeyHeld(EventSubtype _input)
+		{
+			bool held = false;
+
+			foreach (var pair in m_inputManager.InputModeKeyMap)
+			{
+				if (
+					pair.Value == _input &&
+					m_heldKeys.Contains(pair.Key)
+				)
+				{
+					held = true;
+					break;
+				}
+			}
+
+			return held;
+		}
+
+		public bool AxisHeld(EventSubtype _input)
+		{
+			bool held = false;
+
+			foreach (var pair in m_inputManager.InputModeAxisMap)
+			{
+				if (
+					pair.Value == _input &&
+					m_heldAxes.Contains(pair.Key)
+				)
+				{
+					held = true;
+					break;
+				}
+			}
+
+			return held;
+		}
+
+		public bool DualAxisHeld(EventSubtype _input)
+		{
+			bool held = false;
+
+			foreach (var pair in m_inputManager.InputModeDualAxisMap)
+			{
+				if (
+					pair.Value == _input && (
+						m_heldDualAxes.Contains(pair.Key.m_xAxis) ||
+						m_heldDualAxes.Contains(pair.Key.m_yAxis)
+					)
+				)
+				{
+					held = true;
+					break;
+				}
+			}
+
+			return held;
+		}
+	}
 }
 
