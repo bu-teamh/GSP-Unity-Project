@@ -127,6 +127,8 @@ namespace GSP.States
 				_author
 			);
 
+			m_handler.Enqueue(ev);
+
 			return;
 		}
 

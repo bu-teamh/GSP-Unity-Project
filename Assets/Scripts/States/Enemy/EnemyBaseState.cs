@@ -64,6 +64,11 @@ namespace GSP.States
 			m_projectiles = m_gameObject.m_mediatedGroups[MediatedGroup.Projectiles];
 		}
 
+		protected override void Awake()
+		{
+			if(m_attackType == 1) { m_attackRange = m_sightRange; }
+		}
+
 		public override void Update()
 		{
 			//This function has functionality that should be executed across *all* states

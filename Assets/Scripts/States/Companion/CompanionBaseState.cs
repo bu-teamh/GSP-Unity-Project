@@ -63,6 +63,9 @@ namespace GSP.States
 			m_player = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Player];
 			m_inputManager = (InputManagerComponentInterface)m_gameObject.m_mediatedObjects[MediatedObject.InputManager];
 
+		}
+		protected override void Awake()
+		{
 			m_lineRenderer = m_gameObject.GetComponent<LineRenderer>();
 		}
 

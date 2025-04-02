@@ -48,7 +48,10 @@ namespace GSP.States
 		{
 			m_player = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Player];
 			m_enemies = m_gameObject.m_mediatedGroups[MediatedGroup.Enemies];
+		}
 
+		protected override void Awake()
+		{
 			m_rigidbody = m_gameObject.GetComponent<Rigidbody>();
 		}
 
