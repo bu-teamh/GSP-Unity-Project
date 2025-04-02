@@ -59,24 +59,23 @@ namespace GSP.States
 				// Extract the y-component of the target rotation
 				m_targetRot = Quaternion.Euler(0, m_targetRot.eulerAngles.y, 0);
 
-				Quaternion currentRot = m_gameObject.transform.rotation;
+				Quaternion currentRot = m_transform.rotation;
 
 				// Apply damping to smooth out the final rotation
 				if (Quaternion.Angle(currentRot, m_targetRot) < m_dampingThreshold)
 				{
-					m_gameObject.transform.rotation = Quaternion.Slerp(currentRot, m_targetRot, m_rotDamping);
+					m_transform.rotation = Quaternion.Slerp(currentRot, m_targetRot, m_rotDamping);
 				}
 				else
 				{
-					m_gameObject.transform.rotation = Quaternion.RotateTowards(currentRot, m_targetRot, m_maxRotSpeed * Time.fixedDeltaTime);
-					//playerModelTransform.rotation = Quaternion.Slerp(playerModelTransform.rotation, targetRotation, maxRotSpeed * Time.deltaTime);
+					m_transform.rotation = Quaternion.RotateTowards(currentRot, m_targetRot, m_maxRotSpeed * Time.fixedDeltaTime);
 				}
 			}
 			// ---------
 
-			float distance = Vector3.Distance(m_gameObject.transform.position, m_player.transform.position);
+			float distance = Vector3.Distance(m_transform.position, m_player.transform.position);
 
-			Vector3 direction = (m_player.transform.position - m_gameObject.transform.position).normalized;
+			Vector3 direction = (m_player.transform.position - m_transform.position).normalized;
 
 			if (distance > m_maxDist)
 			{
@@ -90,20 +89,20 @@ namespace GSP.States
 			}
 			else
 			{
-				m_velocity = Vector3.Lerp(m_velocity, Vector3.zero, m_decel * Time.deltaTime);
+				m_velocity = Vector3.Lerp(m_velocity, Vector3.zero, m_decel * Time.fixedDeltaTime);
 			}
 
 			//--------------------- move char controller
 			//clamp on y plane to player's height
 			m_velocity.y = m_player.transform.position.y;
 
-			float vely = ((m_player.transform.position.y + m_hovHeight) - m_gameObject.transform.position.y) * m_yaccel * Time.fixedDeltaTime;
+			float vely = ((m_player.transform.position.y + m_hovHeight) - m_transform.position.y) * m_yaccel * Time.fixedDeltaTime;
 
 			vely = Mathf.Clamp(vely, -m_maxSpeed, m_maxSpeed);
 
 			m_velocity.y = vely;
 
-			m_gameObject.m_characterController.Move(m_velocity * Time.fixedDeltaTime);
+			m_characterController.Move(m_velocity * Time.fixedDeltaTime);
 
 			return;
 		}

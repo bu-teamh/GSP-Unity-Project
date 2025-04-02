@@ -74,30 +74,29 @@ namespace GSP.States
 		{
 			if (m_velocity != Vector3.zero)
 			{
-				Quaternion currentRot = m_gameObject.transform.rotation;
+				Quaternion currentRot = m_transform.rotation;
 
 				// Apply damping to smooth out the final rotation
 				if (Quaternion.Angle(currentRot, m_targetRot) < m_dampingThreshold)
 				{
-					m_gameObject.transform.rotation = Quaternion.Slerp(currentRot, m_targetRot, m_rotDamping);
+					m_transform.rotation = Quaternion.Slerp(currentRot, m_targetRot, m_rotDamping);
 				}
 				else
 				{
-					m_gameObject.transform.rotation = Quaternion.RotateTowards(currentRot, m_targetRot, m_maxRotSpeed * Time.deltaTime);
-					//playerModelTransform.rotation = Quaternion.Slerp(playerModelTransform.rotation, targetRotation, maxRotSpeed * Time.deltaTime);
+					m_transform.rotation = Quaternion.RotateTowards(currentRot, m_targetRot, m_maxRotSpeed * Time.fixedDeltaTime);
 				}
 			}
 
 			//Gravity simulation
-			m_currentHeight = m_gameObject.transform.position.y;
+			m_currentHeight = m_transform.position.y;
 
 			m_yvelocity.y += m_gravity * Time.fixedDeltaTime;
 
 			m_yvelocity.y = Mathf.Clamp(m_yvelocity.y, m_gravity, 0.0f);
 
-			m_gameObject.m_characterController.Move(m_yvelocity);
+			m_characterController.Move(m_yvelocity);
 
-			if (!((m_gameObject.transform.position.y - m_currentHeight) < -m_epsilon))
+			if (!((m_transform.position.y - m_currentHeight) < -m_epsilon))
 			{
 				m_yvelocity = Vector3.zero;
 			}

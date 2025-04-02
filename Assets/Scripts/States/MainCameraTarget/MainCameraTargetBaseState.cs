@@ -97,8 +97,8 @@ namespace GSP.States
 			}
 
 			//smooth translate
-			Vector3 direction = (m_targetPosition - m_gameObject.transform.position).normalized;
-			float distance = Vector3.Distance(m_gameObject.transform.position, m_targetPosition);
+			Vector3 direction = (m_targetPosition - m_transform.position).normalized;
+			float distance = Vector3.Distance(m_transform.position, m_targetPosition);
 
 			if (distance > m_threshold ||
 				distance > m_previousDistance
@@ -116,7 +116,7 @@ namespace GSP.States
 
 			m_previousDistance = distance;
 
-			m_gameObject.transform.position += m_velocity * Time.fixedDeltaTime;
+			m_transform.position += m_velocity * Time.fixedDeltaTime;
 
 			return;
 		}

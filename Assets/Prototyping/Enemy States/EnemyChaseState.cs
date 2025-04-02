@@ -38,18 +38,16 @@ namespace GSP.States
 			base.Update();
 
 			//See comments in "Base" template for what should be done here (but in this case it applies only to this state).
-			m_gameObject.m_agent.SetDestination(m_player.transform.position);
+			m_agent.SetDestination(m_player.transform.position);
 
-			if (Physics.CheckSphere(m_gameObject.transform.position, m_attackRange, m_gameObject.m_playerMask))
+			if (Physics.CheckSphere(m_transform.position, m_attackRange, m_gameObject.m_playerMask))
 			{
-				GameEvent ev = new GameEvent(EventArchetype.Internal, EventSubtype.PlayerInRange, EventPriority.Urgent, EventFlag.None, this);
-				m_gameObject.m_handler.Enqueue(ev);
+				SendInternalEvent(this, EventSubtype.PlayerInRange);
 			}
 
-			if(!Physics.CheckSphere(m_gameObject.transform.position, m_sightRange, m_gameObject.m_playerMask))
+			if(!Physics.CheckSphere(m_transform.position, m_sightRange, m_gameObject.m_playerMask))
 			{
-				GameEvent ev = new GameEvent(EventArchetype.Internal, EventSubtype.PlayerLost, EventPriority.Urgent, EventFlag.None, this);
-				m_gameObject.m_handler.Enqueue(ev);
+				SendInternalEvent(this, EventSubtype.PlayerLost);
 			}
 			return;
 		}

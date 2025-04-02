@@ -49,14 +49,12 @@ namespace GSP.States
 
 			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
 
-			if(!Physics.CheckSphere(m_gameObject.transform.position, m_attackRange, m_gameObject.m_playerMask))
+			if(!Physics.CheckSphere(m_transform.position, m_attackRange, m_gameObject.m_playerMask))
 			{
-				Debug.Log("event sent that player is out of range");
-				GameEvent ev = new GameEvent(EventArchetype.Internal, EventSubtype.PlayerOutRange, EventPriority.Urgent, EventFlag.None, this);
-				m_gameObject.m_handler.Enqueue(ev);
+				SendInternalEvent(this, EventSubtype.PlayerOutRange);
 			}
 
-			m_gameObject.m_agent.SetDestination(m_gameObject.transform.position);
+			m_gameObject.m_agent.SetDestination(m_transform.position);
 			m_gameObject.transform.LookAt(m_player.transform);
 
 			if (!m_alreadyAttacked)
@@ -96,10 +94,10 @@ namespace GSP.States
 			else
 			{
 				Debug.Log("Ranged Attack");
-				Vector3 m_projectilePos = m_gameObject.transform.position;
+				Vector3 m_projectilePos = m_transform.position;
 				m_projectilePos.z += 2;
-				GameObject prefab = GameObject.Instantiate(m_projectilePrefab, m_projectilePos, m_gameObject.transform.rotation);
 
+				GameObject prefab = GameObject.Instantiate(m_projectilePrefab, m_projectilePos, m_transform.rotation);
 			}
 		}
 	}

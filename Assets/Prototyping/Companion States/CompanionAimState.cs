@@ -56,7 +56,7 @@ namespace GSP.States
 
 			//Concvert to unity world vector
 			Vector3 directAim = new Vector3(axisState.X, axisState.Y, 0.0f);
-			Debug.Log("mouse pos " + Input.mousePosition + " " + directAim);
+			//Debug.Log("mouse pos " + Input.mousePosition + " " + directAim);
 
 			// Create a ray from the camera to the mouse position
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -71,22 +71,22 @@ namespace GSP.States
 				Vector3 intersect = hit.point;
 
 				//normalise y to current height of companion
-				intersect.y = m_gameObject.transform.position.y;
+				intersect.y = m_transform.position.y;
 
-				Vector3 m_direction = intersect - m_gameObject.transform.position;
+				Vector3 m_direction = intersect - m_transform.position;
 
 				//Debug.DrawLine(m_gameObject.transform.position, intersect);
 				m_lineRenderer.enabled = true;
 
-				m_lineRenderer.SetPosition(0, m_gameObject.transform.position);
+				m_lineRenderer.SetPosition(0, m_transform.position);
 				m_lineRenderer.SetPosition(1,intersect);
 
 				m_targetRot = Quaternion.LookRotation(m_direction);
 
 
 				//now you Quaternion.RotateTowards >>>> intersect vector
-				Quaternion m_currentRot = m_gameObject.transform.rotation;
-				m_gameObject.transform.rotation = Quaternion.RotateTowards(m_currentRot, m_targetRot, 1080.0f);
+				Quaternion m_currentRot = m_transform.rotation;
+				m_transform.rotation = Quaternion.RotateTowards(m_currentRot, m_targetRot, 1080.0f);
 			}
 
 			return;

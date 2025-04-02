@@ -9,12 +9,18 @@ using GSP.Mediator;
 using GSP.Controller;
 using System.Collections;
 using System.Linq;
+using UnityEngine.AI;
 
 namespace GSP.States
 {
 	public class BaseState
 	{
 		protected ControllerComponent m_gameObject;
+		protected LocalEventHandlerInterface m_handler;
+		protected NavMeshAgent m_agent;
+		protected object m_creator;
+		protected CharacterController m_characterController;
+		protected Transform m_transform;
 
 		protected Dictionary<
 			(
@@ -33,6 +39,11 @@ namespace GSP.States
 		public BaseState(ControllerComponent _object)
 		{
 			m_gameObject = _object;
+			m_handler = m_gameObject.m_handler;
+			m_characterController = m_gameObject.m_characterController;
+			m_transform = m_gameObject.transform;
+			m_agent = m_gameObject.m_agent;
+			m_creator = m_gameObject.m_creator;
 
 			return;
 		}
@@ -87,6 +98,34 @@ namespace GSP.States
 			return;
 		}
 
+		public void SendExternalEvent(object _author, EventPriority _priority, EventArchetype _type, EventSubtype _subtype, EventFlag _flag = EventFlag.None)
+		{
+			GameEvent ev = new GameEvent(
+				_type,
+				_subtype,
+				_priority,
+				_flag,
+				_author
+			);
+
+			m_handler.Dispatch(ev);
+
+			return;
+		}
+
+		public void SendInternalEvent(object _author, EventSubtype _subtype, EventFlag _flag = EventFlag.None)
+		{
+			GameEvent ev = new GameEvent(
+				EventArchetype.Internal,
+				_subtype,
+				EventPriority.Routine,
+				_flag,
+				_author
+			);
+
+			return;
+		}
+
 		#nullable enable
 		public BaseState? QueryNextState(GameEvent _event)
 		{
@@ -107,5 +146,10 @@ namespace GSP.States
 			return nextState;
 		}
 		#nullable disable
+
+		public void SetCreator(object _creator)
+		{
+			m_creator = _creator;
+		}
 	}
 }

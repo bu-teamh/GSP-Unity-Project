@@ -40,9 +40,7 @@ namespace GSP.States
 
 			if (m_localEnemies.Count > 0)
 			{
-				GameEvent ev = new GameEvent(EventArchetype.Internal, EventSubtype.CombatCam, EventPriority.Urgent, EventFlag.Active, this);
-
-				m_gameObject.m_handler.Enqueue(ev);
+				SendInternalEvent(this, EventSubtype.CombatCam, EventFlag.Active);
 			}
 
 			return;
@@ -52,16 +50,14 @@ namespace GSP.States
 		{
 			Vector3 newTarget = Vector3.zero;
 
-			newTarget += m_player.transform.position * m_playerWeight;
+			newTarget += m_transform.position * m_playerWeight;
 			newTarget += m_companion.transform.position * m_companionWeight;
 
 			newTarget /= (m_playerWeight + m_companionWeight);
 
-			m_targetPosition = newTarget;//Vector3.Lerp(m_previousTarget, newTarget, Time.deltaTime * m_damping);
+			m_targetPosition = newTarget; //Vector3.Lerp(m_previousTarget, newTarget, Time.deltaTime * m_damping);
 
 			//m_previousTarget = m_targetPosition;
-
-			Debug.Log("velocity of target" + m_velocity);
 
 			base.FixedUpdate();
 

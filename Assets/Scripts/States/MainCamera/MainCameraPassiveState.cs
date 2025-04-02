@@ -60,15 +60,15 @@ namespace GSP.States
 				targetCoords.z - m_currentCamDist
 				);
 
-			m_gameObject.transform.position = Vector3.Lerp(m_gameObject.transform.position, targetPos, m_smoothPosSpeed * Time.fixedDeltaTime);
+			m_transform.position = Vector3.Lerp(m_transform.position, targetPos, m_smoothPosSpeed * Time.fixedDeltaTime);
 
-			Vector3 direction = m_cameraTarget.transform.position - m_gameObject.transform.position;
+			Vector3 direction = m_cameraTarget.transform.position - m_transform.position;
 
 			direction.Normalize();
 
 			Quaternion rotation = Quaternion.LookRotation(direction);
 
-			m_gameObject.transform.rotation = rotation;
+			m_transform.rotation = rotation;
 
 			return;
 		}

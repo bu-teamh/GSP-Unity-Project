@@ -46,19 +46,18 @@ namespace GSP.States
 			}
 			if (m_walkPointSet)
 			{
-			m_gameObject.m_agent.SetDestination(m_walkPoint);
+				m_agent.SetDestination(m_walkPoint);
 			}
 
-			Vector3 distanceToWalkPoint = m_gameObject.transform.position - m_walkPoint;
+			Vector3 distanceToWalkPoint = m_transform.position - m_walkPoint;
 			if (distanceToWalkPoint.magnitude < 1f)
 			{
 				m_walkPointSet = false;
 			}
 
-			if(Physics.CheckSphere(m_gameObject.transform.position, m_sightRange, m_gameObject.m_playerMask))
+			if(Physics.CheckSphere(m_transform.position, m_sightRange, m_gameObject.m_playerMask))
 			{
-				GameEvent ev = new GameEvent(EventArchetype.Internal, EventSubtype.PlayerSpotted, EventPriority.Urgent, EventFlag.None, this);
-				m_gameObject.m_handler.Enqueue(ev);
+				SendInternalEvent(this, EventSubtype.PlayerSpotted);
 			}
 
 			return;
@@ -81,9 +80,9 @@ namespace GSP.States
 			float randomZ = UnityEngine.Random.Range(-m_walkPointRange, m_walkPointRange);
 			float randomX = UnityEngine.Random.Range(-m_walkPointRange, m_walkPointRange);
 
-			m_walkPoint = new Vector3(m_gameObject.transform.position.x + randomX, m_gameObject.transform.position.y, m_gameObject.transform.position.z + randomZ);
+			m_walkPoint = new Vector3(m_transform.position.x + randomX, m_transform.position.y, m_transform.position.z + randomZ);
 
-			if (Physics.Raycast(m_walkPoint, -m_gameObject.transform.up, 2f, m_gameObject.m_groundMask))
+			if (Physics.Raycast(m_walkPoint, -m_transform.up, 2f, m_gameObject.m_groundMask))
 			{
 				m_walkPointSet = true;
 			}

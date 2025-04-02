@@ -37,9 +37,9 @@ namespace GSP.States
 			base.Update();
 
 			//See comments in "Base" template for what should be done here (but in this case it applies only to this state).
-			m_direction = m_gameObject.transform.forward;
-			GameEvent ev = new GameEvent(EventArchetype.Internal, EventSubtype.Move, EventPriority.Urgent, EventFlag.None, this);
-			m_gameObject.m_handler.Enqueue(ev);
+			m_direction = m_transform.forward;
+
+			SendInternalEvent(this, EventSubtype.Move);
 
 			return;
 		}

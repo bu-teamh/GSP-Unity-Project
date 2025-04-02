@@ -39,9 +39,7 @@ namespace GSP.States
 
 			if (m_localEnemies.Count == 0)
 			{
-				GameEvent ev = new GameEvent(EventArchetype.Internal, EventSubtype.CombatCam, EventPriority.Urgent, EventFlag.Inactive, this);
-
-				m_gameObject.m_handler.Enqueue(ev);
+				SendInternalEvent(this, EventSubtype.CombatCam, EventFlag.Inactive);
 			}
 
 			return;
@@ -66,7 +64,7 @@ namespace GSP.States
 				m_playerWeight
 			);
 
-			m_targetPosition = Vector3.Lerp(m_previousTarget, newTarget, Time.deltaTime * m_damping);
+			m_targetPosition = Vector3.Lerp(m_previousTarget, newTarget, Time.fixedDeltaTime * m_damping);
 
 			m_previousTarget = m_targetPosition;
 

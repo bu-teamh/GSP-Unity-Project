@@ -62,7 +62,6 @@ namespace GSP.States
 			m_companion = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Companion];
 			m_navMesh = (NavMeshComponent)m_gameObject.m_mediatedObjects[MediatedObject.NavMesh];
 			m_projectiles = m_gameObject.m_mediatedGroups[MediatedGroup.Projectiles];
-			
 		}
 
 		public override void Update()

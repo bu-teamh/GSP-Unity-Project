@@ -49,7 +49,7 @@ namespace GSP.States
 
 			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
 
-			Collider[] nearbyObjects = Physics.OverlapSphere(m_gameObject.transform.position, (m_rigidbody.transform.localScale.magnitude / 2));
+			Collider[] nearbyObjects = Physics.OverlapSphere(m_transform.position, (m_rigidbody.transform.localScale.magnitude / 2));
 			foreach (Collider collider in nearbyObjects)
 			{
 				if(collider.GetComponentInParent<ControllerComponent>() == m_player)
@@ -63,7 +63,7 @@ namespace GSP.States
 			}
 
 
-			m_rigidbody.velocity = m_gameObject.transform.forward * m_speed;
+			m_rigidbody.velocity = m_transform.forward * m_speed;
 			return;
 		}
 
