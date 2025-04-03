@@ -23,16 +23,13 @@ namespace GSP.Timer
 		{
 			bool finished = false;
 
-			if (!m_started)
-			{
-				m_startTime = Time.time;
-			}
-			else
+			if (m_started)
 			{
 				float now = Time.time;
 
 				if (now > (m_startTime + m_endTime))
 				{
+					m_startTime = now;
 					m_started = false;
 					finished = true;
 				}
@@ -41,18 +38,29 @@ namespace GSP.Timer
 			return finished;
 		}
 
-		public void Start()
+		public bool Start()
 		{
-			m_started = true;
+			if (!m_started)
+			{
+				m_started = true;
+			}
 
-			return;
+			return m_started;
 		}
 
-		public void Reset()
+		public bool Interrupt()
 		{
-			m_startTime = Time.time;
+			bool interrupt = false;
 
-			return;
+			if (m_started)
+			{
+				m_startTime = Time.time;
+				m_started = false;
+
+				interrupt = true;
+			}
+
+			return interrupt;
 		}
 	}
 }
