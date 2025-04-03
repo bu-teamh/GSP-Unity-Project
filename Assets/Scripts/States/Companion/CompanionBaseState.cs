@@ -21,9 +21,9 @@ namespace GSP.States
 		// physics attributes (pos, rot, speed etc) for fixed update
 		public LayerMask groundLayer;
 
-		protected float m_maxDist = 9.0f;
-		protected float m_minDist = 2.5f;
-		protected float m_maxSpeed = 15.0f;
+		protected float m_maxDist;
+		protected float m_minDist;
+		protected float m_maxSpeed;
 		protected float m_maxRotSpeed = 360.0f;
 		protected float m_accel = 33.0f;
 		protected float m_yaccel = 100.0f;

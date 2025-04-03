@@ -72,25 +72,6 @@ namespace GSP.States
 			}
 			// ---------
 
-			float distance = Vector3.Distance(m_transform.position, m_player.transform.position);
-
-			Vector3 direction = (m_player.transform.position - m_transform.position).normalized;
-
-			if (distance > m_maxDist)
-			{
-				m_velocity += direction * m_accel * Time.fixedDeltaTime;
-				m_velocity = Vector3.ClampMagnitude(m_velocity, m_maxSpeed);
-			}
-			else if (distance < m_minDist)
-			{
-				m_velocity -= direction * (m_accel * m_repelAccelMultplr) * Time.fixedDeltaTime;
-				m_velocity = Vector3.ClampMagnitude(m_velocity, m_maxSpeed);
-			}
-			else
-			{
-				m_velocity = Vector3.Lerp(m_velocity, Vector3.zero, m_decel * Time.fixedDeltaTime);
-			}
-
 			//--------------------- move char controller
 			//clamp on y plane to player's height
 			m_velocity.y = m_player.transform.position.y;

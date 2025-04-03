@@ -19,7 +19,7 @@ namespace GSP.States
 			= new Dictionary<InitialState, Type>
 			{
 				{ InitialState.PlayerInitialState, typeof(PlayerIdleState) },
-				{ InitialState.CompanionInitialState, typeof(CompanionIdleState) },
+				{ InitialState.CompanionInitialState, typeof(CompanionFollowState) },
 				{ InitialState.MainCameraTargetInitialState, typeof(MainCameraTargetFollowState) },
 				{ InitialState.MainCameraInitialState, typeof(MainCameraPassiveState) },
 				{ InitialState.EnemyInitialState, typeof(EnemyPatrolState) },

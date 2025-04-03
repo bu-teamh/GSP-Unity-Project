@@ -28,7 +28,12 @@ namespace GSP.States
 		//I might change this dictionary another time to something else as it's very annoying to format
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(CompanionIdleState), EventArchetype.Input, EventSubtype.Shoot, EventFlag.KeyUp);
+			SetTransition(m_switchState, EventArchetype.Input, EventSubtype.Shoot, EventFlag.KeyUp);
+		}
+
+		protected override void Awake()
+		{
+			m_switchState = typeof(CompanionCombatState);
 		}
 
 		public override void Update()
@@ -39,6 +44,14 @@ namespace GSP.States
 			//See comments in "Base" template for what should be done here (but in this case it applies only to this state).
 
 			return;
+		}
+
+		public override void React(GameEvent _ev)
+		{
+			if (CompareEvent(_ev, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive))
+			{
+				m_switchState = typeof(CompanionFollowState);
+			}
 		}
 
 		public override void FixedUpdate()
