@@ -237,10 +237,5 @@ namespace GSP.States
 
 			return equivalent;
 		}
-
-		public void SetCreator(object _creator)
-		{
-			m_creator = _creator;
-		}
 	}
 }

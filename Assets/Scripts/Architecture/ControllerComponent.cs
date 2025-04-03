@@ -158,6 +158,11 @@ namespace GSP.Controller
 		{
 			gameObject.SetActive(false);
 		}
+
+		public void SetCreator(object _object)
+		{
+			m_creator = (GameObject)_object;
+		}
 	}
 }
 
