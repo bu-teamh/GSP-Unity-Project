@@ -81,21 +81,6 @@ namespace GSP.States
 
 		public override void FixedUpdate()
 		{
-			// regional check for enemies nearby, always updated
-			Collider[] localObjects = Physics.OverlapSphere(m_player.transform.position, m_entityRadius);
-
-			m_localEnemies.Clear();
-
-			foreach (var collider in localObjects)
-			{
-				var controller = collider.GetComponentInParent<ControllerComponent>(); // << the enemey character controller does counts as a collider
-
-				if (controller != null && m_enemies.Contains(controller))
-				{
-					m_localEnemies.Add(controller); // only add valid controllers that are in m_enemies
-				}
-			}
-
 			//smooth translate
 			Vector3 direction = (m_targetPosition - m_transform.position).normalized;
 			float distance = Vector3.Distance(m_transform.position, m_targetPosition);

@@ -20,7 +20,7 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(MainCameraTargetCombatState), EventArchetype.Internal, EventSubtype.CombatCam, EventFlag.Active);
+			SetTransition(typeof(MainCameraTargetCombatState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
 		}
 
 		public override void Update()
@@ -38,10 +38,7 @@ namespace GSP.States
 			// m_gameObject.m_handler.Enqueue(ev)
 			// and then add that event type to state map to react to that event in this state
 
-			if (m_localEnemies.Count > 0)
-			{
-				SendInternalEvent(this, EventSubtype.CombatCam, EventFlag.Active);
-			}
+			Debug.Log("follow cam");
 
 			return;
 		}
@@ -50,7 +47,7 @@ namespace GSP.States
 		{
 			Vector3 newTarget = Vector3.zero;
 
-			newTarget += m_transform.position * m_playerWeight;
+			newTarget += m_player.transform.position * m_playerWeight;
 			newTarget += m_companion.transform.position * m_companionWeight;
 
 			newTarget /= (m_playerWeight + m_companionWeight);
