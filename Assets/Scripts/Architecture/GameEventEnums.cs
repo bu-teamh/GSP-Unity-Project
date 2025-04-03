@@ -8,7 +8,8 @@ namespace GSP.Events
     {
         Input,
 		Internal,
-		Lifetime
+		Lifetime,
+		Gameplay
     }
 
     public enum EventPriority
@@ -42,8 +43,8 @@ namespace GSP.Events
 		//Lifetime enums
 		Disable,
 
-		//Camera enums
-		CombatCam
+		//Gameplay enums
+		Combat
     }
 
     public enum EventFlag
@@ -52,7 +53,7 @@ namespace GSP.Events
         KeyUp,
 		None,
 
-		//used for combat camera 
+		//used for combat/gameplay
 		Active,
 		Inactive
     }
