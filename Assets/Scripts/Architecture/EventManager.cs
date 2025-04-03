@@ -106,6 +106,7 @@ namespace GSP.Events
 
         private void Broadcast(GameEvent _ev)
         {
+			//key error - if event gets sent and no one subscribes to it, a key error is thrown! need to handle this
             foreach (var listener in m_subscriberMap[_ev.m_type])
             {
                 listener.Enqueue(_ev);
