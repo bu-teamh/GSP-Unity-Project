@@ -82,9 +82,10 @@ namespace GSP.States
 			m_switchState = null;
 
 			GetMediations();
+			Awake();
+
 			InitializeMap();
 			InitializeTimers();
-			Awake();
 
 			return;
 		}
