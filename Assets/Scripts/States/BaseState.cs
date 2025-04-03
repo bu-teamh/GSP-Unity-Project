@@ -75,9 +75,11 @@ namespace GSP.States
 		public void Initialize()
 		{
 			m_eventStateMap.Clear();
+			m_timerMap.Clear();
 
 			GetMediations();
 			InitializeMap();
+			InitializeTimers();
 			Awake();
 
 			return;
@@ -89,7 +91,10 @@ namespace GSP.States
 		//This method must be implemented in the inherited <Component><Behaviour>State classes (unique to individual states).
 		protected virtual void InitializeMap() { }
 
-		//This method is called before the first Update cycle and after the transitions an mediations have been initialized. 
+		//This method should be inimplented in the inherited <Component>BaseState class(es).
+		protected virtual void InitializeTimers() { }
+
+		//This method is called before the first Update cycle and after the transitions, mediations and timers have been initialized. 
 		protected virtual void Awake() { }
 
 		public virtual void Update() { }
@@ -111,8 +116,19 @@ namespace GSP.States
 			return;
 		}
 
-		public void SendExternalEvent(object _author, EventPriority _priority, EventArchetype _type, EventSubtype _subtype, EventFlag _flag = EventFlag.None)
+		public void SendExternalEvent(
+			object _author,
+			EventPriority _priority,
+			EventArchetype _type,
+			EventSubtype _subtype,
+			EventFlag _flag = EventFlag.None
+		)
 		{
+			if (_type == EventArchetype.Internal)
+			{
+				//error
+			}
+
 			GameEvent ev = new GameEvent(
 				_type,
 				_subtype,
@@ -126,12 +142,17 @@ namespace GSP.States
 			return;
 		}
 
-		public void SendInternalEvent(object _author, EventSubtype _subtype, EventFlag _flag = EventFlag.None)
+		public void SendInternalEvent(
+			object _author,
+			EventSubtype _subtype,
+			EventFlag _flag = EventFlag.None,
+			EventPriority _priority = EventPriority.Routine
+		)
 		{
 			GameEvent ev = new GameEvent(
 				EventArchetype.Internal,
 				_subtype,
-				EventPriority.Routine,
+				_priority,
 				_flag,
 				_author
 			);
@@ -148,7 +169,7 @@ namespace GSP.States
 			return;
 		}
 
-		public bool UpdateTimer(TimerType _type)
+		public bool CheckTimer(TimerType _type)
 		{
 			bool finished = false;
 
@@ -164,14 +185,14 @@ namespace GSP.States
 			return finished;
 		}
 
-		public void StartTimer(TimerType _type)
+		public bool StartTimer(TimerType _type)
 		{
-			m_timerMap[_type].Start();
+			return m_timerMap[_type].Start();
 		}
 
-		public void ResetTimer(TimerType _type)
+		public bool InterruptTimer(TimerType _type)
 		{
-			m_timerMap[_type].Reset();
+			return m_timerMap[_type].Interrupt();
 		}
 
 #nullable enable

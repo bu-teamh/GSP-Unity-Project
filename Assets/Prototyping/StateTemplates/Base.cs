@@ -12,6 +12,7 @@ using GSP.InputHandling;
 using GSP.Events;
 using GSP.Mediator;
 using GSP.Controller;
+using GSP.Timer;
 
 namespace GSP.States.Template
 {
@@ -48,6 +49,11 @@ namespace GSP.States.Template
 			m_player = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Player];
 			m_inputManager = (InputManagerComponentInterface)m_gameObject.m_mediatedObjects[MediatedObject.InputManager];
 			m_enemies = m_gameObject.m_mediatedGroups[MediatedGroup.Enemies];
+		}
+
+		protected override void InitializeTimers()
+		{
+			SetTimer(TimerType.CombatOver, 5.0f); // <<Initialize timer. set type of timer, float amount of seconds
 		}
 
 		public override void Update()
