@@ -37,8 +37,6 @@ namespace GSP.States
 			// m_gameObject.m_handler.Enqueue(ev)
 			// and then add that event type to state map to react to that event in this state
 
-			Debug.Log("combat cam");
-
 			return;
 		}
 
