@@ -10,6 +10,7 @@ using GSP.Controller;
 using System.Collections;
 using System.Linq;
 using UnityEngine.AI;
+using GSP.Timer;
 
 namespace GSP.States
 {
@@ -35,6 +36,12 @@ namespace GSP.States
 					EventFlag
 				),
 				Type>();
+
+		private Dictionary<
+			TimerType,
+			GameTimer> m_timerMap = new Dictionary<
+				TimerType,
+				GameTimer>();
 
 		public BaseState(ControllerComponent _object)
 		{
@@ -134,7 +141,40 @@ namespace GSP.States
 			return;
 		}
 
-		#nullable enable
+		public void SetTimer(TimerType _type, float _end)
+		{
+			m_timerMap[_type] = new GameTimer(_end);
+
+			return;
+		}
+
+		public bool UpdateTimer(TimerType _type)
+		{
+			bool finished = false;
+
+			if (m_timerMap.ContainsKey(_type))
+			{
+				finished = m_timerMap[_type].Update();
+			}
+			else
+			{
+				Debug.Log("timer wasn't set up in the dict in the first place");
+			}
+
+			return finished;
+		}
+
+		public void StartTimer(TimerType _type)
+		{
+			m_timerMap[_type].Start();
+		}
+
+		public void ResetTimer(TimerType _type)
+		{
+			m_timerMap[_type].Reset();
+		}
+
+#nullable enable
 		public BaseState? QueryNextState(GameEvent _event)
 		{
 			BaseState? nextState = null;
