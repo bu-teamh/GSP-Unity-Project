@@ -43,6 +43,8 @@ namespace GSP.States
 				TimerType,
 				GameTimer>();
 
+		protected Type m_switchState;
+
 		public BaseState(ControllerComponent _object)
 		{
 			m_gameObject = _object;
@@ -51,10 +53,11 @@ namespace GSP.States
 			m_transform = m_gameObject.transform;
 			m_agent = m_gameObject.m_agent;
 			m_creator = m_gameObject.m_creator;
+			m_switchState = null;
 
 			return;
 		}
-
+		
 		public BaseState(BaseState _state)
 		{
 			var fields = _state.GetType().GetFields(
@@ -76,6 +79,7 @@ namespace GSP.States
 		{
 			m_eventStateMap.Clear();
 			m_timerMap.Clear();
+			m_switchState = null;
 
 			GetMediations();
 			InitializeMap();
@@ -215,6 +219,24 @@ namespace GSP.States
 			return nextState;
 		}
 		#nullable disable
+
+		public virtual void React(GameEvent _event) { }
+
+		protected bool CompareEvent(GameEvent _event, EventArchetype _type, EventSubtype _subtype, EventFlag _flag = EventFlag.None)
+		{
+			bool equivalent = false;
+
+			if (
+				_event.m_type == _type &&
+				_event.m_subtype == _subtype &&
+				_event.m_flag == _flag
+			)
+			{
+				equivalent = true;
+			}
+
+			return equivalent;
+		}
 
 		public void SetCreator(object _creator)
 		{
