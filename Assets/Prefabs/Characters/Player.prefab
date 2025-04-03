@@ -239,10 +239,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_declaredMediatedObject: 1
-  m_mediatedObjects: 04000000
+  m_declaredMediatedGroups: 
+  m_requestedMediatedObjects: 
+  m_requestedMediatedGroups: 00000000
   m_subscribedEvents: 00000000
   m_initialState: 0
-  m_chararacterController: {fileID: 2898426288682391519}
+  m_characterController: {fileID: 0}
+  m_agent: {fileID: 0}
+  m_creator: {fileID: 0}
+  m_playerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_volume: {fileID: 0}
 --- !u!1 &3056057411886176571
 GameObject:
   m_ObjectHideFlags: 0

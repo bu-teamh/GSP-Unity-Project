@@ -9,6 +9,7 @@ using UnityEngine;
 
 using GSP.Mediator;
 using GSP.Controller;
+using GSP.Timer;
 using UnityEngine.Rendering;
 
 namespace GSP.States
@@ -34,12 +35,22 @@ namespace GSP.States
 		protected float m_rotDamping = 5;
 		protected float m_dampingThreshold = 10;
 
+		protected float m_entityRadius = 20.0f;
+
+		//stored stuff
+
+		//this bool will eventually be handled by the gamestate manager
+		protected bool m_combatActive;
+
+		protected HashSet<ControllerComponent> m_localEnemies = new HashSet<ControllerComponent>();
+
 		protected Vector3 m_velocity = Vector3.zero;
 		protected Quaternion m_targetRot;
 
 		//define attributes for mediated objects need to know about here
 
 		protected InputManagerComponentInterface m_inputManager;
+		protected HashSet<ControllerComponent> m_enemies;
 
 		// --- --- --- ---
 
@@ -50,6 +61,12 @@ namespace GSP.States
 		protected override void GetMediations()
 		{
 			m_inputManager = (InputManagerComponentInterface)m_gameObject.m_mediatedObjects[MediatedObject.InputManager];
+			m_enemies = m_gameObject.m_mediatedGroups[MediatedGroup.Enemies];
+		}
+
+		protected override void InitializeTimers()
+		{
+			SetTimer(TimerType.CombatOver, 5.0f);
 		}
 
 		public override void Update()
@@ -67,11 +84,56 @@ namespace GSP.States
 
 			//no physics to be done here!!
 
+			//send combat event
+			if (m_enemies.Count != 0)
+			{
+				if (m_localEnemies.Count == 0)
+				{
+					StartTimer(TimerType.CombatOver);
+				}
+				else
+				{
+					InterruptTimer(TimerType.CombatOver);
+
+					if (!m_combatActive)
+					{
+						m_combatActive = true;
+
+						Debug.Log("combat active");
+						SendExternalEvent(this, EventPriority.Routine, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
+					}
+				}
+			}	
+			
+			if (m_combatActive && CheckTimer(TimerType.CombatOver))
+			{
+				m_combatActive = false;
+
+				Debug.Log("combat inactive");
+				SendExternalEvent(this, EventPriority.Routine, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
+			}
+
 			return;
 		}
 
 		public override void FixedUpdate()
 		{
+			// regional check for enemies nearby, always updated
+			Collider[] localObjects = Physics.OverlapSphere(m_transform.position, m_entityRadius);
+
+			m_localEnemies.Clear();
+
+			foreach (var collider in localObjects)
+			{
+				var controller = collider.GetComponentInParent<ControllerComponent>(); // << the enemey character controller does counts as a collider
+
+				if (controller != null && m_enemies.Contains(controller))
+				{
+					m_localEnemies.Add(controller); // only add valid controllers that are in m_enemies
+				}
+			}
+
+			//rotation, always calculated
 			if (m_velocity != Vector3.zero)
 			{
 				Quaternion currentRot = m_transform.rotation;
@@ -87,7 +149,7 @@ namespace GSP.States
 				}
 			}
 
-			//Gravity simulation
+			//Gravity simulation, always calculated
 			m_currentHeight = m_transform.position.y;
 
 			m_yvelocity.y += m_gravity * Time.fixedDeltaTime;
