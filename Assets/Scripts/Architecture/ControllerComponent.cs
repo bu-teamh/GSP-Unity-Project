@@ -10,16 +10,19 @@ using GSP.Events;
 using GSP.States;
 using GSP.InputHandling;
 using UnityEngine.Rendering;
+using GSP.Triggers;
 
 namespace GSP.Controller
 {
-	public class ControllerComponent : MonoBehaviour, ControllerComponentInterface
+	public class ControllerComponent : MonoBehaviour, ControllerComponentInterface, TriggerableInterface
 	{
 		private MediatorComponentInterface m_mediator;
 		public LocalEventHandlerInterface m_handler;
 		public StateMachineInterface m_stateMachine;
 		//a sound-player that is injected into the animator
 		//an animator
+
+		public bool m_liveOnAwake;
 
 		public Dictionary<MediatedObject, object> m_mediatedObjects = new Dictionary<MediatedObject, object>();
 		public Dictionary<MediatedGroup, HashSet<ControllerComponent>> m_mediatedGroups = new Dictionary<MediatedGroup, HashSet<ControllerComponent>>();
@@ -42,6 +45,8 @@ namespace GSP.Controller
 
 		public Volume m_volume;
 
+		private bool m_activated;
+
 		void Awake()
 		{
 			//need to check inside this function whether game object should be disabled at start
@@ -53,6 +58,8 @@ namespace GSP.Controller
 
 			//only should do this if mediated object is delcared otherwise don't do this
 			m_mediator.SetObject(m_declaredMediatedObject, this);
+
+			m_activated = m_liveOnAwake;
 		}
 
 		void Start()
@@ -91,19 +98,29 @@ namespace GSP.Controller
 
 		void Update()
 		{
-			GameEvent ev = null;
+			m_handler.Listen();
 
-			if (m_handler.Dequeue(ref ev))
+			if (m_activated)
 			{
-				m_stateMachine.Process(ev);
+				GameEvent ev = null;
+
+				if (m_handler.Dequeue(ref ev))
+				{
+					m_stateMachine.Process(ev);
+				}
+
+				//update attributes
+				m_stateMachine.Update();
+
+				//Pass current state to animator
+
+				//
+
 			}
-
-			//update attributes
-			m_stateMachine.Update();
-
-			//Pass current state to animator
-
-			//
+			else
+			{
+				m_handler.PumpEvents();
+			}
 		}
 
 		void FixedUpdate()
@@ -151,11 +168,23 @@ namespace GSP.Controller
 
 		public void Enable()
 		{
-			gameObject.SetActive(true);
+			m_activated = true;
 		}
 
 		public void Disable()
 		{
+			m_activated = false;
+		}
+
+		public void Spawn()
+		{
+			//pass in pos and rot later
+			gameObject.SetActive(true);
+		}
+
+		public void Destroy()
+		{
+			//reset pos and rot to 0,0,0 0,0,0
 			gameObject.SetActive(false);
 		}
 

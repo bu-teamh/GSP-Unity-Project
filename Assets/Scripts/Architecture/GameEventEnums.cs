@@ -9,7 +9,8 @@ namespace GSP.Events
         Input,
 		Internal,
 		Lifetime,
-		Gameplay
+		Gameplay,
+		Trigger
     }
 
     public enum EventPriority
@@ -44,7 +45,11 @@ namespace GSP.Events
 		Disable,
 
 		//Gameplay enums
-		Combat
+		Combat,
+
+		//Trigger
+		Component,
+		VolumeTrigger
     }
 
     public enum EventFlag
@@ -55,6 +60,10 @@ namespace GSP.Events
 
 		//used for combat/gameplay
 		Active,
-		Inactive
-    }
+		Inactive,
+
+		//Trigger enums
+		Activate,
+		Deactivate
+	}
 }

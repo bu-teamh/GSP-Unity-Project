@@ -6,6 +6,10 @@ namespace GSP.Events
     {
 		void PumpEvents();
 
+		void Listen();
+
+		public bool Peek(ref GameEvent? _ev);
+
 		bool Dequeue(ref GameEvent? _ev);
 
 		void Enqueue(GameEvent _ev);

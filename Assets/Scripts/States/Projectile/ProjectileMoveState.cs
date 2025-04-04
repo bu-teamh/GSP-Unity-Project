@@ -77,7 +77,7 @@ namespace GSP.States
 			}
 			if(nearbyNotProj.Count > 0)
 			{
-				m_gameObject.Disable();
+				m_gameObject.Destroy();
 				Debug.Log("destroyed projectile + " + m_gameObject.name);
 
 				foreach (Collider collider in nearbyNotProj)
