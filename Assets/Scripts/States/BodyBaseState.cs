@@ -20,21 +20,17 @@ namespace GSP.States
 	{
 		//Define constant state attributes here (like health)
 
-		protected float m_example = 0.0f;
+		protected float m_epsilon = 0.0001f;
+
+		protected float m_gravity = -3.5f;
+		protected float m_currentHeight;
+		protected Vector3 m_yvelocity = Vector3.zero;
 
 		//And your constant physics attributes
 
-		protected float m_physicsExample = 0.0f;
-
 		//And any variables you need to store stuff to be persistent over state (like currentRot or something)
 
-		protected float m_currentRot;
-
 		//Define attributes for mediated objects listed in Inspector here
-
-		protected ControllerComponent m_player; // If it's a game object, it should be type ControllerComponent...
-		protected InputManagerComponentInterface m_inputManager; //... if it's a manager, use its interface identifier
-		protected HashSet<ControllerComponent> m_enemies; //If it's a collection, cast it to HashSet<ControllerComponent> !
 
 		//Constructor doesn't need touching
 		public BodyBaseState(ControllerComponent _object) : base(_object) { }
@@ -45,9 +41,7 @@ namespace GSP.States
 		//Here, assign the mediated objects like so
 		protected override void GetMediations()
 		{
-			m_player = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Player];
-			m_inputManager = (InputManagerComponentInterface)m_gameObject.m_mediatedObjects[MediatedObject.InputManager];
-			m_enemies = m_gameObject.m_mediatedGroups[MediatedGroup.Enemies];
+
 		}
 
 		public override void Update()
@@ -68,6 +62,20 @@ namespace GSP.States
 		public override void FixedUpdate()
 		{
 			//Physics for all states. Not often needed but for instance I used it to rotate the player to direction in which it's moving at all times.
+
+			//Gravity simulation, always calculated
+			m_currentHeight = m_transform.position.y;
+
+			m_yvelocity.y += m_gravity * Time.fixedDeltaTime;
+
+			m_yvelocity.y = Mathf.Clamp(m_yvelocity.y, m_gravity, 0.0f);
+
+			m_characterController.Move(m_yvelocity);
+
+			if (!((m_transform.position.y - m_currentHeight) < -m_epsilon))
+			{
+				m_yvelocity = Vector3.zero;
+			}
 		}
 	}
 }

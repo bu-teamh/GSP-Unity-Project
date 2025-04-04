@@ -14,19 +14,13 @@ using UnityEngine.Rendering;
 
 namespace GSP.States
 {
-	public class PlayerBaseState : BaseState
+	public class PlayerBaseState : BodyBaseState
 	{
 		// --- --- --- ---
 		// attributes for component state (health, etc) are defined here
 
 
 		// physics attributes (pos, rot, speed etc) for fixed update
-
-		protected float m_epsilon = 0.0001f;
-
-		protected float m_gravity = -3.5f;
-		protected float m_currentHeight;
-		protected Vector3 m_yvelocity = Vector3.zero;
 
 		protected float m_acceleration = 40;
 		protected float m_deceleration = 10;
@@ -71,6 +65,8 @@ namespace GSP.States
 
 		public override void Update()
 		{
+			base.Update();
+
 			// this has functionality that should be done during ALL states
 			//if block, if event = w, do x, else do y
 
@@ -129,6 +125,8 @@ namespace GSP.States
 
 		public override void FixedUpdate()
 		{
+			base.FixedUpdate();
+
 			// regional check for enemies nearby, always updated
 			Collider[] localObjects = Physics.OverlapSphere(m_transform.position, m_entityRadius);
 
@@ -158,20 +156,6 @@ namespace GSP.States
 				{
 					m_transform.rotation = Quaternion.RotateTowards(currentRot, m_targetRot, m_maxRotSpeed * Time.fixedDeltaTime);
 				}
-			}
-
-			//Gravity simulation, always calculated
-			m_currentHeight = m_transform.position.y;
-
-			m_yvelocity.y += m_gravity * Time.fixedDeltaTime;
-
-			m_yvelocity.y = Mathf.Clamp(m_yvelocity.y, m_gravity, 0.0f);
-
-			m_characterController.Move(m_yvelocity);
-
-			if (!((m_transform.position.y - m_currentHeight) < -m_epsilon))
-			{
-				m_yvelocity = Vector3.zero;
 			}
 
 			return;

@@ -17,7 +17,7 @@ using UnityEngine.UIElements;
 namespace GSP.States
 {
 	//Replace "Entity" with game object name in the class name
-	public class EnemyBaseState : BaseState
+	public class EnemyBaseState : BodyBaseState
 	{
 		//Define constant state attributes here (like health)
 
