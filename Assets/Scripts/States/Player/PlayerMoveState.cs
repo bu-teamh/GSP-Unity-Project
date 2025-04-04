@@ -21,19 +21,8 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			Debug.Log("Move state initialized");
-
-			//Event
-			m_eventStateMap[EventArchetype.Input] = new Dictionary<EventSubtype, Dictionary<EventFlag, Type>>
-			{
-				//Subtypes
-				{
-					EventSubtype.Move, new Dictionary<EventFlag, Type>
-					{
-						{ EventFlag.KeyUp, typeof(PlayerIdleState) }
-					}
-				}
-			};
+			SetTransition(typeof(PlayerIdleState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyUp);
+			SetTransition(typeof(PlayerDashState), EventArchetype.Input, EventSubtype.Dodge, EventFlag.KeyDown);
 		}
 
 		public override void Update()
@@ -63,7 +52,7 @@ namespace GSP.States
 
 			m_targetRot = Quaternion.LookRotation(m_velocity);
 
-			m_gameObject.m_chararacterController.Move(m_velocity * Time.deltaTime);
+			m_characterController.Move(m_velocity * Time.deltaTime);
 
 			return;
 		}

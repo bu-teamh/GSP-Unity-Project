@@ -8,7 +8,11 @@ namespace GSP.States
 		PlayerInitialState,
 		CompanionInitialState,
 		MainCameraTargetInitialState,
-		MainCameraInitialState
+		MainCameraInitialState,
+		EnemyInitialState,
+		ProjectileInitialState,
+		ChargeInitialState,
+		TeleportInitialState
 	}
 
 	public class InitialStates
@@ -17,9 +21,13 @@ namespace GSP.States
 			= new Dictionary<InitialState, Type>
 			{
 				{ InitialState.PlayerInitialState, typeof(PlayerIdleState) },
-				{ InitialState.CompanionInitialState, typeof(CompanionIdleState) },
-				{ InitialState.MainCameraTargetInitialState, typeof(MainCameraTargetPassiveState) },
-				{ InitialState.MainCameraInitialState, typeof(MainCameraPassiveState) }
+				{ InitialState.CompanionInitialState, typeof(CompanionFollowState) },
+				{ InitialState.MainCameraTargetInitialState, typeof(MainCameraTargetFollowState) },
+				{ InitialState.MainCameraInitialState, typeof(MainCameraPassiveState) },
+				{ InitialState.EnemyInitialState, typeof(EnemyPatrolState) },
+				{ InitialState.ProjectileInitialState, typeof(ProjectileIdleState) },
+				{ InitialState.ChargeInitialState, typeof(ChargeIdleState) },
+				{ InitialState.TeleportInitialState, typeof(TeleportListenState) }
 			};
 	}
 }

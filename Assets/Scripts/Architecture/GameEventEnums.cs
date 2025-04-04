@@ -6,7 +6,11 @@ namespace GSP.Events
 {
     public enum EventArchetype
     {
-        Input
+        Input,
+		Internal,
+		Lifetime,
+		Gameplay,
+		Trigger
     }
 
     public enum EventPriority
@@ -27,12 +31,40 @@ namespace GSP.Events
         SwitchControl,
         ToggleMenu,
         Aim,
-        Shoot
+        Shoot,
+		Dodge,
+
+		//Emeny emuns
+		PlayerSpotted,
+		PlayerInRange,
+		PlayerOutRange,
+		PlayerLost,
+		Death,
+
+		//Lifetime enums
+		Disable,
+
+		//Gameplay enums
+		Combat,
+		Teleport,
+
+		//Trigger
+		Component,
+		VolumeTrigger
     }
 
     public enum EventFlag
     {
         KeyDown,
-        KeyUp
-    }
+        KeyUp,
+		None,
+
+		//used for combat/gameplay
+		Active,
+		Inactive,
+
+		//Trigger enums
+		Activate,
+		Deactivate
+	}
 }

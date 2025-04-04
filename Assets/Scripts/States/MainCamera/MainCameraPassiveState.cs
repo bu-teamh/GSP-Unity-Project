@@ -19,19 +19,7 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			/*
-			//Event
-			m_eventStateMap[EventArchetype.Input] = new Dictionary<EventSubtype, Dictionary<EventFlag, Type>>
-			{
-				//Subtypes
-				{
-					EventSubtype.Move, new Dictionary<EventFlag, Type>
-					{
-						{ EventFlag.KeyDown, typeof(PlayerMoveState) }
-					}
-				}
-			};
-			*/
+			
 		}
 
 		public override void Update()
@@ -62,7 +50,7 @@ namespace GSP.States
 
 			float targetCamDist = (rangeDist * playerLanternDist) + m_closestDist;
 
-			m_currentCamDist = Mathf.Lerp(m_currentCamDist, targetCamDist, m_smoothDistSpeed * Time.deltaTime);
+			m_currentCamDist = Mathf.Lerp(m_currentCamDist, targetCamDist, m_smoothDistSpeed * Time.fixedDeltaTime);
 
 			Vector3 targetCoords = m_cameraTarget.transform.position;
 
@@ -72,15 +60,15 @@ namespace GSP.States
 				targetCoords.z - m_currentCamDist
 				);
 
-			m_gameObject.transform.position = Vector3.Lerp(m_gameObject.transform.position, targetPos, m_smoothPosSpeed * Time.deltaTime);
+			m_transform.position = Vector3.Lerp(m_transform.position, targetPos, m_smoothPosSpeed * Time.fixedDeltaTime);
 
-			Vector3 direction = m_cameraTarget.transform.position - m_gameObject.transform.position;
+			Vector3 direction = m_cameraTarget.transform.position - m_transform.position;
 
 			direction.Normalize();
 
 			Quaternion rotation = Quaternion.LookRotation(direction);
 
-			m_gameObject.transform.rotation = rotation;
+			m_transform.rotation = rotation;
 
 			return;
 		}

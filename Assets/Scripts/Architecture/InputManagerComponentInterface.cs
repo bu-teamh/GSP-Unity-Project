@@ -9,6 +9,12 @@ namespace GSP.InputHandling
     {
         float GetAxisState(EventSubtype _subtype);
 
-        System.Numerics.Vector2 GetDualAxisState(EventSubtype _subtype);
+		bool KeyHeld(EventSubtype _input);
+
+		bool AxisHeld(EventSubtype _input);
+
+		bool DualAxisHeld(EventSubtype _input);
+
+		System.Numerics.Vector2 GetDualAxisState(EventSubtype _subtype);
     }
 }

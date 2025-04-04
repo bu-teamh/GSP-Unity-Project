@@ -21,10 +21,19 @@ namespace GSP.Events
 
         public object m_author;
 
-		//public object m_subject;
+		public object m_subject;
+
+		public object m_data;
 
         //constructor
-        public GameEvent(EventArchetype _type, EventSubtype _subtype, EventPriority _priority, EventFlag _flag, object _author)
+        public GameEvent(
+			EventArchetype _type,
+			EventSubtype _subtype,
+			EventPriority _priority,
+			EventFlag _flag,
+			object _author,
+			object _subject = null,
+			object _data = null)
         {
             m_id = Guid.NewGuid();
             m_timeStamp = Time.time;
@@ -33,7 +42,8 @@ namespace GSP.Events
             m_subtype = _subtype;
             m_flag = _flag;
             m_author = _author;
+			m_subject = _subject;
+			m_data = _data;
         }
-
     }
 }

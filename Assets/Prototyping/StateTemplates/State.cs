@@ -9,9 +9,11 @@ using UnityEngine;
 //Include if this state listens out for input:
 using GSP.InputHandling;
 
+using GSP.Timer;
 using GSP.Events;
 using GSP.Mediator;
 using GSP.Controller;
+using Unity.VisualScripting;
 
 namespace GSP.States.Template
 {
@@ -28,20 +30,8 @@ namespace GSP.States.Template
 		//I might change this dictionary another time to something else as it's very annoying to format
 		protected override void InitializeMap()
 		{
-			//Event type (this one is Input events)
-			m_eventStateMap[EventArchetype.Input] = new Dictionary<EventSubtype, Dictionary<EventFlag, Type>>
-			{
-				//Event subtype for chosen type (Input)
-				{
-					//I.e. Input.Move...
-					EventSubtype.Move, new Dictionary<EventFlag, Type>
-					{
-						//Event flags
-						//I.e. Input.Move.KeyDown...
-						{ EventFlag.KeyDown, typeof(PlayerMoveState) }
-					}
-				}
-			};
+			SetTransition(typeof(PlayerMoveState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyDown); // << Like this now!
+			SetTransition(typeof(PlayerMoveState), EventArchetype.Input, EventSubtype.Move); // If you don't specify flag, it will default to "None"
 		}
 
 		public override void Update()

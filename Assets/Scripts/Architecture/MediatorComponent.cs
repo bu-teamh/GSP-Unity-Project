@@ -6,15 +6,17 @@ using UnityEngine;
 using GSP.Mediator;
 using System;
 using GSP.Events;
+using GSP.Controller;
 
 public class MediatorComponent : MonoBehaviour, MediatorComponentInterface
 {
     public static MediatorComponentInterface Instance => m_instance;
-    private LocalEventHandlerInterface m_localEventHandler;
+    private LocalEventHandlerInterface m_handler;
 
     private static MediatorComponent m_instance;
 
-    private MediatorInterface m_mediator;
+	//should be mediator interface, just using this to debug
+    private Mediator m_mediator;
 
     void Awake()
     {
@@ -26,15 +28,22 @@ public class MediatorComponent : MonoBehaviour, MediatorComponentInterface
 
         m_instance = this;
 
-        m_localEventHandler = new LocalEventHandler();
+        m_handler = new LocalEventHandler();
 
         m_mediator = new Mediator();
+
+		m_mediator.Initialize();
     }
+
+	void Start()
+	{
+		m_handler.Subscribe(EventArchetype.Lifetime);
+	}
 
     // Update is called once per frame
     void Update()
     {
-        /*
+		/*
         Dictionary<MediatedObject, object> dict = m_mediator.GetDict();
 
         foreach (var kvp in dict)
@@ -43,9 +52,26 @@ public class MediatorComponent : MonoBehaviour, MediatorComponentInterface
         }
         */
 
-        if (m_localEventHandler.HasEvents())
+		if (m_mediator.m_mediatedGroupsOwnership[MediatedGroup.Enemies].Count > 0)
+		{
+			//Debug.Log($"There are {m_mediator.m_mediatedGroupsOwnership[MediatedGroup.Enemies].Count} enemies alive");
+		}
+
+		GameEvent ev = null;
+
+		if (m_handler.Dequeue(ref ev))
         {
             //process it somehow - state machine, or what? or callback map
+			//for now do this hack
+
+			if (ev.m_type == EventArchetype.Lifetime)
+			{
+				if (ev.m_subtype == EventSubtype.Disable)
+				{
+					RemoveObject(ev.m_author);
+					RemoveFromGroups((ControllerComponent)ev.m_author);
+				}
+			}
         }
     }
 
@@ -91,8 +117,7 @@ public class MediatorComponent : MonoBehaviour, MediatorComponentInterface
     }
 
     private void RemoveObject(
-        MediatedObject _object,
-        object _caller
+        object _object
         )
     {
         try
@@ -108,4 +133,67 @@ public class MediatorComponent : MonoBehaviour, MediatorComponentInterface
 
         return;
     }
+
+	public HashSet<ControllerComponent> GetGroup(
+		MediatedGroup _group,
+		object _caller
+		)
+	{
+		HashSet<ControllerComponent> reference = default(HashSet<ControllerComponent>);
+
+		try
+		{
+			reference = m_mediator.GetGroup(_group);
+		}
+		catch (KeyNotFoundException exception)
+		{
+
+			//TODO: Pass exception to error handler
+			Debug.LogWarning($"GSP: <{_caller}> asked Mediator for <{_group}> group reference but it was not found.");
+		}
+
+		return reference;
+	}
+
+	public void AddToGroup(
+	MediatedGroup _group,
+	ControllerComponent _caller
+	)
+	{
+		Debug.Log($"MediatorComponent AddToGroup {_group} by {_caller}");
+		try
+		{
+			m_mediator.AddToGroup(_group, _caller);
+		}
+		catch (InvalidOperationException exception)
+		{
+			//TODO: Pass exception to error handler
+			//throw new MediatorUnauthorizedAccessException($"GSP: Mediator unauthorised access.", exception)
+			Debug.Log($"Invalid operation AddToGroup {_group}, {_caller} {exception.ToString()}");
+		}
+		catch (KeyNotFoundException exception)
+		{
+			Debug.Log($"Key Not Found AddToGroup {_group} (didn't exist), {_caller} (attemptor) {exception.ToString()}");
+		}
+
+		return;
+	}
+
+	private void RemoveFromGroups(
+		ControllerComponent _object
+		)
+	{
+		try
+		{
+			m_mediator.RemoveFromGroups(_object);
+		}
+		catch (KeyNotFoundException exception)
+		{
+			//TODO: Pass exception to error handler
+			//throw new MediatorUnauthorizedAccessException($"GSP: Mediator unauthorised access.", exception)
+			Debug.LogWarning($"GSP: <{_object}> was not found in Mediated Groups.");
+		}
+
+		return;
+	}
 }
