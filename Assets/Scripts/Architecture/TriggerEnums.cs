@@ -1,5 +1,6 @@
 using GSP.Controller;
 using GSP.Events;
+using System.Collections.Generic;
 
 namespace GSP.Triggers
 {
@@ -11,6 +12,7 @@ namespace GSP.Triggers
 		MultiShotContinuous
 	}
 
+	[System.Serializable]
 	public struct ControllerExecutionBundle
 	{
 		public ExecutionType m_execution;
@@ -18,6 +20,7 @@ namespace GSP.Triggers
 		public bool m_deactivate;
 	}
 
+	[System.Serializable]
 	public struct TriggerExecutionBundle
 	{
 		public ExecutionType m_execution;
@@ -25,6 +28,7 @@ namespace GSP.Triggers
 		public bool m_deactivate;
 	}
 
+	[System.Serializable]
 	public struct EventExecutionBundle
 	{
 		public ExecutionType m_execution;
