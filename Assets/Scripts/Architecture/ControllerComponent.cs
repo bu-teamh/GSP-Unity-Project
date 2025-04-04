@@ -53,7 +53,7 @@ namespace GSP.Controller
 			//and if so, disable
 
 			m_mediator = MediatorComponent.Instance;
-			m_handler = new LocalEventHandler();
+			m_handler = new LocalEventHandler(this);
 			m_stateMachine = new StateMachine(this);
 
 			//only should do this if mediated object is delcared otherwise don't do this

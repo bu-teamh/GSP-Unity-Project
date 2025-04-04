@@ -116,6 +116,17 @@ namespace GSP.States
 			return;
 		}
 
+		public override void React(GameEvent _event)
+		{
+			if (CompareEvent(_event, EventArchetype.Gameplay, EventSubtype.Teleport))
+			{
+				ControllerComponent teleport = (ControllerComponent)_event.m_subject;
+
+				m_characterController.Move(teleport.transform.position);
+				//m_transform.rotation = teleport.transform.rotation;
+			}
+		}
+
 		public override void FixedUpdate()
 		{
 			// regional check for enemies nearby, always updated

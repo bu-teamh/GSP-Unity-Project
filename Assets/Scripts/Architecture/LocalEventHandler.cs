@@ -24,6 +24,15 @@ namespace GSP.Events
 			m_eventQueue = new Queue<GameEvent>();
 		}
 
+		public LocalEventHandler(TriggerableInterface _owner)
+		{
+			m_eventManager = EventManagerComponent.Instance;
+
+			m_owner = _owner;
+
+			m_eventQueue = new Queue<GameEvent>();
+		}
+
 		public void PumpEvents()
 		{
 			m_eventQueue.Clear();
@@ -41,6 +50,8 @@ namespace GSP.Events
 
 					if (ev.m_flag == EventFlag.Activate)
 					{
+						Debug.Log("Owner:" + m_owner + "had Enable() called by its local event handler");
+
 						m_owner.Enable();
 					}
 					else if (ev.m_flag == EventFlag.Deactivate)

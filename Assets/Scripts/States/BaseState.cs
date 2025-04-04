@@ -126,7 +126,9 @@ namespace GSP.States
 			EventPriority _priority,
 			EventArchetype _type,
 			EventSubtype _subtype,
-			EventFlag _flag = EventFlag.None
+			EventFlag _flag = EventFlag.None,
+			object _subject = null,
+			object _data = null
 		)
 		{
 			if (_type == EventArchetype.Internal)
@@ -139,7 +141,9 @@ namespace GSP.States
 				_subtype,
 				_priority,
 				_flag,
-				_author
+				_author,
+				_subject,
+				_data
 			);
 
 			m_handler.Dispatch(ev);

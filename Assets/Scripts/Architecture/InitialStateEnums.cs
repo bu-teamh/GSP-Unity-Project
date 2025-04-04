@@ -11,7 +11,8 @@ namespace GSP.States
 		MainCameraInitialState,
 		EnemyInitialState,
 		ProjectileInitialState,
-		ChargeInitialState
+		ChargeInitialState,
+		TeleportInitialState
 	}
 
 	public class InitialStates
@@ -25,7 +26,8 @@ namespace GSP.States
 				{ InitialState.MainCameraInitialState, typeof(MainCameraPassiveState) },
 				{ InitialState.EnemyInitialState, typeof(EnemyPatrolState) },
 				{ InitialState.ProjectileInitialState, typeof(ProjectileIdleState) },
-				{ InitialState.ChargeInitialState, typeof(ChargeIdleState) }
+				{ InitialState.ChargeInitialState, typeof(ChargeIdleState) },
+				{ InitialState.TeleportInitialState, typeof(TeleportListenState) }
 			};
 	}
 }

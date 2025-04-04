@@ -46,6 +46,7 @@ namespace GSP.Events
 
 		//Gameplay enums
 		Combat,
+		Teleport,
 
 		//Trigger
 		Component,

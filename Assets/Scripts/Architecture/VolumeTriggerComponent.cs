@@ -46,10 +46,7 @@ namespace GSP.Triggers
 		void Awake()
 		{
 			m_mediator = MediatorComponent.Instance;
-			m_handler = new LocalEventHandler();
-
-			m_player = (ControllerComponent)m_mediator.GetObject(MediatedObject.Player, this);
-			m_enemies = m_mediator.GetGroup(MediatedGroup.Enemies, this);
+			m_handler = new LocalEventHandler(this);
 
 			m_componentGroup = new HashSet<ControllerExecutionBundle>(m_components);
 			m_triggerGroup = new HashSet<TriggerExecutionBundle>(m_triggers);
@@ -68,7 +65,8 @@ namespace GSP.Triggers
 		// Start is called before the first frame update
 		void Start()
 		{
-
+			m_player = (ControllerComponent)m_mediator.GetObject(MediatedObject.Player, this);
+			m_enemies = m_mediator.GetGroup(MediatedGroup.Enemies, this);
 		}
 
 		// Update is called once per frame
@@ -173,6 +171,8 @@ namespace GSP.Triggers
 		{
 			if (!m_heavyTrigger)
 			{
+				Debug.Log("Player:" + m_player.name);
+
 				if (_collider == m_player.GetComponentInParent<Collider>())
 				{
 					m_trippedEntity = _collider;
