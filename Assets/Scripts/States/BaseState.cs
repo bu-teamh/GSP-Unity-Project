@@ -112,15 +112,38 @@ namespace GSP.States
 		}
 
 
+		//got to here
+		/// <summary>
+		/// Initialises a state change transition prior to first update cycle of the state. To be used in InitializeMap().
+		/// </summary>
+		/// <param name="_state">Desired transition based on specified event attributes. Pass {typeof()}. Passing a class that doesn't inherit BaseState fails. </param>
+		/// <param name="_type"></param>
+		/// <param name="_subtype"></param>
+		/// <param name="_flag"></param>
 		public void SetTransition(Type _state, EventArchetype _type, EventSubtype _subtype, EventFlag _flag = EventFlag.None)
 		{
-			var key = (_type, _subtype, _flag);
+			if(_state != typeof(BaseState))
+			{
+				var key = (_type, _subtype, _flag);
 
-			m_eventStateMap[key] = _state;
+				m_eventStateMap[key] = _state;
+			}
+
+			
 
 			return;
 		}
 
+		/// <summary>
+		/// Generates an event using passed-in attributes and dispatches it to the Event Manager. {EventArchetype.Internal} will fail.
+		/// </summary>
+		/// <param name="_author">Event author (pass {this}), for debugging purposes.</param>
+		/// <param name="_priority">Priority order of event.</param>
+		/// <param name="_type">Main order of event.</param>
+		/// <param name="_subtype">Subtype of event.</param>
+		/// <param name="_flag">Flag of event. Optional argument: if not passed, {EventFlag.None} assumed.</param>
+		/// <param name="_subject">Subject of event. Optional argument: if not passed, {null} assumed.</param>
+		/// <param name="_data">Data of event. Optional argument: if not passed, {null} assumed.</param>
 		public void SendExternalEvent(
 			object _author,
 			EventPriority _priority,
@@ -135,8 +158,9 @@ namespace GSP.States
 			{
 				//error
 			}
-
-			GameEvent ev = new GameEvent(
+			else
+			{
+				GameEvent ev = new GameEvent(
 				_type,
 				_subtype,
 				_priority,
@@ -146,11 +170,19 @@ namespace GSP.States
 				_data
 			);
 
-			m_handler.Dispatch(ev);
-
+				m_handler.Dispatch(ev);
+			}
+			
 			return;
 		}
 
+		/// <summary>
+		/// Generates an event of main order {EventType.Internal} using passed-in attributes and asyncrhonously queues it locally, bypassing Event Manager overhead.
+		/// </summary>
+		/// <param name="_author">Event author (pass {this}), for debugging purposes.</param>
+		/// <param name="_subtype">Subtype of internal event.</param>
+		/// <param name="_flag">Flag of internal event.</param>
+		/// <param name="_priority">Priority of internal event (currently unused locally; pass {EventPriority.Routine}).</param>
 		public void SendInternalEvent(
 			object _author,
 			EventSubtype _subtype,
@@ -171,6 +203,11 @@ namespace GSP.States
 			return;
 		}
 
+		/// <summary>
+		/// Initialises a timer of the passed-in type in the state's registry of timers.
+		/// </summary>
+		/// <param name="_type">Custom passed-in timer type (simply used to differentiate between multiple timers).</param>
+		/// <param name="_end">Amount of time to durate before finishing (in seconds). Float by {Time.deltaFixedTime} will relate to amount of frames to durate (50FPS).</param>
 		public void SetTimer(TimerType _type, float _end)
 		{
 			m_timerMap[_type] = new GameTimer(_end);
@@ -178,6 +215,11 @@ namespace GSP.States
 			return;
 		}
 
+		/// <summary>
+		/// Recalculates the timer's time and uses it to decide whether the timer is completed.
+		/// </summary>
+		/// <param name="_type">The passed-in timer type.</param>
+		/// <returns>Returns whether </returns>
 		public bool CheckTimer(TimerType _type)
 		{
 			bool finished = false;
@@ -194,17 +236,32 @@ namespace GSP.States
 			return finished;
 		}
 
+		/// <summary>
+		/// Tries to start the timer of passed-in type initialised at the state's instantiation.
+		/// </summary>
+		/// <param name="_type">The passed-in timer type.</param>
+		/// <returns>Returns true if the timer was started (and false if the timer had alreay been started by some other means).</returns>
 		public bool StartTimer(TimerType _type)
 		{
 			return m_timerMap[_type].Start();
 		}
 
+		/// <summary>
+		/// Tries to interrupt the passed-in timer type initialised at the state's instantiation.
+		/// </summary>
+		/// <param name="_type">The passed-in timer type.</param>
+		/// <returns>Returns true if the timer was interrupted (and false if the timer was not yet started).</returns>
 		public bool InterruptTimer(TimerType _type)
 		{
 			return m_timerMap[_type].Interrupt();
 		}
 
-#nullable enable
+		/// <summary>
+		/// Called by the StateMachine. All dequeued events are queried against the state change tree.
+		/// </summary>
+		/// <param name="_event">The passed-in event.</param>
+		/// <returns>Returns a generated instance of the next state (initialised using the current state).</returns>
+		#nullable enable
 		public BaseState? QueryNextState(GameEvent _event)
 		{
 			BaseState? nextState = null;
@@ -225,8 +282,20 @@ namespace GSP.States
 		}
 		#nullable disable
 
+		/// <summary>
+		/// Called by the StateMachine. If a dequeued event doesn't trigger a state change, then the StateMachine passes it to this method for further conditional exection.
+		/// </summary>
+		/// <param name="_event">The passed-in event.</param>
 		public virtual void React(GameEvent _event) { }
 
+		/// <summary>
+		/// Compare a certain event against passed-in event attributes to check for equivalency.
+		/// </summary>
+		/// <param name="_event">The event against which flags should be tested.</param>
+		/// <param name="_type">Overarching event type to compare.</param>
+		/// <param name="_subtype">Subtybe of overarching event to compare.</param>
+		/// <param name="_flag">Flag against which to compare.</param>
+		/// <returns>Returns true if there is an equivalency between the passed-in event and the passed-in flags.</returns>
 		protected bool CompareEvent(GameEvent _event, EventArchetype _type, EventSubtype _subtype, EventFlag _flag = EventFlag.None)
 		{
 			bool equivalent = false;
