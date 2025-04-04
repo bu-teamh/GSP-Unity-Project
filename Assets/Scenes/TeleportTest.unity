@@ -3456,6 +3456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f710891684ce5054985cabce50d155e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_liveOnAwake: 0
   m_declaredMediatedObject: 0
   m_declaredMediatedGroups: 
   m_requestedMediatedObjects: 02000000
@@ -4248,6 +4249,11 @@ PrefabInstance:
       propertyPath: m_characterController
       value: 
       objectReference: {fileID: 163652494}
+    - target: {fileID: 2933884926233723338, guid: 4a28ca8638f788b42a4f6eb6866419f0,
+        type: 3}
+      propertyPath: m_subscribedEvents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2933884926233723338, guid: 4a28ca8638f788b42a4f6eb6866419f0,
         type: 3}
       propertyPath: m_requestedMediatedGroups.Array.size

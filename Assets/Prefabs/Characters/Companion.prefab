@@ -155,13 +155,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f710891684ce5054985cabce50d155e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_liveOnAwake: 1
   m_declaredMediatedObject: 2
   m_declaredMediatedGroups: 
   m_requestedMediatedObjects: 0100000004000000
   m_requestedMediatedGroups: 
   m_subscribedEvents: 0000000003000000
   m_initialState: 1
-  m_characterController: {fileID: 0}
+  m_characterController: {fileID: 1118109887175884990}
   m_agent: {fileID: 0}
   m_creator: {fileID: 0}
   m_playerMask:
