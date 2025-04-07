@@ -17,39 +17,27 @@ using GSP.Timer;
 namespace GSP.States
 {
 	//Replace "Entity" with game object name in the class name
-	public class GameplayBaseState : BaseState
+	public class GameplayBaseState : GameBaseState
 	{
 		//Define constant state attributes here (like health)
 
-		protected float m_example = 0.0f;
-
 		//And your constant physics attributes
 
-		protected float m_physicsExample = 0.0f;
+		protected float m_entityRadius = 20.0f;
 
 		//And any variables you need to store stuff to be persistent over state (like currentRot or something)
 
-		protected float m_currentRot;
+		protected HashSet<ControllerComponent> m_localEnemies = new();
 
 		//Define attributes for mediated objects listed in Inspector here
 
-		protected ControllerComponent m_player; // If it's a game object, it should be type ControllerComponent...
-		protected InputManagerComponentInterface m_inputManager; //... if it's a manager, use its interface identifier
-		protected HashSet<ControllerComponent> m_enemies; //If it's a collection, cast it to HashSet<ControllerComponent> !
-
 		//Constructor doesn't need touching
-		public GameplayBaseState(ControllerComponent _object) : base(_object) { }
+		public GameplayBaseState(GameStateManager _object) : base(_object) { }
 
 		//Second constructor doesn't need touching
 		public GameplayBaseState(BaseState _state) : base(_state) { }
 
 		//Here, assign the mediated objects like so
-		protected override void GetMediations()
-		{
-			m_player = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Player];
-			m_inputManager = (InputManagerComponentInterface)m_thisObject.m_mediatedObjects[MediatedObject.InputManager];
-			m_enemies = m_thisObject.m_mediatedGroups[MediatedGroup.Enemies];
-		}
 
 		public override void Update()
 		{
@@ -61,14 +49,27 @@ namespace GSP.States
 			// m_gameObject.m_handler.Enqueue(ev) << send it to this component's event queue 
 			// and then add that event type to state map to react to that event in the states
 
-			//no physics to be done here!!
+			//no physics to be done here!
 
 			return;
 		}
 
 		public override void FixedUpdate()
 		{
-			//Physics for all states. Not often needed but for instance I used it to rotate the player to direction in which it's moving at all times.
+			// regional check for enemies nearby, always updated
+			Collider[] localObjects = Physics.OverlapSphere(m_player.transform.position, m_entityRadius);
+
+			m_localEnemies.Clear();
+
+			foreach (var collider in localObjects)
+			{
+				var controller = collider.GetComponentInParent<ControllerComponent>(); // << the enemey character controller does counts as a collider
+
+				if (controller != null && m_enemies.Contains(controller))
+				{
+					m_localEnemies.Add(controller); // only add valid controllers that are in m_enemies
+				}
+			}
 		}
 	}
 }

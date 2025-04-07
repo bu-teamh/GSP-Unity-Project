@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,11 +15,11 @@ using GSP.Triggers;
 
 namespace GSP.Controller
 {
-	public class ControllerComponent : MonoBehaviour, ControllerComponentInterface, TriggerableInterface
+	public class ControllerComponent : MonoBehaviour, ControllerComponentInterface, TriggerableInterface, StateBasedEntityInterface
 	{
 		private MediatorComponentInterface m_mediator;
-		public LocalEventHandlerInterface m_handler;
-		public StateMachineInterface m_stateMachine;
+		private LocalEventHandlerInterface m_handler;
+		private StateMachineInterface m_stateMachine;
 		//a sound-player that is injected into the animator
 		//an animator
 
@@ -33,7 +34,12 @@ namespace GSP.Controller
 		public List<MediatedObject> m_requestedMediatedObjects;
 		public List<MediatedGroup> m_requestedMediatedGroups;
 		public List<EventArchetype> m_subscribedEvents;
+
 		public InitialState m_initialState;
+
+		public LocalEventHandlerInterface Handler => m_handler;
+
+		public InitialState InitialState => m_initialState;
 
 		public CharacterController m_characterController;
 		public NavMeshAgent m_agent;
@@ -164,6 +170,11 @@ namespace GSP.Controller
 			m_stateMachine.Start(m_initialState);
 
 			return;
+		}
+
+		public Type GetState()
+		{
+			return m_stateMachine.GetState();
 		}
 
 		public void Enable()

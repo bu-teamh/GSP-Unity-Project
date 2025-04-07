@@ -17,7 +17,7 @@ using GSP.Timer;
 namespace GSP.States
 {
 	//Replace "Entity" with game object name in the class name
-	public class TeleportBaseState : BaseState
+	public class TeleportBaseState : EntityBaseState
 	{
 		//Constructor doesn't need touching
 		public TeleportBaseState(ControllerComponent _object) : base(_object) { }

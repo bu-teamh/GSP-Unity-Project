@@ -21,7 +21,7 @@ namespace GSP.States
 	public class CombatGameplayState : GameplayBaseState
 	{
 		//Constructor doesn't need touching.
-		public CombatGameplayState(ControllerComponent _object) : base(_object) { }
+		public CombatGameplayState(GameStateManager _object) : base(_object) { }
 
 		//Constructor doesn't need touching.
 		public CombatGameplayState(BaseState _state) : base(_state) { }
@@ -30,8 +30,7 @@ namespace GSP.States
 		//I might change this dictionary another time to something else as it's very annoying to format
 		protected override void Awake()
 		{
-			SetTransition(typeof(PlayerMoveState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyDown); // << Like this now!
-			SetTransition(typeof(PlayerMoveState), EventArchetype.Input, EventSubtype.Move); // If you don't specify flag, it will default to "None"
+			SetTransition(typeof(NormalGameplayState), EventArchetype.Internal, EventSubtype.Combat, EventFlag.Inactive);
 		}
 
 		public override void Update()
@@ -48,6 +47,21 @@ namespace GSP.States
 		{
 			//Does base state physics.
 			base.FixedUpdate();
+
+			if (m_localEnemies.Count == 0)
+			{
+				m_cooldownTimer.Start();
+			}
+			else
+			{
+				m_cooldownTimer.Interrupt();
+			}
+
+			if (m_cooldownTimer.Check())
+			{
+				InternalEvent(EventSubtype.Combat, EventFlag.Inactive);
+				SendEvent(EventPriority.Routine, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
+			}
 
 			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
 

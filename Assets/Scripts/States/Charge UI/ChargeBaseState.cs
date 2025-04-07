@@ -18,7 +18,7 @@ using UnityEngine.UI;
 namespace GSP.States
 {
 	//Replace "Entity" with game object name in the class name
-	public class ChargeBaseState : BaseState
+	public class ChargeBaseState : EntityBaseState
 	{
 		//Define constant state attributes here (like health)
 
@@ -38,7 +38,7 @@ namespace GSP.States
 		//Define attributes for mediated objects listed in Inspector here
 
 		protected ControllerComponent m_companion; // If it's a game object, it should be type ControllerComponent...
-		protected GameObject m_mainCamera;
+		protected ControllerComponent m_mainCamera;
 
 		//Constructor doesn't need touching
 		public ChargeBaseState(ControllerComponent _object) : base(_object) { }
@@ -50,11 +50,11 @@ namespace GSP.States
 		protected override void GetMediations()
 		{
 			m_companion = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Companion];
+			m_mainCamera = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.MainCamera];
 		}
 
 		protected override void Awake()
 		{
-			m_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 			m_image = m_thisObject.GetComponentInChildren<Image>();
 			m_current = 0.0f;
 		}

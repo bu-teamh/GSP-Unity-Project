@@ -12,7 +12,7 @@ using GSP.Controller;
 
 namespace GSP.States
 {
-	public class MainCameraBaseState : BaseState
+	public class MainCameraBaseState : EntityBaseState
 	{
 		// --- --- --- ---
 		// attributes for component state (health, etc) are defined here

@@ -16,7 +16,7 @@ using GSP.Controller;
 namespace GSP.States
 {
 	//Replace "Entity" with game object name in the class name
-	public class ProjectileBaseState : BaseState
+	public class ProjectileBaseState : EntityBaseState
 	{
 		//Define constant state attributes here (like health)
 

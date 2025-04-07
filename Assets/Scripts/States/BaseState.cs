@@ -33,7 +33,7 @@ namespace GSP.States
 		/// <summary>
 		/// Injected reference to the ComponentController which owns the state.
 		/// </summary>
-		protected ControllerComponent m_thisObject;
+		protected StateBasedEntityInterface m_thisObject;
 
 		/// <summary>
 		/// A map used by the StateMachine (to which the state belongs) to transition state.
@@ -63,7 +63,7 @@ namespace GSP.States
 		/// Called by the StateMachine during initialisation of the ControllerComponent. Injects owning ControllerComponent into the current state.
 		/// </summary>
 		/// <param name="_object">Owner injected into the state during construction.</param>
-		public BaseState(ControllerComponent _object)
+		public BaseState(StateBasedEntityInterface _object)
 		{
 			m_thisObject = _object;
 			m_switchState = null;
@@ -211,11 +211,11 @@ namespace GSP.States
 
 			if (_type != EventArchetype.Internal)
 			{
-				m_thisObject.m_handler.Dispatch(ev);
+				m_thisObject.Handler.Dispatch(ev);
 			}
 			else
 			{
-				m_thisObject.m_handler.Enqueue(ev);
+				m_thisObject.Handler.Enqueue(ev);
 			}
 
 			return;

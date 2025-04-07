@@ -12,21 +12,21 @@ namespace GSP.States
 {
 	public class StateMachine : StateMachineInterface
 	{
-		private object m_gameObject;
+		private StateBasedEntityInterface m_thisObject;
 
 		private BaseState m_currentState;
 		//private BaseState m_nextState;
 
 		private Queue<GameEvent> m_broadcasts = new Queue<GameEvent>();
 
-		public StateMachine(object _object)
+		public StateMachine(StateBasedEntityInterface _entity)
 		{
-			m_gameObject = _object;
+			m_thisObject = _entity;
 		}
 
 		public void Start(InitialState _initial)
 		{
-			m_currentState = (BaseState)Activator.CreateInstance(InitialStates.m_map[_initial], m_gameObject);
+			m_currentState = (BaseState)Activator.CreateInstance(InitialStates.m_map[_initial], m_thisObject);
 			m_currentState.Initialize();
 		}
 
@@ -67,6 +67,11 @@ namespace GSP.States
 		public GameEvent Dequeue()
 		{
 			return m_broadcasts.Dequeue();
+		}
+
+		public Type GetState()
+		{
+			return m_currentState.GetType();
 		}
 	}
 }

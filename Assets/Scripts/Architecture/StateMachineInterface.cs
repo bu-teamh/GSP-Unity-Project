@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using GSP.Events;
@@ -18,5 +19,7 @@ namespace GSP.States
 		void FixedUpdate();
 
 		GameEvent Dequeue();
+
+		Type GetState();
 	}
 }

@@ -1,12 +1,15 @@
+using GSP.States;
 using UnityEngine;
 
 namespace GSP.Controller
 {
 	public interface ControllerComponentInterface
 	{
-		public void Enable();
+		Types GetState();
 
-		public void Disable();
+		void Enable();
+
+		void Disable();
 
 		void SetCreator(object _object);
 	}

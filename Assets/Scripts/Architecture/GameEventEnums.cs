@@ -6,9 +6,9 @@ namespace GSP.Events
 {
     public enum EventArchetype
     {
-        Input,
+        Input, 
 		Internal,
-		Lifetime,
+		Lifetime, //mediator's business atm
 		Gameplay,
 		Trigger
     }

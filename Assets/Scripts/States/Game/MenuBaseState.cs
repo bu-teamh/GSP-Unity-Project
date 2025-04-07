@@ -17,7 +17,7 @@ using GSP.Timer;
 namespace GSP.States
 {
 	//Replace "Entity" with game object name in the class name
-	public class MenuBaseState : BaseState
+	public class MenuBaseState : GameBaseState
 	{
 		//Define constant state attributes here (like health)
 
@@ -38,7 +38,7 @@ namespace GSP.States
 		protected HashSet<ControllerComponent> m_enemies; //If it's a collection, cast it to HashSet<ControllerComponent> !
 
 		//Constructor doesn't need touching
-		public MenuBaseState(ControllerComponent _object) : base(_object) { }
+		public MenuBaseState(GameStateManager _object) : base(_object) { }
 
 		//Second constructor doesn't need touching
 		public MenuBaseState(BaseState _state) : base(_state) { }
@@ -46,9 +46,7 @@ namespace GSP.States
 		//Here, assign the mediated objects like so
 		protected override void GetMediations()
 		{
-			m_player = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Player];
-			m_inputManager = (InputManagerComponentInterface)m_thisObject.m_mediatedObjects[MediatedObject.InputManager];
-			m_enemies = m_thisObject.m_mediatedGroups[MediatedGroup.Enemies];
+
 		}
 
 		public override void Update()

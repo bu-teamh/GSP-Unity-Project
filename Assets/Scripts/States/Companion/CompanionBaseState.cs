@@ -12,7 +12,7 @@ using GSP.Controller;
 
 namespace GSP.States
 {
-	public class CompanionBaseState : BaseState
+	public class CompanionBaseState : EntityBaseState
 	{
 		// --- --- --- ---
 		// attributes for component state (health, etc) are defined here

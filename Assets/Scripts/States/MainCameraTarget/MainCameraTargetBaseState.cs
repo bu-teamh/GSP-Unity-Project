@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace GSP.States
 {
-	public class MainCameraTargetBaseState : BaseState
+	public class MainCameraTargetBaseState : EntityBaseState
 	{
 		// --- --- --- ---
 		// attributes for component state (health, etc) are defined here

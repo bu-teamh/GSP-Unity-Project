@@ -49,6 +49,10 @@ namespace GSP.States
 			{
 				m_switchState = typeof(CompanionFollowState);
 			}
+			else if (CompareEvent(_ev, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active))
+			{
+				m_switchState = typeof(CompanionCombatState);
+			}
 		}
 
 		public override void FixedUpdate()

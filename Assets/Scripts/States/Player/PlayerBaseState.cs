@@ -30,14 +30,10 @@ namespace GSP.States
 		protected float m_rotDamping = 5;
 		protected float m_dampingThreshold = 10;
 
-		protected float m_entityRadius = 20.0f;
-
 		//stored stuff
 
 		//this bool will eventually be handled by the gamestate manager
 		protected bool m_combatActive;
-
-		protected HashSet<ControllerComponent> m_localEnemies = new HashSet<ControllerComponent>();
 
 		protected Vector3 m_velocity = Vector3.zero;
 		protected Quaternion m_targetRot;
@@ -82,35 +78,6 @@ namespace GSP.States
 			//no physics to be done here!!
 
 			//send combat event
-			/*
-			if (m_enemies.Count != 0)
-			{
-				if (m_localEnemies.Count == 0)
-				{
-					m_timerMap[TimerType.CombatOver].Start();
-				}
-				else
-				{
-					m_timerMap[TimerType.CombatOver].Interrupt();
-
-					if (!m_combatActive)
-					{
-						m_combatActive = true;
-
-						Debug.Log("combat active");
-						SendEvent(EventPriority.Routine, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
-					}
-				}
-			}	
-			
-			if (m_combatActive && m_timerMap[TimerType.CombatOver].Update())
-			{
-				m_combatActive = false;
-
-				Debug.Log("combat inactive");
-				SendEvent(EventPriority.Routine, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
-			}
-			*/
 
 			return;
 		}
@@ -133,21 +100,6 @@ namespace GSP.States
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
-
-			// regional check for enemies nearby, always updated
-			Collider[] localObjects = Physics.OverlapSphere(m_thisObject.transform.position, m_entityRadius);
-
-			m_localEnemies.Clear();
-
-			foreach (var collider in localObjects)
-			{
-				var controller = collider.GetComponentInParent<ControllerComponent>(); // << the enemey character controller does counts as a collider
-
-				if (controller != null && m_enemies.Contains(controller))
-				{
-					m_localEnemies.Add(controller); // only add valid controllers that are in m_enemies
-				}
-			}
 
 			//rotation, always calculated
 			if (m_velocity != Vector3.zero)
