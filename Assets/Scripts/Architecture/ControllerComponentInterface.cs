@@ -1,11 +1,11 @@
 using GSP.States;
-using UnityEngine;
+using System;
 
 namespace GSP.Controller
 {
 	public interface ControllerComponentInterface
 	{
-		Types GetState();
+		Type GetState();
 
 		void Enable();
 
