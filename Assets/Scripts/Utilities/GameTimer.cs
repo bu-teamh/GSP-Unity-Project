@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 namespace GSP.Timer
 {
@@ -19,17 +20,16 @@ namespace GSP.Timer
 			m_started = false;
 		}
 
-		public bool Update()
+		public bool Check()
 		{
 			bool finished = false;
 
 			if (m_started)
 			{
-				float now = Time.time;
+				float now = Time.fixedTime;
 
 				if (now > (m_startTime + m_endTime))
 				{
-					m_startTime = now;
 					m_started = false;
 					finished = true;
 				}
@@ -42,6 +42,7 @@ namespace GSP.Timer
 		{
 			if (!m_started)
 			{
+				m_startTime = Time.fixedTime;
 				m_started = true;
 			}
 
@@ -54,13 +55,23 @@ namespace GSP.Timer
 
 			if (m_started)
 			{
-				m_startTime = Time.time;
+				m_startTime = Time.fixedTime;
 				m_started = false;
 
 				interrupt = true;
 			}
 
 			return interrupt;
+		}
+
+		public void Pause()
+		{
+			if (m_started)
+			{
+				m_started = false;
+			}
+
+			return;
 		}
 	}
 }
