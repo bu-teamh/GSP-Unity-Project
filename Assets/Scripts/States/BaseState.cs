@@ -11,18 +11,34 @@ using System.Collections;
 using System.Linq;
 using UnityEngine.AI;
 using GSP.Timer;
+using System.Net.NetworkInformation;
 
 namespace GSP.States
 {
+	/// <summary>
+	/// Serves as the foundational state class from which all behavioral states derive common functionality.
+	/// This class is designed for polymorphic use and is not intended to be instantiated directly.
+	/// </summary>
 	public class BaseState
 	{
-		protected ControllerComponent m_gameObject;
-		protected LocalEventHandlerInterface m_handler;
-		protected NavMeshAgent m_agent;
-		protected object m_creator;
-		protected CharacterController m_characterController;
-		protected Transform m_transform;
+		/// <summary>
+		/// Attribute class to mark attributes to be excluded from reflection during construction of a new state.
+		/// </summary>
+		[AttributeUsage(AttributeTargets.Field)]
+		private class ExcludeFromReflectionAttribute : Attribute
+		{
+			//Utility attribute class to force the constructor to exclude fields from reflection.
+		}
 
+		/// <summary>
+		/// Injected reference to the ComponentController which owns the state.
+		/// </summary>
+		protected ControllerComponent m_thisObject;
+
+		/// <summary>
+		/// A map used by the StateMachine (to which the state belongs) to transition state.
+		/// </summary>
+		[ExcludeFromReflection]
 		protected Dictionary<
 			(
 				EventArchetype,
@@ -37,27 +53,29 @@ namespace GSP.States
 				),
 				Type>();
 
-		private Dictionary<
-			TimerType,
-			GameTimer> m_timerMap = new Dictionary<
-				TimerType,
-				GameTimer>();
-
+		[ExcludeFromReflection]
+		/// <summary>
+		/// A siwtchable state for use in {SetTransition()}. Assign as {typeof()}.
+		/// </summary>
 		protected Type m_switchState;
 
+		/// <summary>
+		/// Called by the StateMachine during initialisation of the ControllerComponent. Injects owning ControllerComponent into the current state.
+		/// </summary>
+		/// <param name="_object">Owner injected into the state during construction.</param>
 		public BaseState(ControllerComponent _object)
 		{
-			m_gameObject = _object;
-			m_handler = m_gameObject.m_handler;
-			m_characterController = m_gameObject.m_characterController;
-			m_transform = m_gameObject.transform;
-			m_agent = m_gameObject.m_agent;
-			m_creator = m_gameObject.m_creator;
+			m_thisObject = _object;
 			m_switchState = null;
 
 			return;
 		}
-		
+
+		/// <summary>
+		/// Called by the StateMachine during state changes. Alternative Constructor for BaseState.
+		/// Accepts a previous state as an argument and reflects the its attributes onto the current state (excluding BaseState fields that should be initialized to empty).
+		/// </summary>
+		/// <param name="_state">Passed-in previous state.</param>
 		public BaseState(BaseState _state)
 		{
 			var fields = _state.GetType().GetFields(
@@ -68,109 +86,77 @@ namespace GSP.States
 
 			foreach (var field in fields)
 			{
-				var value = field.GetValue(_state);
-				field.SetValue(this, value);
+				if (!Attribute.IsDefined(field, typeof(ExcludeFromReflectionAttribute)))
+				{
+					var value = field.GetValue(_state);
+					field.SetValue(this, value);
+				}
 			}
 
 			return;
 		}
 
+		/// <summary>
+		/// Called by the StateMachine immediately after the construction of the current state.
+		/// </summary>
 		public void Initialize()
 		{
-			m_eventStateMap.Clear();
-			m_timerMap.Clear();
-			m_switchState = null;
-
 			GetMediations();
 			Awake();
-
-			InitializeMap();
-			InitializeTimers();
 
 			return;
 		}
 
-		//This method must be implementated in the inherited <Component>BaseState class.
+		/// <summary>
+		/// Called by {Initialize()} immediately after the construction of the current state. For initialisations of mediated objects and groups (see Mediator). 
+		/// It should override the virtual BaseState function. Use {base.GetMediations()} to execute the functionality of the immediate parent state (if necessary).
+		/// </summary>
 		protected virtual void GetMediations() { }
 
-		//This method must be implemented in the inherited <Component><Behaviour>State classes (unique to individual states).
-		protected virtual void InitializeMap() { }
 
-		//This method should be inimplented in the inherited <Component>BaseState class(es).
-		protected virtual void InitializeTimers() { }
-
-		//This method is called before the first Update cycle and after the transitions, mediations and timers have been initialized. 
+		/// <summary>
+		/// Called by {Initialize()} immediately after the construction of the current state. For initialisations or singularly necessary operations. 
+		/// It should override the virtual BaseState function. Use {base.Awake()} to execute the functionality of the immediate parent state (if necessary).
+		/// </summary>
 		protected virtual void Awake() { }
 
+		/// <summary>
+		/// Called by the StateMachine during Unity's Update lifecycle method. Defines the non-physics based operations for the current state.
+		/// It should override the virtual BaseState function. Use {base.Update()} to execute the functionality of the immediate parent state (if necessary).
+		/// </summary>
 		public virtual void Update() { }
 
+		/// <summary>
+		/// Called by the StateMachine during Unity's FixedUpdate lifecycle method. Defines the physics operations for the current state.
+		/// It should override the virtual BaseState function. Use {base.FixedUpdate()} to execute the functionality of the immediate parent state (if necessary).
+		/// </summary>
 		public virtual void FixedUpdate() { }
 
+		//Unused at the moment - need to sort
 		public HashSet<T> CastGroup<T>(HashSet<object> _group)
 		{
 			return new HashSet<T>(_group.Cast<T>()); // Safely cast objects to the specified type T
 		}
 
-
-		//got to here
 		/// <summary>
-		/// Initialises a state change transition prior to first update cycle of the state. To be used in InitializeMap().
+		/// Initialises a state change transition prior to first update cycle of the state. To be used in {InitializeMap()}.
+		/// Attribute {m_switchState} can be passed as an argument so long as it is, at the least, assigned in {Awake()}.
 		/// </summary>
 		/// <param name="_state">Desired transition based on specified event attributes. Pass {typeof()}. Passing a class that doesn't inherit BaseState fails. </param>
-		/// <param name="_type"></param>
-		/// <param name="_subtype"></param>
-		/// <param name="_flag"></param>
-		public void SetTransition(Type _state, EventArchetype _type, EventSubtype _subtype, EventFlag _flag = EventFlag.None)
+		/// <param name="_type">Specified main order of event to trigger transition.</param>
+		/// <param name="_subtype">Specified subtype of main order to trigger transition.</param>
+		/// <param name="_flag">Specified flag of event to trigger transition. Optional argument. If not specified, {EventFlag.None} assumed.</param>
+		protected void SetTransition(Type _state, EventArchetype _type, EventSubtype _subtype, EventFlag _flag = EventFlag.None)
 		{
-			if(_state != typeof(BaseState))
+			if (typeof(BaseState).IsAssignableFrom(_state))
 			{
 				var key = (_type, _subtype, _flag);
 
 				m_eventStateMap[key] = _state;
 			}
-
-			
-
-			return;
-		}
-
-		/// <summary>
-		/// Generates an event using passed-in attributes and dispatches it to the Event Manager. {EventArchetype.Internal} will fail.
-		/// </summary>
-		/// <param name="_author">Event author (pass {this}), for debugging purposes.</param>
-		/// <param name="_priority">Priority order of event.</param>
-		/// <param name="_type">Main order of event.</param>
-		/// <param name="_subtype">Subtype of event.</param>
-		/// <param name="_flag">Flag of event. Optional argument: if not passed, {EventFlag.None} assumed.</param>
-		/// <param name="_subject">Subject of event. Optional argument: if not passed, {null} assumed.</param>
-		/// <param name="_data">Data of event. Optional argument: if not passed, {null} assumed.</param>
-		public void SendExternalEvent(
-			object _author,
-			EventPriority _priority,
-			EventArchetype _type,
-			EventSubtype _subtype,
-			EventFlag _flag = EventFlag.None,
-			object _subject = null,
-			object _data = null
-		)
-		{
-			if (_type == EventArchetype.Internal)
-			{
-				//error
-			}
 			else
 			{
-				GameEvent ev = new GameEvent(
-				_type,
-				_subtype,
-				_priority,
-				_flag,
-				_author,
-				_subject,
-				_data
-			);
-
-				m_handler.Dispatch(ev);
+				//someone tried to set transition to a class that doesn't derive from base state
 			}
 			
 			return;
@@ -179,81 +165,60 @@ namespace GSP.States
 		/// <summary>
 		/// Generates an event of main order {EventType.Internal} using passed-in attributes and asyncrhonously queues it locally, bypassing Event Manager overhead.
 		/// </summary>
-		/// <param name="_author">Event author (pass {this}), for debugging purposes.</param>
 		/// <param name="_subtype">Subtype of internal event.</param>
 		/// <param name="_flag">Flag of internal event.</param>
-		/// <param name="_priority">Priority of internal event (currently unused locally; pass {EventPriority.Routine}).</param>
-		public void SendInternalEvent(
-			object _author,
+		protected void InternalEvent(
+			EventSubtype _subtype,
+			EventFlag _flag = EventFlag.None
+		)
+		{
+			SendEvent(
+				EventPriority.Routine,
+				EventArchetype.Internal,
+				_subtype,
+				_flag);
+
+			return;
+		}
+
+		/// /// <summary>
+		/// Generates an event using passed-in attributes and dispatches it to the Event Manager. Use {InternalEvent()} to bypass Event Manager overhead for local events.
+		/// </summary>
+		/// <param name="_priority">Priority order of event.</param>
+		/// <param name="_type">Main order of event.</param>
+		/// <param name="_subtype">Subtype of event.</param>
+		/// <param name="_flag">Flag of event. Optional argument: if not passed, {EventFlag.None} assumed.</param>
+		/// <param name="_subject">Subject of event. Optional argument: if not passed, {null} assumed.</param>
+		/// <param name="_data">Data of event. Optional argument: if not passed, {null} assumed.</param>
+		protected void SendEvent(
+			EventPriority _priority,
+			EventArchetype _type,
 			EventSubtype _subtype,
 			EventFlag _flag = EventFlag.None,
-			EventPriority _priority = EventPriority.Routine
+			object _subject = null,
+			object _data = null
 		)
 		{
 			GameEvent ev = new GameEvent(
-				EventArchetype.Internal,
+				_type,
 				_subtype,
 				_priority,
 				_flag,
-				_author
+				m_thisObject,
+				_subject,
+				_data
 			);
 
-			m_handler.Enqueue(ev);
-
-			return;
-		}
-
-		/// <summary>
-		/// Initialises a timer of the passed-in type in the state's registry of timers.
-		/// </summary>
-		/// <param name="_type">Custom passed-in timer type (simply used to differentiate between multiple timers).</param>
-		/// <param name="_end">Amount of time to durate before finishing (in seconds). Float by {Time.deltaFixedTime} will relate to amount of frames to durate (50FPS).</param>
-		public void SetTimer(TimerType _type, float _end)
-		{
-			m_timerMap[_type] = new GameTimer(_end);
-
-			return;
-		}
-
-		/// <summary>
-		/// Recalculates the timer's time and uses it to decide whether the timer is completed.
-		/// </summary>
-		/// <param name="_type">The passed-in timer type.</param>
-		/// <returns>Returns whether </returns>
-		public bool CheckTimer(TimerType _type)
-		{
-			bool finished = false;
-
-			if (m_timerMap.ContainsKey(_type))
+			if (_type != EventArchetype.Internal)
 			{
-				finished = m_timerMap[_type].Update();
+				m_thisObject.m_handler.Dispatch(ev);
 			}
 			else
 			{
-				Debug.Log("timer wasn't set up in the dict in the first place");
+				m_thisObject.m_handler.Enqueue(ev);
 			}
 
-			return finished;
-		}
-
-		/// <summary>
-		/// Tries to start the timer of passed-in type initialised at the state's instantiation.
-		/// </summary>
-		/// <param name="_type">The passed-in timer type.</param>
-		/// <returns>Returns true if the timer was started (and false if the timer had alreay been started by some other means).</returns>
-		public bool StartTimer(TimerType _type)
-		{
-			return m_timerMap[_type].Start();
-		}
-
-		/// <summary>
-		/// Tries to interrupt the passed-in timer type initialised at the state's instantiation.
-		/// </summary>
-		/// <param name="_type">The passed-in timer type.</param>
-		/// <returns>Returns true if the timer was interrupted (and false if the timer was not yet started).</returns>
-		public bool InterruptTimer(TimerType _type)
-		{
-			return m_timerMap[_type].Interrupt();
+			return;
 		}
 
 		/// <summary>

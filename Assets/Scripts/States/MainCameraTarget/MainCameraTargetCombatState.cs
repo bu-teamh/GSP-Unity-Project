@@ -17,7 +17,7 @@ namespace GSP.States
 
 		public MainCameraTargetCombatState(BaseState _state) : base(_state) { }
 
-		protected override void InitializeMap()
+		protected override void Awake()
 		{
 			SetTransition(typeof(MainCameraTargetFollowState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
 		}

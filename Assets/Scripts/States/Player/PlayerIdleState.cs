@@ -16,7 +16,7 @@ namespace GSP.States
 
 		public PlayerIdleState(BaseState _state) : base(_state) { }
 
-		protected override void InitializeMap()
+		protected override void Awake()
 		{
 			SetTransition(typeof(PlayerMoveState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyDown);
 			SetTransition(typeof(PlayerDashState), EventArchetype.Input, EventSubtype.Dodge, EventFlag.KeyDown);
@@ -46,7 +46,7 @@ namespace GSP.States
 
 			m_velocity = Vector3.Lerp(m_velocity, Vector3.zero, m_deceleration * Time.deltaTime);
 
-			m_characterController.Move(m_velocity * Time.deltaTime);
+			m_thisObject.m_characterController.Move(m_velocity * Time.deltaTime);
 
 			return;
 		}

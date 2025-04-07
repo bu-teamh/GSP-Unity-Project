@@ -27,7 +27,7 @@ namespace GSP.States
 
 		//The map where should you go from this state.
 		//I might change this dictionary another time to something else as it's very annoying to format
-		protected override void InitializeMap()
+		protected override void Awake()
 		{
 			SetTransition(typeof(ProjectileIdleState), EventArchetype.Internal, EventSubtype.Move, EventFlag.Inactive); // << Like this now!
 		}
@@ -49,7 +49,7 @@ namespace GSP.States
 
 			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
 
-			Collider[] nearbyObjects = Physics.OverlapSphere(m_transform.position, (m_rigidbody.transform.localScale.magnitude / 2));
+			Collider[] nearbyObjects = Physics.OverlapSphere(m_thisObject.transform.position, (m_rigidbody.transform.localScale.magnitude / 2));
 
 			HashSet<Collider> nearbyNotProj = new HashSet<Collider>(nearbyObjects);
 			HashSet<Collider> projectiles = new HashSet<Collider>();
@@ -77,16 +77,16 @@ namespace GSP.States
 			}
 			if(nearbyNotProj.Count > 0)
 			{
-				m_gameObject.Destroy();
-				Debug.Log("destroyed projectile + " + m_gameObject.name);
+				m_thisObject.Destroy();
+				Debug.Log("destroyed projectile + " + m_thisObject.name);
 
 				foreach (Collider collider in nearbyNotProj)
 				{
-					Debug.Log("this" + m_gameObject.GetInstanceID() + "collided with " + collider.name + " " + collider.GetInstanceID());
+					Debug.Log("this" + m_thisObject.GetInstanceID() + "collided with " + collider.name + " " + collider.GetInstanceID());
 				}
 			}
 
-			m_rigidbody.velocity = m_transform.forward * m_speed;
+			m_rigidbody.velocity = m_thisObject.transform.forward * m_speed;
 
 			return;
 		}

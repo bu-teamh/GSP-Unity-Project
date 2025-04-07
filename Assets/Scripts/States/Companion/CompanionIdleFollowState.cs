@@ -18,13 +18,10 @@ namespace GSP.States
 
 		public CompanionFollowState(BaseState _state) : base(_state) { }
 
-		protected override void InitializeMap()
-		{
-			SetTransition(typeof(CompanionCombatState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
-		}
-
 		protected override void Awake()
 		{
+			SetTransition(typeof(CompanionCombatState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
+
 			m_maxDist = 9.0f;
 			m_minDist = 2.5f;
 			m_maxSpeed = 15.0f;
@@ -43,9 +40,9 @@ namespace GSP.States
 		{
 			base.FixedUpdate();
 
-			float distance = Vector3.Distance(m_transform.position, m_player.transform.position);
+			float distance = Vector3.Distance(m_thisObject.transform.position, m_player.transform.position);
 
-			Vector3 direction = (m_player.transform.position - m_transform.position).normalized;
+			Vector3 direction = (m_player.transform.position - m_thisObject.transform.position).normalized;
 
 			if (distance > m_maxDist)
 			{

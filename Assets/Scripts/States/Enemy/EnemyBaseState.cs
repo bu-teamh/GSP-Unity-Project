@@ -58,10 +58,10 @@ namespace GSP.States
 		//Here, assign the mediated objects like so
 		protected override void GetMediations()
 		{
-			m_player = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Player];
-			m_companion = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Companion];
-			m_navMesh = (NavMeshComponent)m_gameObject.m_mediatedObjects[MediatedObject.NavMesh];
-			m_projectiles = m_gameObject.m_mediatedGroups[MediatedGroup.Projectiles];
+			m_player = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Player];
+			m_companion = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Companion];
+			m_navMesh = (NavMeshComponent)m_thisObject.m_mediatedObjects[MediatedObject.NavMesh];
+			m_projectiles = m_thisObject.m_mediatedGroups[MediatedGroup.Projectiles];
 		}
 
 		protected override void Awake()

@@ -47,34 +47,24 @@ namespace GSP.States
 		//Here, assign the mediated objects like so
 		protected override void GetMediations()
 		{
-			m_player = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Player];
-			m_enemies = m_gameObject.m_mediatedGroups[MediatedGroup.Enemies];
-			m_projectiles = m_gameObject.m_mediatedGroups[MediatedGroup.Projectiles];
+			m_player = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Player];
+			m_enemies = m_thisObject.m_mediatedGroups[MediatedGroup.Enemies];
+			m_projectiles = m_thisObject.m_mediatedGroups[MediatedGroup.Projectiles];
 		}
 
 		protected override void Awake()
 		{
-			m_rigidbody = m_gameObject.GetComponent<Rigidbody>();
+			m_rigidbody = m_thisObject.GetComponent<Rigidbody>();
 		}
 
 		public override void Update()
 		{
-			//This function has functionality that should be executed across *all* states
-
-			//This base method should never directly interrupt and change a state after doing logic, only manipulate attributes, otherwise there could be a conflict
-			//If need to trigger a new state, tou need to send an event like so:
-			// GameEvent ev = new GameEvent(params); << create your event, see that class for constructor arguments 
-			// m_gameObject.m_handler.Enqueue(ev) << send it to this component's event queue 
-			// and then add that event type to state map to react to that event in the states
-
-			//no physics to be done here!!
-
 			return;
 		}
 
 		public override void FixedUpdate()
 		{
-			//Physics for all states. Not often needed but for instance I used it to rotate the player to direction in which it's moving at all times.
+
 		}
 
 	}

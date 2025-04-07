@@ -26,7 +26,7 @@ namespace GSP.States
 
 		//The map where should you go from this state.
 		//I might change this dictionary another time to something else as it's very annoying to format
-		protected override void InitializeMap()
+		protected override void Awake()
 		{
 			SetTransition(typeof(EnemyChaseState), EventArchetype.Internal, EventSubtype.PlayerSpotted);
 			SetTransition(typeof(EnemyDieState), EventArchetype.Internal, EventSubtype.Death);
@@ -46,18 +46,18 @@ namespace GSP.States
 			}
 			if (m_walkPointSet)
 			{
-				m_agent.SetDestination(m_walkPoint);
+				m_thisObject.m_agent.SetDestination(m_walkPoint);
 			}
 
-			Vector3 distanceToWalkPoint = m_transform.position - m_walkPoint;
+			Vector3 distanceToWalkPoint = m_thisObject.transform.position - m_walkPoint;
 			if (distanceToWalkPoint.magnitude < 1f)
 			{
 				m_walkPointSet = false;
 			}
 
-			if(Physics.CheckSphere(m_transform.position, m_sightRange, m_gameObject.m_playerMask))
+			if(Physics.CheckSphere(m_thisObject.transform.position, m_sightRange, m_thisObject.m_playerMask))
 			{
-				SendInternalEvent(this, EventSubtype.PlayerSpotted);
+				InternalEvent(EventSubtype.PlayerSpotted);
 			}
 
 			return;
@@ -80,9 +80,9 @@ namespace GSP.States
 			float randomZ = UnityEngine.Random.Range(-m_walkPointRange, m_walkPointRange);
 			float randomX = UnityEngine.Random.Range(-m_walkPointRange, m_walkPointRange);
 
-			m_walkPoint = new Vector3(m_transform.position.x + randomX, m_transform.position.y, m_transform.position.z + randomZ);
+			m_walkPoint = new Vector3(m_thisObject.transform.position.x + randomX, m_thisObject.transform.position.y, m_thisObject.transform.position.z + randomZ);
 
-			if (Physics.Raycast(m_walkPoint, -m_transform.up, 2f, m_gameObject.m_groundMask))
+			if (Physics.Raycast(m_walkPoint, -m_thisObject.transform.up, 2f, m_thisObject.m_groundMask))
 			{
 				m_walkPointSet = true;
 			}

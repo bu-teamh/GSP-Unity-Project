@@ -19,7 +19,7 @@ namespace GSP.States
 
 		public PlayerMoveState(BaseState _state) : base(_state) { }
 
-		protected override void InitializeMap()
+		protected override void Awake()
 		{
 			SetTransition(typeof(PlayerIdleState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyUp);
 			SetTransition(typeof(PlayerDashState), EventArchetype.Input, EventSubtype.Dodge, EventFlag.KeyDown);
@@ -52,7 +52,7 @@ namespace GSP.States
 
 			m_targetRot = Quaternion.LookRotation(m_velocity);
 
-			m_characterController.Move(m_velocity * Time.deltaTime);
+			m_thisObject.m_characterController.Move(m_velocity * Time.deltaTime);
 
 			return;
 		}

@@ -11,6 +11,7 @@ using GSP.Mediator;
 using GSP.Controller;
 using GSP.Timer;
 using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 namespace GSP.States
 {
@@ -54,13 +55,13 @@ namespace GSP.States
 
 		protected override void GetMediations()
 		{
-			m_inputManager = (InputManagerComponentInterface)m_gameObject.m_mediatedObjects[MediatedObject.InputManager];
-			m_enemies = m_gameObject.m_mediatedGroups[MediatedGroup.Enemies];
+			m_inputManager = (InputManagerComponentInterface)m_thisObject.m_mediatedObjects[MediatedObject.InputManager];
+			m_enemies = m_thisObject.m_mediatedGroups[MediatedGroup.Enemies];
 		}
 
-		protected override void InitializeTimers()
+		protected override void Awake()
 		{
-			SetTimer(TimerType.CombatOver, 5.0f);
+			//m_timerMap[TimerType.CombatOver] = new GameTimer(5.0f);
 		}
 
 		public override void Update()
@@ -81,33 +82,35 @@ namespace GSP.States
 			//no physics to be done here!!
 
 			//send combat event
+			/*
 			if (m_enemies.Count != 0)
 			{
 				if (m_localEnemies.Count == 0)
 				{
-					StartTimer(TimerType.CombatOver);
+					m_timerMap[TimerType.CombatOver].Start();
 				}
 				else
 				{
-					InterruptTimer(TimerType.CombatOver);
+					m_timerMap[TimerType.CombatOver].Interrupt();
 
 					if (!m_combatActive)
 					{
 						m_combatActive = true;
 
 						Debug.Log("combat active");
-						SendExternalEvent(this, EventPriority.Routine, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
+						SendEvent(EventPriority.Routine, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
 					}
 				}
 			}	
 			
-			if (m_combatActive && CheckTimer(TimerType.CombatOver))
+			if (m_combatActive && m_timerMap[TimerType.CombatOver].Update())
 			{
 				m_combatActive = false;
 
 				Debug.Log("combat inactive");
-				SendExternalEvent(this, EventPriority.Routine, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
+				SendEvent(EventPriority.Routine, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
 			}
+			*/
 
 			return;
 		}
@@ -118,8 +121,12 @@ namespace GSP.States
 			{
 				ControllerComponent teleport = (ControllerComponent)_event.m_subject;
 
-				m_characterController.Move(teleport.transform.position);
-				//m_transform.rotation = teleport.transform.rotation;
+				m_thisObject.m_characterController.enabled = false;
+				//m_thisObject.m_characterController.Move(teleport.transform.position);
+				m_thisObject.transform.rotation = teleport.transform.rotation;
+				m_thisObject.transform.position = teleport.transform.position;
+				m_thisObject.m_characterController.enabled = true;
+				
 			}
 		}
 
@@ -128,7 +135,7 @@ namespace GSP.States
 			base.FixedUpdate();
 
 			// regional check for enemies nearby, always updated
-			Collider[] localObjects = Physics.OverlapSphere(m_transform.position, m_entityRadius);
+			Collider[] localObjects = Physics.OverlapSphere(m_thisObject.transform.position, m_entityRadius);
 
 			m_localEnemies.Clear();
 
@@ -145,16 +152,16 @@ namespace GSP.States
 			//rotation, always calculated
 			if (m_velocity != Vector3.zero)
 			{
-				Quaternion currentRot = m_transform.rotation;
+				Quaternion currentRot = m_thisObject.transform.rotation;
 
 				// Apply damping to smooth out the final rotation
 				if (Quaternion.Angle(currentRot, m_targetRot) < m_dampingThreshold)
 				{
-					m_transform.rotation = Quaternion.Slerp(currentRot, m_targetRot, m_rotDamping);
+					m_thisObject.transform.rotation = Quaternion.Slerp(currentRot, m_targetRot, m_rotDamping);
 				}
 				else
 				{
-					m_transform.rotation = Quaternion.RotateTowards(currentRot, m_targetRot, m_maxRotSpeed * Time.fixedDeltaTime);
+					m_thisObject.transform.rotation = Quaternion.RotateTowards(currentRot, m_targetRot, m_maxRotSpeed * Time.fixedDeltaTime);
 				}
 			}
 

@@ -26,14 +26,11 @@ namespace GSP.States
 
 		//The map where should you go from this state.
 		//I might change this dictionary another time to something else as it's very annoying to format
-		protected override void InitializeMap()
-		{
-			SetTransition(m_switchState, EventArchetype.Input, EventSubtype.Shoot, EventFlag.KeyUp);
-		}
-
 		protected override void Awake()
 		{
 			m_switchState = typeof(CompanionCombatState);
+
+			SetTransition(m_switchState, EventArchetype.Input, EventSubtype.Shoot, EventFlag.KeyUp);
 		}
 
 		public override void Update()
@@ -66,9 +63,9 @@ namespace GSP.States
 			//	Debug.Log(collider.name);
 			//}
 			m_lineRenderer.enabled = false;
-			m_gameObject.m_volume.weight = 0f;
+			m_thisObject.m_volume.weight = 0f;
 			Time.timeScale = 1.0f;
-			m_characterController.Move(m_transform.forward * m_accel * 2 * Time.fixedDeltaTime);
+			m_thisObject.m_characterController.Move(m_thisObject.transform.forward * m_accel * 2 * Time.fixedDeltaTime);
 
 			return;
 		}

@@ -56,9 +56,9 @@ namespace GSP.States
 
 		protected override void GetMediations()
 		{
-			m_player = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Player];
-			m_companion = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Companion];
-			m_enemies = m_gameObject.m_mediatedGroups[MediatedGroup.Enemies];
+			m_player = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Player];
+			m_companion = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Companion];
+			m_enemies = m_thisObject.m_mediatedGroups[MediatedGroup.Enemies];
 		}
 
 		public override void Update()
@@ -82,8 +82,8 @@ namespace GSP.States
 		public override void FixedUpdate()
 		{
 			//smooth translate
-			Vector3 direction = (m_targetPosition - m_transform.position).normalized;
-			float distance = Vector3.Distance(m_transform.position, m_targetPosition);
+			Vector3 direction = (m_targetPosition - m_thisObject.transform.position).normalized;
+			float distance = Vector3.Distance(m_thisObject.transform.position, m_targetPosition);
 
 			if (distance > m_threshold ||
 				distance > m_previousDistance
@@ -101,7 +101,7 @@ namespace GSP.States
 
 			m_previousDistance = distance;
 
-			m_transform.position += m_velocity * Time.fixedDeltaTime;
+			m_thisObject.transform.position += m_velocity * Time.fixedDeltaTime;
 
 			return;
 		}

@@ -49,18 +49,13 @@ namespace GSP.States
 		//Here, assign the mediated objects like so
 		protected override void GetMediations()
 		{
-			m_companion = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Companion];
-		}
-
-		protected override void InitializeTimers()
-		{
-			SetTimer(TimerType.CombatOver, 5.0f); // <<Initialize timer. set type of timer, float amount of seconds
+			m_companion = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Companion];
 		}
 
 		protected override void Awake()
 		{
 			m_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-			m_image = m_gameObject.GetComponentInChildren<Image>();
+			m_image = m_thisObject.GetComponentInChildren<Image>();
 			m_current = 0.0f;
 		}
 
@@ -82,8 +77,8 @@ namespace GSP.States
 		public override void FixedUpdate()
 		{
 			//Physics for all states. Not often needed but for instance I used it to rotate the player to direction in which it's moving at all times.
-			m_direction = (m_transform.position - m_mainCamera.transform.position);
-			m_transform.rotation = Quaternion.LookRotation(m_direction);
+			m_direction = (m_thisObject.transform.position - m_mainCamera.transform.position);
+			m_thisObject.transform.rotation = Quaternion.LookRotation(m_direction);
 		}
 	}
 }

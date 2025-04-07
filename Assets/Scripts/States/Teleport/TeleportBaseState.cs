@@ -31,11 +31,6 @@ namespace GSP.States
 
 		}
 
-		protected override void InitializeTimers()
-		{
-
-		}
-
 		public override void Update()
 		{
 			base.Update();

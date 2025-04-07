@@ -46,14 +46,9 @@ namespace GSP.States.Template
 		//Here, assign the mediated objects like so
 		protected override void GetMediations()
 		{
-			m_player = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Player];
-			m_inputManager = (InputManagerComponentInterface)m_gameObject.m_mediatedObjects[MediatedObject.InputManager];
-			m_enemies = m_gameObject.m_mediatedGroups[MediatedGroup.Enemies];
-		}
-
-		protected override void InitializeTimers()
-		{
-			SetTimer(TimerType.CombatOver, 5.0f); // <<Initialize timer. set type of timer, float amount of seconds
+			m_player = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Player];
+			m_inputManager = (InputManagerComponentInterface)m_thisObject.m_mediatedObjects[MediatedObject.InputManager];
+			m_enemies = m_thisObject.m_mediatedGroups[MediatedGroup.Enemies];
 		}
 
 		public override void Update()

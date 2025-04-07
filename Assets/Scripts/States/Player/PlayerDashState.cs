@@ -16,8 +16,10 @@ namespace GSP.States
 
 		public PlayerDashState(BaseState _state) : base(_state) { }
 
-		protected override void InitializeMap()
+		protected override void Awake()
 		{
+			base.Awake();
+
 			SetTransition(typeof(PlayerMoveState), EventArchetype.Input, EventSubtype.Dodge, EventFlag.KeyUp);
 			SetTransition(typeof(PlayerIdleState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyUp);
 		}
@@ -43,7 +45,7 @@ namespace GSP.States
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
-			m_characterController.Move(m_velocity * 3.0f * Time.deltaTime);
+			m_thisObject.m_characterController.Move(m_velocity * 3.0f * Time.deltaTime);
 
 			return;
 		}

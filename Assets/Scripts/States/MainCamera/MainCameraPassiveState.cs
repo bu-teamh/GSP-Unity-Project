@@ -17,7 +17,7 @@ namespace GSP.States
 
 		public MainCameraPassiveState(BaseState _state) : base(_state) { }
 
-		protected override void InitializeMap()
+		protected override void Awake()
 		{
 			
 		}
@@ -60,15 +60,15 @@ namespace GSP.States
 				targetCoords.z - m_currentCamDist
 				);
 
-			m_transform.position = Vector3.Lerp(m_transform.position, targetPos, m_smoothPosSpeed * Time.fixedDeltaTime);
+			m_thisObject.transform.position = Vector3.Lerp(m_thisObject.transform.position, targetPos, m_smoothPosSpeed * Time.fixedDeltaTime);
 
-			Vector3 direction = m_cameraTarget.transform.position - m_transform.position;
+			Vector3 direction = m_cameraTarget.transform.position - m_thisObject.transform.position;
 
 			direction.Normalize();
 
 			Quaternion rotation = Quaternion.LookRotation(direction);
 
-			m_transform.rotation = rotation;
+			m_thisObject.transform.rotation = rotation;
 
 			return;
 		}

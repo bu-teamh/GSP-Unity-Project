@@ -26,7 +26,7 @@ namespace GSP.States
 
 		//The map where should you go from this state.
 		//I might change this dictionary another time to something else as it's very annoying to format
-		protected override void InitializeMap()
+		protected override void Awake()
 		{
 			SetTransition(typeof(EnemyChaseState), EventArchetype.Internal, EventSubtype.PlayerOutRange);
 			SetTransition(typeof(EnemyDieState), EventArchetype.Internal, EventSubtype.Death);
@@ -49,13 +49,13 @@ namespace GSP.States
 
 			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
 
-			if(!Physics.CheckSphere(m_transform.position, m_attackRange, m_gameObject.m_playerMask))
+			if(!Physics.CheckSphere(m_thisObject.transform.position, m_attackRange, m_thisObject.m_playerMask))
 			{
-				SendInternalEvent(this, EventSubtype.PlayerOutRange);
+				InternalEvent(EventSubtype.PlayerOutRange);
 			}
 
-			m_gameObject.m_agent.SetDestination(m_transform.position);
-			m_gameObject.transform.LookAt(m_player.transform);
+			m_thisObject.m_agent.SetDestination(m_thisObject.transform.position);
+			m_thisObject.transform.LookAt(m_player.transform);
 
 			if (!m_alreadyAttacked)
 			{
@@ -94,10 +94,10 @@ namespace GSP.States
 			else
 			{
 				Debug.Log("Ranged Attack");
-				Vector3 m_projectilePos = m_transform.position;
+				Vector3 m_projectilePos = m_thisObject.transform.position;
 				m_projectilePos.z += 2;
 
-				GameObject prefab = GameObject.Instantiate(m_projectilePrefab, m_projectilePos, m_transform.rotation);
+				GameObject prefab = GameObject.Instantiate(m_projectilePrefab, m_projectilePos, m_thisObject.transform.rotation);
 			}
 		}
 	}

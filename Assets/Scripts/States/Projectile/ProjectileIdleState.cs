@@ -26,7 +26,7 @@ namespace GSP.States
 
 		//The map where should you go from this state.
 		//I might change this dictionary another time to something else as it's very annoying to format
-		protected override void InitializeMap()
+		protected override void Awake()
 		{
 			SetTransition(typeof(ProjectileMoveState), EventArchetype.Internal, EventSubtype.Move); // << Like this now!
 		}
@@ -37,9 +37,9 @@ namespace GSP.States
 			base.Update();
 
 			//See comments in "Base" template for what should be done here (but in this case it applies only to this state).
-			m_direction = m_transform.forward;
+			m_direction = m_thisObject.transform.forward;
 
-			SendInternalEvent(this, EventSubtype.Move);
+			InternalEvent(EventSubtype.Move);
 
 			return;
 		}

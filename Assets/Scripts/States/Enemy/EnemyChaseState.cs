@@ -26,7 +26,7 @@ namespace GSP.States
 
 		//The map where should you go from this state.
 		//I might change this dictionary another time to something else as it's very annoying to format
-		protected override void InitializeMap()
+		protected override void Awake()
 		{
 			SetTransition(typeof(EnemyAttackState), EventArchetype.Internal, EventSubtype.PlayerInRange);
 			SetTransition(typeof(EnemyPatrolState), EventArchetype.Internal, EventSubtype.PlayerLost);
@@ -38,16 +38,16 @@ namespace GSP.States
 			base.Update();
 
 			//See comments in "Base" template for what should be done here (but in this case it applies only to this state).
-			m_agent.SetDestination(m_player.transform.position);
+			m_thisObject.m_agent.SetDestination(m_player.transform.position);
 
-			if (Physics.CheckSphere(m_transform.position, m_attackRange, m_gameObject.m_playerMask))
+			if (Physics.CheckSphere(m_thisObject.transform.position, m_attackRange, m_thisObject.m_playerMask))
 			{
-				SendInternalEvent(this, EventSubtype.PlayerInRange);
+				InternalEvent(EventSubtype.PlayerInRange);
 			}
 
-			if(!Physics.CheckSphere(m_transform.position, m_sightRange, m_gameObject.m_playerMask))
+			if(!Physics.CheckSphere(m_thisObject.transform.position, m_sightRange, m_thisObject.m_playerMask))
 			{
-				SendInternalEvent(this, EventSubtype.PlayerLost);
+				InternalEvent(EventSubtype.PlayerLost);
 			}
 			return;
 		}
