@@ -14,10 +14,10 @@ using GSP.Mediator;
 using GSP.Controller;
 using GSP.Timer;
 
-namespace GSP.States.Template
+namespace GSP.States
 {
 	//Replace "Entity" with game object name in the class name
-	public class EntityBaseState : BaseState
+	public class MenuBaseState : BaseState
 	{
 		//Define constant state attributes here (like health)
 
@@ -38,10 +38,10 @@ namespace GSP.States.Template
 		protected HashSet<ControllerComponent> m_enemies; //If it's a collection, cast it to HashSet<ControllerComponent> !
 
 		//Constructor doesn't need touching
-		public EntityBaseState(ControllerComponent _object) : base(_object) { }
+		public MenuBaseState(ControllerComponent _object) : base(_object) { }
 
 		//Second constructor doesn't need touching
-		public EntityBaseState(BaseState _state) : base(_state) { }
+		public MenuBaseState(BaseState _state) : base(_state) { }
 
 		//Here, assign the mediated objects like so
 		protected override void GetMediations()

@@ -15,16 +15,16 @@ using GSP.Mediator;
 using GSP.Controller;
 using Unity.VisualScripting;
 
-namespace GSP.States.Template
+namespace GSP.States
 {
 	//Rename Entity as your gameobject and Behaviour as your chosen state behaviour.
-	public class EntityBehaviourState : EntityBaseState
+	public class NormalGameplayState : GameplayBaseState
 	{
 		//Constructor doesn't need touching.
-		public EntityBehaviourState(ControllerComponent _object) : base(_object) { }
+		public NormalGameplayState(ControllerComponent _object) : base(_object) { }
 
 		//Constructor doesn't need touching.
-		public EntityBehaviourState(BaseState _state) : base(_state) { }
+		public NormalGameplayState(BaseState _state) : base(_state) { }
 
 		//The map where should you go from this state.
 		//I might change this dictionary another time to something else as it's very annoying to format
