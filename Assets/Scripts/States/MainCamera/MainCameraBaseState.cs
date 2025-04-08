@@ -48,7 +48,7 @@ namespace GSP.States
 				m_thisObject.transform.position = new Vector3(
 					teleport.transform.position.x + m_currentCamDist,
 					teleport.transform.position.y + m_currentCamDist * m_heightMultiplier,
-					teleport.transform.position.z + 1 + m_currentCamDist
+					(teleport.transform.position.z + 1) - m_currentCamDist
 				);
 
 				m_thisObject.m_characterController.enabled = true;
