@@ -27,6 +27,8 @@ namespace GSP.Interface
 
 			m_stateMachine = new StateMachine(this);
 			m_handler = new LocalEventHandler();
+
+			m_handler.Subscribe(EventArchetype.MenuInput);
 		}
 
 		public void Start()

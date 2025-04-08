@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using GSP.Mediator;
+using GSP.States;
 
 namespace GSP.Events
 {
@@ -14,7 +15,13 @@ namespace GSP.Events
 
         private EventManagerInterface m_eventManager;
 
-        private void Awake()
+		private MediatorComponentInterface m_mediator;
+
+		private GameStateManagerComponentInterface m_gameStateManager;
+
+		public GameStateManagerComponentInterface GameStateManager => m_gameStateManager;
+
+		private void Awake()
         {
             // Ensure only one instance of this component exists.
             if (m_instance != null && (object)m_instance != this)
@@ -24,11 +31,17 @@ namespace GSP.Events
 
             m_instance = this;
 
-            m_eventManager = new EventManager();
+            m_eventManager = new EventManager(this);
         }
 
+		void Start()
+		{
+			m_mediator = MediatorComponent.Instance;
+			m_gameStateManager = (GameStateManagerComponentInterface)m_mediator.GetObject(MediatedObject.GameStateManager, this);
+		}
+
         // Update is called once per frame
-        private void Update()
+        void Update()
         {
             m_eventManager.ProcessQueue();
         }

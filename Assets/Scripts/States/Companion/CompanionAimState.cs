@@ -18,8 +18,8 @@ namespace GSP.States
 		//I might change this dictionary another time to something else as it's very annoying to format
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(CompanionAttackState), EventArchetype.Input, EventSubtype.Shoot, EventFlag.KeyDown);
-			SetTransition(typeof(CompanionIdleState), EventArchetype.Input, EventSubtype.Aim, EventFlag.KeyUp);
+			SetTransition(typeof(CompanionAttackState), EventArchetype.GameplayInput, EventSubtype.Shoot, EventFlag.KeyDown);
+			SetTransition(typeof(CompanionIdleState), EventArchetype.GameplayInput, EventSubtype.Aim, EventFlag.KeyUp);
 		}
 
 		public override void Update()

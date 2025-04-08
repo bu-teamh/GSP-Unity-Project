@@ -1,5 +1,7 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
+using GSP.States;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.UIElements;
@@ -8,12 +10,16 @@ namespace GSP.Events
 {
     public class EventManager : EventManagerInterface
     {
+		private EventManagerComponentInterface m_component;
+
         private List<GameEvent> m_eventQueue;
 
         private Dictionary<EventArchetype, HashSet<LocalEventHandlerInterface>> m_subscriberMap;
         
-        public EventManager()
+        public EventManager(EventManagerComponent _component)
         {
+			m_component = _component;
+
             m_eventQueue = new List<GameEvent>();
             m_subscriberMap = new Dictionary<EventArchetype, HashSet<LocalEventHandlerInterface>>();
         }
@@ -100,9 +106,9 @@ namespace GSP.Events
 
         private void HandleEvent(GameEvent _ev)
         {
-            //mutate event based on gamestate then broadcast
-            //i.e. if get input event > mutate to menu event or player event based on current gamestate
-            Broadcast(_ev);
+			Mutate(ref _ev);
+
+			Broadcast(_ev);
         }
 
         private void Broadcast(GameEvent _ev)
@@ -118,6 +124,25 @@ namespace GSP.Events
         {
             //force local event handler to handle event NOW isntead of waiting for next update cycle
         }
+
+		private void Mutate(ref GameEvent _ev)
+		{
+			if (_ev.m_type == EventArchetype.Input)
+			{
+				Type gameStateType = m_component.GameStateManager.GetGameState();
+
+				if (typeof(GameplayBaseState).IsAssignableFrom(gameStateType))
+				{
+					_ev.m_type = EventArchetype.GameplayInput;
+				}
+				else if (typeof(MenuBaseState).IsAssignableFrom(gameStateType))
+				{
+					_ev.m_type = EventArchetype.MenuInput;
+				}
+			}
+
+			return;
+		}
     }
 
     /* EVENT MANAGER

@@ -1,11 +1,14 @@
 using GSP.Mediator;
+using GSP.States;
 using UnityEngine;
 
 namespace GSP.Events
 {
     public interface EventManagerComponentInterface
     {
-        void Enqueue(GameEvent _ev);
+		public GameStateManagerComponentInterface GameStateManager { get; }
+
+		void Enqueue(GameEvent _ev);
 
         void SubscribeListener(LocalEventHandlerInterface _listener, EventArchetype _type);
 

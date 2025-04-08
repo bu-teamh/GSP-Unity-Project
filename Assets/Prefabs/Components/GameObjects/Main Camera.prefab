@@ -155,7 +155,7 @@ MonoBehaviour:
   m_declaredMediatedGroups: 
   m_requestedMediatedObjects: 010000000200000003000000
   m_requestedMediatedGroups: 
-  m_subscribedEvents: 
+  m_subscribedEvents: 03000000
   m_initialState: 3
   m_characterController: {fileID: 0}
   m_agent: {fileID: 0}

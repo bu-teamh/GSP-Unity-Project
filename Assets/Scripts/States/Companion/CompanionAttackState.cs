@@ -18,7 +18,7 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			SetTransition(m_switchStateMap[SwitchState.Combat], EventArchetype.Input, EventSubtype.Shoot, EventFlag.KeyUp);
+			SetTransition(m_switchStateMap[SwitchState.Combat], EventArchetype.GameplayInput, EventSubtype.Shoot, EventFlag.KeyUp);
 		}
 
 		public override void Update()

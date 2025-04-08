@@ -13,7 +13,7 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(CompanionAimState), EventArchetype.Input, EventSubtype.Aim, EventFlag.KeyDown);
+			SetTransition(typeof(CompanionAimState), EventArchetype.GameplayInput, EventSubtype.Aim, EventFlag.KeyDown);
 		}
 
 		public override void Update()

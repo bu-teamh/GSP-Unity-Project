@@ -10,7 +10,9 @@ namespace GSP.Events
 		Internal,
 		Lifetime, //mediator's business atm
 		Gameplay,
-		Trigger
+		Trigger,
+		GameplayInput,
+		MenuInput
     }
 
     public enum EventPriority
