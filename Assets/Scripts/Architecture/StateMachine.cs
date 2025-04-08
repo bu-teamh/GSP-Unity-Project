@@ -17,7 +17,7 @@ namespace GSP.States
 		private BaseState m_currentState;
 		//private BaseState m_nextState;
 
-		private Queue<GameEvent> m_broadcasts = new Queue<GameEvent>();
+		//private Queue<GameEvent> m_broadcasts = new Queue<GameEvent>();
 
 		public StateMachine(StateBasedEntityInterface _entity)
 		{
@@ -62,11 +62,6 @@ namespace GSP.States
 		public void FixedUpdate()
 		{
 			m_currentState.FixedUpdate();
-		}
-
-		public GameEvent Dequeue()
-		{
-			return m_broadcasts.Dequeue();
 		}
 
 		public Type GetState()

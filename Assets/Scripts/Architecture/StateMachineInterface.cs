@@ -18,8 +18,6 @@ namespace GSP.States
 
 		void FixedUpdate();
 
-		GameEvent Dequeue();
-
 		Type GetState();
 	}
 }
