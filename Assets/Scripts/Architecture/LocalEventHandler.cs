@@ -50,6 +50,7 @@ namespace GSP.Events
 
 					if (ev.m_flag == EventFlag.Activate)
 					{
+						
 						Debug.Log("Owner:" + m_owner + "had Enable() called by its local event handler");
 
 						m_owner.Enable();

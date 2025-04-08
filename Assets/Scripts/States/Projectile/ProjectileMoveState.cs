@@ -55,18 +55,17 @@ namespace GSP.States
 			{
 				if(collider.GetComponentInParent<ControllerComponent>() == m_player)
 				{
-					Debug.Log("Hit Player");
+					//Debug.Log("Hit Player");
 				}
 				
 			}
 			if(nearbyNotProj.Count > 0)
 			{
 				m_thisObject.Remove();
-				Debug.Log("destroyed projectile + " + m_thisObject.name);
 
 				foreach (Collider collider in nearbyNotProj)
 				{
-					Debug.Log("this" + m_thisObject.GetInstanceID() + "collided with " + collider.name + " " + collider.GetInstanceID());
+					//Debug.Log("this" + m_thisObject.GetInstanceID() + "collided with " + collider.name + " " + collider.GetInstanceID());
 				}
 			}
 

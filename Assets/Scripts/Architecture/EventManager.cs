@@ -27,6 +27,7 @@ namespace GSP.Events
 
             m_subscriberMap[_type].Add(_listener);
 
+            
             Debug.Log($"$Added {_listener} to type {_type}");
         }
 

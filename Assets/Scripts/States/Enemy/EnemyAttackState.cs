@@ -66,11 +66,11 @@ namespace GSP.States
 			// Creates a Random 0 - 1 Value (Melee = 0, Ranged = 1)
 			if(m_attackType == 0)
 			{
-				Debug.Log("Melee Attack");
+				//Debug.Log("Melee Attack");
 			}
 			else
 			{
-				Debug.Log("Ranged Attack");
+				//Debug.Log("Ranged Attack");
 				Vector3 m_projectilePos = m_thisObject.transform.position;
 				m_projectilePos.z += 2;
 
