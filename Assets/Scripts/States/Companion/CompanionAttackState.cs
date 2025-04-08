@@ -13,12 +13,12 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
-			m_switchState = typeof(CompanionCombatState);
+			m_switchStateMap[SwitchState.Combat] = typeof(CompanionCombatState);
 		}
 
 		protected override void InitializeMap()
 		{
-			SetTransition(m_switchState, EventArchetype.Input, EventSubtype.Shoot, EventFlag.KeyUp);
+			SetTransition(m_switchStateMap[SwitchState.Combat], EventArchetype.Input, EventSubtype.Shoot, EventFlag.KeyUp);
 		}
 
 		public override void Update()
@@ -32,11 +32,11 @@ namespace GSP.States
 		{
 			if (CompareEvent(_ev, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive))
 			{
-				m_switchState = typeof(CompanionFollowState);
+				m_switchStateMap[SwitchState.Combat] = typeof(CompanionFollowState);
 			}
 			else if (CompareEvent(_ev, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active))
 			{
-				m_switchState = typeof(CompanionCombatState);
+				m_switchStateMap[SwitchState.Combat] = typeof(CompanionCombatState);
 			}
 		}
 

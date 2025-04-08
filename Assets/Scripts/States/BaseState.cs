@@ -45,19 +45,15 @@ namespace GSP.States
 				EventSubtype,
 				EventFlag
 			),
-			Type> m_eventStateMap = new Dictionary<
-				(
-					EventArchetype,
-					EventSubtype,
-					EventFlag
-				),
-				Type>();
+			Type> m_eventStateMap = new();
 
 		[ExcludeFromReflection]
 		/// <summary>
-		/// A siwtchable state for use in {SetTransition()}. Assign as {typeof()}.
+		/// A siwtchable state table for use in {SetTransition()}. Assign as {typeof()}.
 		/// </summary>
-		protected Type m_switchState;
+		protected Dictionary<
+			SwitchState,
+			Type> m_switchStateMap = new();
 
 		/// <summary>
 		/// Called by the StateMachine during initialisation of the ControllerComponent. Injects owning ControllerComponent into the current state.
@@ -66,7 +62,6 @@ namespace GSP.States
 		public BaseState(StateBasedEntityInterface _object)
 		{
 			m_thisObject = _object;
-			m_switchState = null;
 
 			return;
 		}
@@ -148,7 +143,7 @@ namespace GSP.States
 
 		/// <summary>
 		/// Initialises a state change transition prior to first update cycle of the state. To be used in {InitializeMap()}.
-		/// Attribute {m_switchState} can be passed as an argument so long as it is, at the least, assigned in {Awake()}.
+		/// Attribute {m_switchStateMap[<SwitchState>]} can be passed as an argument so long as it is, at the least, assigned in {Awake()}.
 		/// </summary>
 		/// <param name="_state">Desired transition based on specified event attributes. Pass {typeof()}. Passing a class that doesn't inherit BaseState fails. </param>
 		/// <param name="_type">Specified main order of event to trigger transition.</param>
