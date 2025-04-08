@@ -14,11 +14,6 @@ namespace GSP.States
 {
 	public class CompanionBaseState : EntityBaseState
 	{
-		// --- --- --- ---
-		// attributes for component state (health, etc) are defined here
-
-
-		// physics attributes (pos, rot, speed etc) for fixed update
 		public LayerMask groundLayer;
 
 		protected float m_maxDist;
@@ -71,18 +66,6 @@ namespace GSP.States
 
 		public override void Update()
 		{
-			// this has functionality that should be done during ALL states
-			//if block, if event = w, do x, else do y
-
-			//this base class should never directly interrupt and change a state after doing logic, only manipulate attributes, otherwise there could be a conflict
-			//if need to trigger state based on this logic
-			//you should not instruct the gameobject to go to a specific state from here:
-			//if it is called for, you need to send an event like so:
-			// GameEvent ev = new GameEvent(params);
-			// m_gameObject.m_handler.Enqueue(ev)
-			// and then add that event type to state map to react to that event in this state
-
-			//no physics to be done here!!
 
 			return;
 		}

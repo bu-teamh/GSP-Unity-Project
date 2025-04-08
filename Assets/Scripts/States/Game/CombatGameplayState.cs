@@ -28,7 +28,7 @@ namespace GSP.States
 
 		//The map where should you go from this state.
 		//I might change this dictionary another time to something else as it's very annoying to format
-		protected override void Awake()
+		protected override void InitializeMap()
 		{
 			SetTransition(typeof(NormalGameplayState), EventArchetype.Internal, EventSubtype.Combat, EventFlag.Inactive);
 		}

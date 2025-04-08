@@ -1,14 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using GSP.Events;
-using GSP.InputHandling;
 using UnityEngine;
 
-using GSP.Mediator;
 using GSP.Controller;
-using UnityEngine.UIElements;
-using Unity.VisualScripting;
+using GSP.Events;
 
 namespace GSP.States
 {
@@ -20,11 +13,14 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
-			SetTransition(typeof(CompanionCombatState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
-
 			m_maxDist = 9.0f;
 			m_minDist = 2.5f;
 			m_maxSpeed = 15.0f;
+		}
+
+		protected override void InitializeMap()
+		{
+			SetTransition(typeof(CompanionCombatState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
 		}
 
 		public override void Update()

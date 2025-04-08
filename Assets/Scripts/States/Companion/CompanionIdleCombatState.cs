@@ -1,14 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using GSP.Events;
-using GSP.InputHandling;
 using UnityEngine;
 
-using GSP.Mediator;
 using GSP.Controller;
-using UnityEngine.UIElements;
-using Unity.VisualScripting;
+using GSP.Events;
 
 namespace GSP.States
 {
@@ -20,19 +13,20 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
-			SetTransition(typeof(CompanionFollowState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
-			SetTransition(typeof(CompanionAimState), EventArchetype.Input, EventSubtype.Aim, EventFlag.KeyDown);
-
 			m_maxDist = 4.0f;
 			m_minDist = 2.0f;
 			m_maxSpeed = 27.5f;
 		}
 
+		protected override void InitializeMap()
+		{
+			SetTransition(typeof(CompanionFollowState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
+			SetTransition(typeof(CompanionAimState), EventArchetype.Input, EventSubtype.Aim, EventFlag.KeyDown);
+		}
+
 		public override void Update()
 		{
 			base.Update();
-
-			Debug.Log("companion combatting");
 
 			return;
 		}

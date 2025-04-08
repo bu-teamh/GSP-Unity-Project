@@ -104,6 +104,8 @@ namespace GSP.States
 			GetMediations();
 			Awake();
 
+			InitializeMap();
+
 			return;
 		}
 
@@ -119,6 +121,12 @@ namespace GSP.States
 		/// It should override the virtual BaseState function. Use {base.Awake()} to execute the functionality of the immediate parent state (if necessary).
 		/// </summary>
 		protected virtual void Awake() { }
+
+		/// <summary>
+		/// Called by {Initialize()} immediately after the construction of the current state. For initialising state change transitions. 
+		/// It should override the virtual BaseState function. Use {base.Awake()} to execute the functionality of the immediate parent state (if necessary).
+		/// </summary>
+		protected virtual void InitializeMap() { }
 
 		/// <summary>
 		/// Called by the StateMachine during Unity's Update lifecycle method. Defines the non-physics based operations for the current state.

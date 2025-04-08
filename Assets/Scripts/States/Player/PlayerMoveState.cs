@@ -1,14 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Xml.Linq;
-using GSP.Events;
-using GSP.InputHandling;
 using UnityEngine;
 
-using GSP.Mediator;
 using GSP.Controller;
+using GSP.Events;
 
 namespace GSP.States
 {
@@ -19,7 +12,7 @@ namespace GSP.States
 
 		public PlayerMoveState(BaseState _state) : base(_state) { }
 
-		protected override void Awake()
+		protected override void InitializeMap()
 		{
 			SetTransition(typeof(PlayerIdleState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyUp);
 			SetTransition(typeof(PlayerDashState), EventArchetype.Input, EventSubtype.Dodge, EventFlag.KeyDown);
