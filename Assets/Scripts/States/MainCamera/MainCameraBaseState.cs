@@ -1,5 +1,8 @@
+using UnityEngine;
+
 using GSP.Mediator;
 using GSP.Controller;
+using GSP.Events;
 
 namespace GSP.States
 {
@@ -34,6 +37,22 @@ namespace GSP.States
 		{
 
 			return;
+		}
+
+		public override void React(GameEvent _event)
+		{
+			if (CompareEvent(_event, EventArchetype.Gameplay, EventSubtype.Teleport))
+			{
+				ControllerComponent teleport = (ControllerComponent)_event.m_subject;
+
+				m_thisObject.transform.position = new Vector3(
+					teleport.transform.position.x + m_currentCamDist,
+					teleport.transform.position.y + m_currentCamDist * m_heightMultiplier,
+					teleport.transform.position.z + 1 + m_currentCamDist
+				);
+
+				m_thisObject.m_characterController.enabled = true;
+			}
 		}
 
 		public override void FixedUpdate()

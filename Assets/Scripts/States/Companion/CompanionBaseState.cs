@@ -70,6 +70,26 @@ namespace GSP.States
 			return;
 		}
 
+		public override void React(GameEvent _event)
+		{
+			if (CompareEvent(_event, EventArchetype.Gameplay, EventSubtype.Teleport))
+			{
+				ControllerComponent teleport = (ControllerComponent)_event.m_subject;
+
+				m_thisObject.m_characterController.enabled = false;
+				m_targetRot = teleport.transform.rotation;
+				m_thisObject.transform.rotation = teleport.transform.rotation;
+
+				m_thisObject.transform.position = new Vector3(
+					teleport.transform.position.x,
+					teleport.transform.position.y + m_hovHeight,
+					teleport.transform.position.z + 3
+				);
+
+				m_thisObject.m_characterController.enabled = true;
+			}
+		}
+
 		public override void FixedUpdate()
 		{
 		}

@@ -19,6 +19,8 @@ namespace GSP.States
 	//Replace "Entity" with game object name in the class name
 	public class TeleportBaseState : EntityBaseState
 	{
+		protected float m_heightAboveGround = 1.18f;
+
 		//Constructor doesn't need touching
 		public TeleportBaseState(ControllerComponent _object) : base(_object) { }
 

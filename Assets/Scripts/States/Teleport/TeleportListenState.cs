@@ -1,5 +1,6 @@
 using GSP.Events;
 using GSP.Controller;
+using UnityEngine;
 
 namespace GSP.States
 {
@@ -10,6 +11,20 @@ namespace GSP.States
 		public TeleportListenState(ControllerComponent _object) : base(_object) { }
 
 		public TeleportListenState(BaseState _state) : base(_state) { }
+
+		protected override void Awake()
+		{
+			Ray ray = new Ray(m_thisObject.transform.position, Vector3.down);
+			RaycastHit hit;
+
+			if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("GROUND")))
+			{
+				Vector3 targetPosition = hit.point + Vector3.up * m_heightAboveGround;
+
+				//snap to the calculated position
+				m_thisObject.transform.position = targetPosition;
+			}
+		}
 
 		public override void Update()
 		{

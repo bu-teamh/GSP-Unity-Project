@@ -4,6 +4,7 @@ using UnityEngine;
 
 using GSP.Mediator;
 using GSP.Controller;
+using GSP.Events;
 
 namespace GSP.States
 {
@@ -47,6 +48,22 @@ namespace GSP.States
 		public override void Update()
 		{
 			return;
+		}
+
+		public override void React(GameEvent _event)
+		{
+			if (CompareEvent(_event, EventArchetype.Gameplay, EventSubtype.Teleport))
+			{
+				ControllerComponent teleport = (ControllerComponent)_event.m_subject;
+
+				m_targetPosition = teleport.transform.position;
+
+				m_thisObject.transform.position = new Vector3(
+					teleport.transform.position.x,
+					teleport.transform.position.y,
+					teleport.transform.position.z + 1
+				);
+			}
 		}
 
 		public override void FixedUpdate()

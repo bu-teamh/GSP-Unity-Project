@@ -55,6 +55,7 @@ namespace GSP.States
 				ControllerComponent teleport = (ControllerComponent)_event.m_subject;
 
 				m_thisObject.m_characterController.enabled = false;
+				m_targetRot = teleport.transform.rotation;
 				m_thisObject.transform.rotation = teleport.transform.rotation;
 				m_thisObject.transform.position = teleport.transform.position;
 				m_thisObject.m_characterController.enabled = true;
