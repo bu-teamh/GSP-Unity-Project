@@ -9,6 +9,8 @@ using UnityEngine;
 
 using GSP.Mediator;
 using GSP.Controller;
+using GSP.Timer;
+using UnityEngine.Rendering;
 
 namespace GSP.States
 {
@@ -20,6 +22,12 @@ namespace GSP.States
 
 		// physics attributes (pos, rot, speed etc) for fixed update
 
+		protected float m_epsilon = 0.0001f;
+
+		protected float m_gravity = -3.5f;
+		protected float m_currentHeight;
+		protected Vector3 m_yvelocity = Vector3.zero;
+
 		protected float m_acceleration = 40;
 		protected float m_deceleration = 10;
 		protected float m_maxSpeed = 15;
@@ -27,12 +35,22 @@ namespace GSP.States
 		protected float m_rotDamping = 5;
 		protected float m_dampingThreshold = 10;
 
+		protected float m_entityRadius = 20.0f;
+
+		//stored stuff
+
+		//this bool will eventually be handled by the gamestate manager
+		protected bool m_combatActive;
+
+		protected HashSet<ControllerComponent> m_localEnemies = new HashSet<ControllerComponent>();
+
 		protected Vector3 m_velocity = Vector3.zero;
 		protected Quaternion m_targetRot;
 
 		//define attributes for mediated objects need to know about here
 
 		protected InputManagerComponentInterface m_inputManager;
+		protected HashSet<ControllerComponent> m_enemies;
 
 		// --- --- --- ---
 
@@ -42,7 +60,13 @@ namespace GSP.States
 
 		protected override void GetMediations()
 		{
-			m_inputManager = (InputManagerComponentInterface)m_gameObject.m_mediations[MediatedObject.InputManager];
+			m_inputManager = (InputManagerComponentInterface)m_gameObject.m_mediatedObjects[MediatedObject.InputManager];
+			m_enemies = m_gameObject.m_mediatedGroups[MediatedGroup.Enemies];
+		}
+
+		protected override void InitializeTimers()
+		{
+			SetTimer(TimerType.CombatOver, 5.0f);
 		}
 
 		public override void Update()
@@ -60,26 +84,97 @@ namespace GSP.States
 
 			//no physics to be done here!!
 
+			//send combat event
+			if (m_enemies.Count != 0)
+			{
+				if (m_localEnemies.Count == 0)
+				{
+					StartTimer(TimerType.CombatOver);
+				}
+				else
+				{
+					InterruptTimer(TimerType.CombatOver);
+
+					if (!m_combatActive)
+					{
+						m_combatActive = true;
+
+						Debug.Log("combat active");
+						SendExternalEvent(this, EventPriority.Routine, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
+					}
+				}
+			}	
+			
+			if (m_combatActive && CheckTimer(TimerType.CombatOver))
+			{
+				m_combatActive = false;
+
+				Debug.Log("combat inactive");
+				SendExternalEvent(this, EventPriority.Routine, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
+			}
+
 			return;
+		}
+
+		public override void React(GameEvent _event)
+		{
+			if (CompareEvent(_event, EventArchetype.Gameplay, EventSubtype.Teleport))
+			{
+				ControllerComponent teleport = (ControllerComponent)_event.m_subject;
+
+				m_characterController.Move(teleport.transform.position);
+				//m_transform.rotation = teleport.transform.rotation;
+			}
 		}
 
 		public override void FixedUpdate()
 		{
+			// regional check for enemies nearby, always updated
+			Collider[] localObjects = Physics.OverlapSphere(m_transform.position, m_entityRadius);
+
+			m_localEnemies.Clear();
+
+			foreach (var collider in localObjects)
+			{
+				var controller = collider.GetComponentInParent<ControllerComponent>(); // << the enemey character controller does counts as a collider
+
+				if (controller != null && m_enemies.Contains(controller))
+				{
+					m_localEnemies.Add(controller); // only add valid controllers that are in m_enemies
+				}
+			}
+
+			//rotation, always calculated
 			if (m_velocity != Vector3.zero)
 			{
-				Quaternion currentRot = m_gameObject.transform.rotation;
+				Quaternion currentRot = m_transform.rotation;
 
 				// Apply damping to smooth out the final rotation
 				if (Quaternion.Angle(currentRot, m_targetRot) < m_dampingThreshold)
 				{
-					m_gameObject.transform.rotation = Quaternion.Slerp(currentRot, m_targetRot, m_rotDamping);
+					m_transform.rotation = Quaternion.Slerp(currentRot, m_targetRot, m_rotDamping);
 				}
 				else
 				{
-					m_gameObject.transform.rotation = Quaternion.RotateTowards(currentRot, m_targetRot, m_maxRotSpeed * Time.deltaTime);
-					//playerModelTransform.rotation = Quaternion.Slerp(playerModelTransform.rotation, targetRotation, maxRotSpeed * Time.deltaTime);
+					m_transform.rotation = Quaternion.RotateTowards(currentRot, m_targetRot, m_maxRotSpeed * Time.fixedDeltaTime);
 				}
 			}
+
+			//Gravity simulation, always calculated
+			m_currentHeight = m_transform.position.y;
+
+			m_yvelocity.y += m_gravity * Time.fixedDeltaTime;
+
+			m_yvelocity.y = Mathf.Clamp(m_yvelocity.y, m_gravity, 0.0f);
+
+			m_characterController.Move(m_yvelocity);
+
+			if (!((m_transform.position.y - m_currentHeight) < -m_epsilon))
+			{
+				m_yvelocity = Vector3.zero;
+			}
+
+			return;
 		}
 	}
 }

@@ -11,6 +11,13 @@ namespace GSP.Mediator
         Player,
         Companion,
         CameraTarget,
-        InputManager
+        InputManager,
+		NavMesh
     }
+
+	public enum MediatedGroup
+	{
+		Enemies,
+		Projectiles
+	}
 }

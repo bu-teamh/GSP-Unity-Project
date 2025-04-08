@@ -24,7 +24,7 @@ namespace GSP.States
 		protected float m_farthestDist = 14.0f;
 		protected float m_lantMinDist = 2.5f;
 		protected float m_lantMaxDist = 9.0f;
-		protected float m_smoothPosSpeed = 20.0f;
+		protected float m_smoothPosSpeed = 5.0f;
 		protected float m_smoothDistSpeed = 0.8f;
 
 		//stored stuff
@@ -44,9 +44,9 @@ namespace GSP.States
 
 		protected override void GetMediations()
 		{
-			m_cameraTarget = (ControllerComponent)m_gameObject.m_mediations[MediatedObject.CameraTarget];
-			m_player = (ControllerComponent)m_gameObject.m_mediations[MediatedObject.Player];
-			m_companion = (ControllerComponent)m_gameObject.m_mediations[MediatedObject.Companion];
+			m_cameraTarget = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.CameraTarget];
+			m_player = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Player];
+			m_companion = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Companion];
 		}
 
 		public override void Update()

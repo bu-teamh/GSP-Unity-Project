@@ -45,6 +45,10 @@ namespace GSP.States
 				m_currentState = state;
 				m_currentState.Initialize();
 			}
+			else
+			{
+				m_currentState.React(_ev);
+			}
 
 			return;
 		}

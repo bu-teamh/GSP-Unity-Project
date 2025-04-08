@@ -238,11 +238,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f710891684ce5054985cabce50d155e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_liveOnAwake: 1
   m_declaredMediatedObject: 1
-  m_mediatedObjects: 04000000
-  m_subscribedEvents: 00000000
+  m_declaredMediatedGroups: 
+  m_requestedMediatedObjects: 04000000
+  m_requestedMediatedGroups: 00000000
+  m_subscribedEvents: 0000000003000000
   m_initialState: 0
-  m_chararacterController: {fileID: 2898426288682391519}
+  m_characterController: {fileID: 2898426288682391519}
+  m_agent: {fileID: 0}
+  m_creator: {fileID: 0}
+  m_playerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_volume: {fileID: 0}
 --- !u!1 &3056057411886176571
 GameObject:
   m_ObjectHideFlags: 0

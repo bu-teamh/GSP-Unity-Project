@@ -18,19 +18,8 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			Debug.Log("Idle state initialized");
-
-			//Event
-			m_eventStateMap[EventArchetype.Input] = new Dictionary<EventSubtype, Dictionary<EventFlag, Type>>
-			{
-				//Subtypes
-				{
-					EventSubtype.Move, new Dictionary<EventFlag, Type>
-					{
-						{ EventFlag.KeyDown, typeof(PlayerMoveState) }
-					}
-				}
-			};
+			SetTransition(typeof(PlayerMoveState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyDown);
+			SetTransition(typeof(PlayerDashState), EventArchetype.Input, EventSubtype.Dodge, EventFlag.KeyDown);
 		}
 
 		public override void Update()
@@ -57,7 +46,7 @@ namespace GSP.States
 
 			m_velocity = Vector3.Lerp(m_velocity, Vector3.zero, m_deceleration * Time.deltaTime);
 
-			m_gameObject.m_chararacterController.Move(m_velocity * Time.deltaTime);
+			m_characterController.Move(m_velocity * Time.deltaTime);
 
 			return;
 		}

@@ -6,6 +6,8 @@ namespace GSP.InputHandling
 {
     public interface InputManagerInterface
     {
+		InputMode Mode { get; }
+
         IReadOnlyDictionary<KeyCode, EventSubtype> InputModeKeyMap { get; }
         IReadOnlyDictionary<string, EventSubtype> InputModeAxisMap { get; }
         IReadOnlyDictionary<DualAxis, EventSubtype> InputModeDualAxisMap { get; }

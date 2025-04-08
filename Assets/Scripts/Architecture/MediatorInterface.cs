@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using GSP.Controller;
 using UnityEngine;
 
 namespace GSP.Mediator
 {
     public interface MediatorInterface
     {
-        public Dictionary<MediatedObject, object> GetDict();
+		void Initialize();
 
         object GetObject(
             MediatedObject _object
@@ -18,7 +19,20 @@ namespace GSP.Mediator
             );
 
         void RemoveObject(
-            MediatedObject _object
+            object _object
             );
+
+		HashSet<ControllerComponent> GetGroup(
+			MediatedGroup _group
+			);
+
+		void AddToGroup(
+			MediatedGroup _group,
+			ControllerComponent _object
+			);
+
+		void RemoveFromGroups(
+			ControllerComponent _object
+			);
     }
 }
