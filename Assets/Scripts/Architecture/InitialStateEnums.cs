@@ -13,7 +13,8 @@ namespace GSP.States
 		ProjectileInitialState,
 		ChargeInitialState,
 		TeleportInitialState,
-		GameInitialState
+		GameInitialState,		//one day delete 
+		UIInitialState			//one day delete
 	}
 
 	public class InitialStates
@@ -29,7 +30,8 @@ namespace GSP.States
 				{ InitialState.ProjectileInitialState, typeof(ProjectileIdleState) },
 				{ InitialState.ChargeInitialState, typeof(ChargeIdleState) },
 				{ InitialState.TeleportInitialState, typeof(TeleportListenState) },
-				{ InitialState.GameInitialState, typeof(NormalGameplayState) }
+				{ InitialState.GameInitialState, typeof(NormalGameplayState) },
+				{ InitialState.UIInitialState, typeof(UIClearState) }
 			};
 	}
 }
