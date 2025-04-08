@@ -17,7 +17,7 @@ namespace GSP.States
 		private StateMachineInterface m_stateMachine;
 		private LocalEventHandlerInterface m_handler;
 
-		private Dictionary<GlobalValue, int> m_globalValues = new();
+		private Dictionary<GlobalValue, GlobalValueBundle> m_globalValues = new();
 		private InitialState m_initialState = InitialState.GameInitialState;
 
 		private Dictionary<TimerType, GameTimer> m_timers = new();
@@ -34,8 +34,8 @@ namespace GSP.States
 
 			m_handler.Subscribe(EventArchetype.Input);
 
-			m_globalValues[GlobalValue.PlayerHealth] = 100;
-			m_globalValues[GlobalValue.PlayerCharge] = 0;
+			m_globalValues[GlobalValue.PlayerHealth] = new GlobalValueBundle(0, 100, 100);
+			m_globalValues[GlobalValue.PlayerCharge] = new GlobalValueBundle(0, 6, 0);
 		}
 
 		public void Start()
@@ -74,7 +74,7 @@ namespace GSP.States
 
 			if (m_globalValues.ContainsKey(_attribute))
 			{
-				value = m_globalValues[_attribute];
+				value = m_globalValues[_attribute].Value();
 			}
 			else
 			{
@@ -84,5 +84,17 @@ namespace GSP.States
 			return value;
 		}
 		#nullable disable
+
+		public void AddToValue(GlobalValue _attribute, int _value)
+		{
+			if (m_globalValues.ContainsKey(_attribute))
+			{
+				m_globalValues[_attribute].Add(_value);
+			}
+			else
+			{
+				//error, no such attribute stored
+			}
+		}
 	}
 }

@@ -13,6 +13,8 @@ namespace GSP.States
 		
 		int? GetValue(GlobalValue _attribute);
 
+		void AddToValue(GlobalValue _attribute, int _value);
+
 		void Start();
 
 		void Update();

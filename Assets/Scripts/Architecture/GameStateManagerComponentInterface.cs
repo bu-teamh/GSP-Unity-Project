@@ -10,5 +10,7 @@ namespace GSP.States
 		Type GetGameState();
 
 		int? GetGlobalValue(GlobalValue _attribute);
+
+		void AddToGlobalValue(GlobalValue _attribute, int _value);
 	}
 }

@@ -60,5 +60,10 @@ namespace GSP.States
 			return value;
 		}
 		#nullable disable
+
+		public void AddToGlobalValue(GlobalValue _attribute, int _value)
+		{
+			m_manager.AddToValue(GlobalValue _attribute, int _value);
+		}
 	}
 }
