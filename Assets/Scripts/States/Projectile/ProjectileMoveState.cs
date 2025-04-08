@@ -29,6 +29,8 @@ namespace GSP.States
 		//I might change this dictionary another time to something else as it's very annoying to format
 		protected override void Awake()
 		{
+			base.Awake();
+
 			SetTransition(typeof(ProjectileIdleState), EventArchetype.Internal, EventSubtype.Move, EventFlag.Inactive); // << Like this now!
 		}
 
@@ -46,6 +48,8 @@ namespace GSP.States
 		{
 			//Does base state physics.
 			base.FixedUpdate();
+
+			Debug.Log("projectile fixed update move");
 
 			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
 
@@ -77,7 +81,7 @@ namespace GSP.States
 			}
 			if(nearbyNotProj.Count > 0)
 			{
-				m_thisObject.Destroy();
+				m_thisObject.Remove();
 				Debug.Log("destroyed projectile + " + m_thisObject.name);
 
 				foreach (Collider collider in nearbyNotProj)

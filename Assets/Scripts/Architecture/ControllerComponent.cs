@@ -63,8 +63,11 @@ namespace GSP.Controller
 			m_stateMachine = new StateMachine(this);
 
 			//only should do this if mediated object is delcared otherwise don't do this
-			m_mediator.SetObject(m_declaredMediatedObject, this);
-
+			if (m_declaredMediatedObject != MediatedObject.Unmediated)
+			{
+				m_mediator.SetObject(m_declaredMediatedObject, this);
+			}
+			
 			m_activated = m_liveOnAwake;
 		}
 
@@ -193,7 +196,7 @@ namespace GSP.Controller
 			gameObject.SetActive(true);
 		}
 
-		public void Destroy()
+		public void Remove()
 		{
 			//reset pos and rot to 0,0,0 0,0,0
 			gameObject.SetActive(false);
