@@ -7,7 +7,10 @@ namespace GSP.States
 	public enum GlobalValue
 	{
 		PlayerHealth,
-		PlayerCharge
+		PlayerCharge,
+		InventoryHealth,
+		InventoryRevive,
+		InventoryFuel
 	}
 
 	public struct GlobalValueBundle

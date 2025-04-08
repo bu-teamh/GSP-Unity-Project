@@ -32,10 +32,16 @@ namespace GSP.States
 			m_stateMachine = new StateMachine(this);
 			m_handler = new LocalEventHandler();
 
-			m_handler.Subscribe(EventArchetype.Input);
+			m_handler.Subscribe(EventArchetype.Input); // a cheeky hack because otherwise input events aren't mapped, need to fix
+			m_handler.Subscribe(EventArchetype.GameplayInput);
+			m_handler.Subscribe(EventArchetype.MenuInput);
 
 			m_globalValues[GlobalValue.PlayerHealth] = new GlobalValueBundle(0, 100, 100);
 			m_globalValues[GlobalValue.PlayerCharge] = new GlobalValueBundle(0, 6, 0);
+			m_globalValues[GlobalValue.InventoryHealth] = new GlobalValueBundle(0, 3, 0);
+			m_globalValues[GlobalValue.InventoryRevive] = new GlobalValueBundle(0, 3, 0);
+			m_globalValues[GlobalValue.InventoryFuel] = new GlobalValueBundle(0, 3, 0);
+
 		}
 
 		public void Start()
