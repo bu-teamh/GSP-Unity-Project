@@ -1,6 +1,7 @@
 using GSP.Events;
 using GSP.Controller;
 using UnityEngine;
+using GSP.Timer;
 
 namespace GSP.States
 {
@@ -24,6 +25,9 @@ namespace GSP.States
 				//snap to the calculated position
 				m_thisObject.transform.position = targetPosition;
 			}
+
+			m_fadeoutTimer = new GameTimer(m_fadeTime);
+			m_blackoutTimer = new GameTimer(m_blackoutTime);
 		}
 
 		public override void Update()
@@ -31,15 +35,47 @@ namespace GSP.States
 			//Does base state functionality. 
 			base.Update();
 
+			//start fadeout timer
+			m_fadeoutTimer.Start();
+			m_fadeoutTimer.Lock();
+
+			//send ui fadeout
 			SendEvent(
 				EventPriority.Routine,
-				EventArchetype.Gameplay,
-				EventSubtype.Teleport,
-				EventFlag.None,
-				m_thisObject
+				EventArchetype.UI,
+				EventSubtype.Fade,
+				EventFlag.Out,
+				null,
+				m_fadeTime
 			);
 
-			m_thisObject.Disable();
+			if (m_fadeoutTimer.Check())
+			{
+				m_blackoutTimer.Start();
+			}
+
+			if (m_blackoutTimer.Check())
+			{
+				SendEvent(
+					EventPriority.Routine,
+					EventArchetype.Gameplay,
+					EventSubtype.Teleport,
+					EventFlag.None,
+					m_thisObject
+				);
+
+				SendEvent(
+					EventPriority.Routine,
+					EventArchetype.UI,
+					EventSubtype.Fade,
+					EventFlag.In,
+					null,
+					m_fadeTime
+				);
+
+				m_fadeoutTimer.Unlock();
+				m_thisObject.Disable();
+			}
 
 			return;
 		}

@@ -9,7 +9,7 @@ namespace GSP.Interface
 {
 	public class UIManager : UIManagerInterface, StateBasedEntityInterface
 	{
-		private UIManagerComponent m_component;
+		public UIManagerComponent m_component;
 
 		private StateMachineInterface m_stateMachine;
 		private LocalEventHandlerInterface m_handler;
@@ -28,6 +28,7 @@ namespace GSP.Interface
 			m_stateMachine = new StateMachine(this);
 			m_handler = new LocalEventHandler();
 
+			m_handler.Subscribe(EventArchetype.UI);
 			m_handler.Subscribe(EventArchetype.MenuInput);
 		}
 

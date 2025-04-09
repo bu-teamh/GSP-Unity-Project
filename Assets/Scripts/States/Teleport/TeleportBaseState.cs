@@ -20,6 +20,11 @@ namespace GSP.States
 	public class TeleportBaseState : EntityBaseState
 	{
 		protected float m_heightAboveGround = 1.18f;
+		protected float m_fadeTime = 0.25f;
+		protected float m_blackoutTime = 0.1f;
+
+		protected GameTimer m_fadeoutTimer;
+		protected GameTimer m_blackoutTimer;
 
 		//Constructor doesn't need touching
 		public TeleportBaseState(ControllerComponent _object) : base(_object) { }

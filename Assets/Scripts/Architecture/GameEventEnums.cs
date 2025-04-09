@@ -12,7 +12,8 @@ namespace GSP.Events
 		Gameplay,
 		Trigger,
 		GameplayInput,
-		MenuInput
+		MenuInput,
+		UI
     }
 
     public enum EventPriority
@@ -52,7 +53,11 @@ namespace GSP.Events
 
 		//Trigger
 		Component,
-		VolumeTrigger
+		VolumeTrigger,
+
+		//UI
+		Fade,
+		Clear
     }
 
     public enum EventFlag
@@ -67,6 +72,10 @@ namespace GSP.Events
 
 		//Trigger enums
 		Activate,
-		Deactivate
+		Deactivate,
+
+		//UI
+		Out,
+		In
 	}
 }

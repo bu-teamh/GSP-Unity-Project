@@ -4,6 +4,7 @@ using GSP.Controller;
 using GSP.Mediator;
 using GSP.States;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GSP.Interface
 {
@@ -17,6 +18,9 @@ namespace GSP.Interface
 		public Dictionary<MediatedGroup, HashSet<ControllerComponent>> m_mediatedGroups = new();
 
 		//all the public values for shit that will need to be used by the states
+		public GameObject m_sceneFader;
+
+		public Image m_blackout;
 
 		void Awake()
 		{
@@ -29,6 +33,8 @@ namespace GSP.Interface
 		void Start()
 		{
 			m_mediatedObjects[MediatedObject.GameStateManager] = m_mediator.GetObject(MediatedObject.GameStateManager, this);
+
+			m_interface.Start();
 		}
 
 		// Update is called once per frame

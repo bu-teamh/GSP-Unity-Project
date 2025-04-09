@@ -19,30 +19,38 @@ using Unity.VisualScripting;
 namespace GSP.States
 {
 	//Rename Entity as your gameobject and Behaviour as your chosen state behaviour.
-	public class UIClearState : UIBaseState
+	public class UIFadeInState : UIBaseState
 	{
 		//Constructor doesn't need touching.
-		public UIClearState(UIManager _object) : base(_object) { }
+		public UIFadeInState(UIManager _object) : base(_object) { }
 
 		//Constructor doesn't need touching.
-		public UIClearState(BaseState _state) : base(_state) { }
+		public UIFadeInState(BaseState _state) : base(_state) { }
 
 		//The map where should you go from this state.
 		//I might change this dictionary another time to something else as it's very annoying to format
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(UIFadeOutState), EventArchetype.UI, EventSubtype.Fade, EventFlag.Out);
-		}
-
-		protected override void Awake()
-		{
-			m_thisObject.m_component.m_sceneFader.SetActive(false);
+			SetTransition(typeof(UIClearState), EventArchetype.Internal, EventSubtype.Clear);
 		}
 
 		public override void Update()
 		{
 			//Does base state functionality. 
 			base.Update();
+
+			m_fadeTimer.Unlock();
+			m_fadeTimer.Start();
+
+			Color next = Color.black;
+			next.a = m_fadeTimer.ScaleToTime(1.0f, true);
+
+			m_thisObject.m_component.m_blackout.color = next;
+
+			if (m_fadeTimer.Check())
+			{
+				InternalEvent(EventSubtype.Clear);
+			}
 
 			return;
 		}

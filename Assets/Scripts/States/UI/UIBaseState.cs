@@ -22,6 +22,8 @@ namespace GSP.States
 	{
 		protected new UIManager m_thisObject;
 
+		protected GameTimer m_fadeTimer = new GameTimer(0.25f);
+
 		public UIBaseState(UIManager _object) : base(_object)
 		{
 			m_thisObject = _object;

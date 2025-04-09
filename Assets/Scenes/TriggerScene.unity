@@ -504,6 +504,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5077030372328104344, guid: 346966355ef006a48b60098a83f0f47f,
+        type: 3}
+      propertyPath: m_blackout
+      value: 
+      objectReference: {fileID: 585712592}
+    - target: {fileID: 5077030372328104344, guid: 346966355ef006a48b60098a83f0f47f,
+        type: 3}
+      propertyPath: m_sceneFader
+      value: 
+      objectReference: {fileID: 1832925779}
     - target: {fileID: 6274936940597751060, guid: 346966355ef006a48b60098a83f0f47f,
         type: 3}
       propertyPath: m_LocalPosition.x
