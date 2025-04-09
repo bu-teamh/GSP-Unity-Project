@@ -159,7 +159,7 @@ MonoBehaviour:
   m_declaredMediatedObject: 2
   m_declaredMediatedGroups: 
   m_requestedMediatedObjects: 0100000004000000
-  m_requestedMediatedGroups: 
+  m_requestedMediatedGroups: 00000000
   m_subscribedEvents: 0500000003000000
   m_initialState: 1
   m_characterController: {fileID: 1118109887175884990}
@@ -169,6 +169,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   m_groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_enemyMask:
     serializedVersion: 2
     m_Bits: 0
   m_volume: {fileID: 0}

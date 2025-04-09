@@ -27,6 +27,9 @@ namespace GSP.States
 		{
 			base.FixedUpdate();
 
+			Debug.Log("i died ahhhh");
+			m_thisObject.Remove();
+
 			return;
 		}
 	}

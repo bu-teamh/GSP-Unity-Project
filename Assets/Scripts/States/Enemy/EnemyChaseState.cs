@@ -15,6 +15,8 @@ namespace GSP.States
 		{
 			SetTransition(typeof(EnemyAttackState), EventArchetype.Internal, EventSubtype.PlayerInRange);
 			SetTransition(typeof(EnemyPatrolState), EventArchetype.Internal, EventSubtype.PlayerLost);
+			SetTransition(typeof(EnemyDieState), EventArchetype.Internal, EventSubtype.Death);
+			SetTransition(typeof(EnemyDamagedState), EventArchetype.Internal, EventSubtype.Damaged);
 		}
 
 		public override void Update()

@@ -16,6 +16,11 @@ namespace GSP.States
 			SetTransition(typeof(CompanionAimState), EventArchetype.GameplayInput, EventSubtype.Aim, EventFlag.KeyDown);
 		}
 
+		protected override void Awake()
+		{
+			base.Awake();
+		}
+
 		public override void Update()
 		{
 			base.Update();

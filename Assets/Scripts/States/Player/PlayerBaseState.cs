@@ -19,6 +19,7 @@ namespace GSP.States
 		protected float m_dampingThreshold = 10;
 
 		protected bool m_combatActive;
+		protected bool m_hasDashed;
 
 		protected Vector3 m_velocity = Vector3.zero;
 		protected Quaternion m_targetRot;

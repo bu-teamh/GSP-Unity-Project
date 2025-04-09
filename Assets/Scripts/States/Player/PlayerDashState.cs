@@ -13,8 +13,22 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(PlayerMoveState), EventArchetype.GameplayInput, EventSubtype.Dodge, EventFlag.KeyUp);
-			SetTransition(typeof(PlayerIdleState), EventArchetype.GameplayInput, EventSubtype.Move, EventFlag.KeyUp);
+			SetTransition(m_switchStateMap[SwitchState.Combat], EventArchetype.GameplayInput, EventSubtype.Dodge, EventFlag.KeyUp);
+		}
+
+		protected override void Awake()
+		{
+			base.Awake();
+
+			if (m_inputManager.DualAxisHeld(EventSubtype.Move))
+			{
+				m_switchStateMap[SwitchState.Combat] = typeof(PlayerMoveState);
+			}
+			else
+			{
+				m_switchStateMap[SwitchState.Combat] = typeof(PlayerIdleState);
+				m_velocity = m_thisObject.transform.forward;
+			}
 		}
 
 		public override void Update()
@@ -24,10 +38,37 @@ namespace GSP.States
 			return;
 		}
 
+		public override void React(GameEvent _event)
+		{
+			base.React(_event);
+
+			if (CompareEvent(_event, EventArchetype.Input, EventSubtype.Move, EventFlag.KeyDown))
+			{
+				m_switchStateMap[SwitchState.Combat] = typeof(PlayerMoveState);
+			}
+			else
+			{
+				m_switchStateMap[SwitchState.Combat] = typeof(PlayerIdleState);
+			}
+		}
+
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
-			m_thisObject.m_characterController.Move(m_velocity * 3.0f * Time.deltaTime);
+			if (!m_hasDashed)
+			{
+				m_velocity += m_velocity * m_acceleration * Time.fixedDeltaTime;
+				if (m_velocity.magnitude >= (m_maxSpeed * 2))
+				{
+					m_velocity = Vector3.ClampMagnitude(m_velocity, m_maxSpeed * 2);
+					m_hasDashed = true;
+				}
+			}
+			else if (m_velocity.magnitude > m_maxSpeed)
+			{
+				m_velocity -= m_velocity * Time.fixedDeltaTime;
+			}
+			m_thisObject.m_characterController.Move(m_velocity * Time.fixedDeltaTime);
 
 			return;
 		}

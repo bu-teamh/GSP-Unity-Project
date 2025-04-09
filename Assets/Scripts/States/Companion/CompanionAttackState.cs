@@ -2,6 +2,7 @@ using UnityEngine;
 
 using GSP.Events;
 using GSP.Controller;
+using Unity.VisualScripting.FullSerializer;
 
 namespace GSP.States
 {
@@ -13,6 +14,7 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
+			base.Awake();
 			m_switchStateMap[SwitchState.Combat] = typeof(CompanionCombatState);
 		}
 
@@ -46,11 +48,8 @@ namespace GSP.States
 			base.FixedUpdate();
 
 			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
-			//Collider [] EnemiesInRange = Physics.OverlapSphere(m_gameObject.transform.position, m_attackRange, m_gameObject.m_enemyMask);
-			//foreach (Collider collider in EnemiesInRange)
-			//{
-			//	Debug.Log(collider.name);
-			//}
+
+
 			m_lineRenderer.enabled = false;
 			m_thisObject.m_volume.weight = 0f;
 			Time.timeScale = 1.0f;

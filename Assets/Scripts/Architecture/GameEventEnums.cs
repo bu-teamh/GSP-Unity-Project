@@ -43,6 +43,7 @@ namespace GSP.Events
 		PlayerOutRange,
 		PlayerLost,
 		Death,
+		Damaged,
 
 		//Lifetime enums
 		Disable,

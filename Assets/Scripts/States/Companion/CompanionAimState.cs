@@ -2,6 +2,17 @@ using UnityEngine;
 
 using GSP.Events;
 using GSP.Controller;
+using GSP.Mediator;
+
+using GSP.InputHandling;
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Xml.Linq;
+
+using Unity.VisualScripting;
 
 namespace GSP.States
 {
@@ -21,6 +32,12 @@ namespace GSP.States
 			SetTransition(typeof(CompanionAttackState), EventArchetype.GameplayInput, EventSubtype.Shoot, EventFlag.KeyDown);
 			SetTransition(typeof(CompanionIdleState), EventArchetype.GameplayInput, EventSubtype.Aim, EventFlag.KeyUp);
 		}
+
+		protected override void Awake()
+		{
+			base.Awake();	
+		}
+
 
 		public override void Update()
 		{
@@ -61,7 +78,7 @@ namespace GSP.States
 
 				Vector3 m_direction = intersect - m_thisObject.transform.position;
 
-				//Debug.DrawLine(m_gameObject.transform.position, intersect);
+				Debug.DrawLine(m_thisObject.transform.position, intersect);
 				m_lineRenderer.enabled = true;
 
 				m_lineRenderer.SetPosition(0, m_thisObject.transform.position);

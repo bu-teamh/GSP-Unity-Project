@@ -4,6 +4,8 @@ using UnityEngine;
 
 using GSP.Mediator;
 using GSP.Controller;
+using GSP.Events;
+using GSP.Timer;
 
 namespace GSP.States
 {
@@ -14,10 +16,17 @@ namespace GSP.States
 		protected float m_sightRange = 15.0f;
 		protected float m_attackRange = 5.0f;
 
+		protected float m_health = 100;
+		//protected GameTimer m_stunTimer = new GameTimer(3.0f, true);
+
+		protected LayerMask m_companionMask = LayerMask.GetMask("Companion");
+
 		protected Vector3 m_walkPoint;
 		protected bool m_walkPointSet;
 		protected bool m_alreadyAttacked;
 		protected bool m_hasBuff = true;
+
+		protected bool m_isHurt = false;
 
 		protected int m_timer = 0;
 		protected int m_timerTime = 50;
@@ -48,12 +57,27 @@ namespace GSP.States
 
 		public override void Update()
 		{
-
+			if(m_health <= 0)
+			{
+				InternalEvent(EventSubtype.Death);
+			}
 			return;
 		}
 
 		public override void FixedUpdate()
 		{
+			bool m_compHit = Physics.CheckSphere(m_thisObject.transform.position, 3.0f, m_companionMask);
+			if(m_compHit && m_companion.GetState() == typeof(CompanionAttackState) && !m_isHurt)
+			{
+				Debug.Log("Enemy Hit by Companion");
+				m_health -= 20;
+				//InternalEvent(EventSubtype.Damaged);
+				m_isHurt = true;
+			}
+			else if (!(m_companion.GetState() == typeof(CompanionAttackState)))
+			{
+				m_isHurt = false;
+			}
 
 		}
 	}

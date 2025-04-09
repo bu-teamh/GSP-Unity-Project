@@ -13,6 +13,7 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
+			base.Awake();
 			m_maxDist = 4.0f;
 			m_minDist = 2.0f;
 			m_maxSpeed = 27.5f;
