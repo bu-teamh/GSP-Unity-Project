@@ -13,8 +13,9 @@ namespace GSP.States
 		ProjectileInitialState,
 		ChargeInitialState,
 		TeleportInitialState,
-		GameInitialState,		//one day delete 
-		UIInitialState			//one day delete
+		GameInitialState,					//one day delete, doesnt need assigning in inspector
+		UIInitialState,						//one day delete, doesnt need assigning in inspector
+		UnboundMainCameraInitialState		//legacy unbound camera, one day delete
 	}
 
 	public class InitialStates
@@ -26,12 +27,13 @@ namespace GSP.States
 				{ InitialState.CompanionInitialState, typeof(CompanionFollowState) },
 				{ InitialState.MainCameraTargetInitialState, typeof(MainCameraTargetFollowState) },
 				{ InitialState.MainCameraInitialState, typeof(MainCameraPassiveState) },
+				{ InitialState.UnboundMainCameraInitialState, typeof(UnboundMainCameraPassiveState) },		//legacy
 				{ InitialState.EnemyInitialState, typeof(EnemyPatrolState) },
 				{ InitialState.ProjectileInitialState, typeof(ProjectileIdleState) },
 				{ InitialState.ChargeInitialState, typeof(ChargeIdleState) },
 				{ InitialState.TeleportInitialState, typeof(TeleportListenState) },
-				{ InitialState.GameInitialState, typeof(NormalGameplayState) },
-				{ InitialState.UIInitialState, typeof(UIClearState) }
+				{ InitialState.GameInitialState, typeof(NormalGameplayState) },								//get rid
+				{ InitialState.UIInitialState, typeof(UIClearState) }										//get rid
 			};
 	}
 }
