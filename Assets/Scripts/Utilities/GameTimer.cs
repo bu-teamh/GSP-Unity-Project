@@ -44,7 +44,7 @@ namespace GSP.Timer
 			return finished;
 		}
 
-		public float SlidingScale(float _max)
+		public float ScaleToTime(float _max, bool _inverse = false)
 		{
 			float progress = 0.0f;
 
@@ -54,6 +54,11 @@ namespace GSP.Timer
 
 				progress = (now - m_startTime) / m_endTime;
 				progress = Mathf.Clamp01(progress);
+			}
+
+			if (_inverse)
+			{
+				progress = 1.0f - progress;
 			}
 
 			return _max * progress;
