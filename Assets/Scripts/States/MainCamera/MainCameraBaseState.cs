@@ -50,8 +50,6 @@ namespace GSP.States
 					teleport.transform.position.y + m_currentCamDist * m_heightMultiplier,
 					(teleport.transform.position.z + 1) - m_currentCamDist
 				);
-
-				m_thisObject.m_characterController.enabled = true;
 			}
 		}
 
