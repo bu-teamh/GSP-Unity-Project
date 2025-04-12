@@ -55,6 +55,10 @@ namespace GSP.States
 			{
 				if(collider.GetComponentInParent<ControllerComponent>() == m_player)
 				{
+					if(m_player.GetState() == typeof(PlayerDefendState))
+					{
+						Debug.Log("Defended");
+					}
 					//Debug.Log("Hit Player");
 				}
 				

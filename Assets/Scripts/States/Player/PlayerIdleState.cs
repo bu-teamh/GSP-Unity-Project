@@ -15,6 +15,7 @@ namespace GSP.States
 		{
 			SetTransition(typeof(PlayerMoveState), EventArchetype.GameplayInput, EventSubtype.Move, EventFlag.KeyDown);
 			SetTransition(typeof(PlayerDashState), EventArchetype.GameplayInput, EventSubtype.Dodge, EventFlag.KeyDown);
+			SetTransition(typeof(PlayerDefendState), EventArchetype.GameplayInput, EventSubtype.Defend, EventFlag.KeyDown);
 		}
 
 		public override void Update()

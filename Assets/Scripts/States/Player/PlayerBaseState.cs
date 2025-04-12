@@ -21,6 +21,9 @@ namespace GSP.States
 		protected bool m_combatActive;
 		protected bool m_hasDashed;
 
+		protected MeshRenderer m_defendSphereRenderer;
+
+
 		protected Vector3 m_velocity = Vector3.zero;
 		protected Quaternion m_targetRot;
 
@@ -39,7 +42,8 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
-
+			GameObject m_defendSphere = GameObject.Find("Defend Sphere");
+			m_defendSphereRenderer = m_defendSphere.GetComponent<MeshRenderer>();
 		}
 
 		public override void Update()
@@ -66,6 +70,8 @@ namespace GSP.States
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
+
+			m_defendSphereRenderer.enabled = false;
 
 			//rotation, always calculated
 			if (m_velocity != Vector3.zero)

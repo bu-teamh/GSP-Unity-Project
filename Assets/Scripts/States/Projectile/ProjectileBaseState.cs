@@ -17,6 +17,8 @@ namespace GSP.States
 		protected HashSet<ControllerComponent> m_enemies;
 		protected HashSet<ControllerComponent> m_projectiles;
 
+	
+
 		public ProjectileBaseState(ControllerComponent _object) : base(_object) { }
 
 		public ProjectileBaseState(BaseState _state) : base(_state) { }

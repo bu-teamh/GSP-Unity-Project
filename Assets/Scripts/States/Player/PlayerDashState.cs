@@ -14,6 +14,7 @@ namespace GSP.States
 		protected override void InitializeMap()
 		{
 			SetTransition(m_switchStateMap[SwitchState.Combat], EventArchetype.GameplayInput, EventSubtype.Dodge, EventFlag.KeyUp);
+			SetTransition(typeof(PlayerDefendState), EventArchetype.GameplayInput, EventSubtype.Defend, EventFlag.KeyDown);
 		}
 
 		protected override void Awake()
@@ -60,13 +61,17 @@ namespace GSP.States
 				m_velocity += m_velocity * m_acceleration * Time.fixedDeltaTime;
 				if (m_velocity.magnitude >= (m_maxSpeed * 2))
 				{
-					m_velocity = Vector3.ClampMagnitude(m_velocity, m_maxSpeed * 2);
 					m_hasDashed = true;
 				}
 			}
-			else if (m_velocity.magnitude > m_maxSpeed)
+
+			if (m_velocity.magnitude > m_maxSpeed && m_hasDashed)
 			{
 				m_velocity -= m_velocity * Time.fixedDeltaTime;
+			}
+			else
+			{
+				m_hasDashed = false;
 			}
 			m_thisObject.m_characterController.Move(m_velocity * Time.fixedDeltaTime);
 

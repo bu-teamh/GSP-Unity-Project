@@ -31,9 +31,19 @@ namespace GSP.States
 		{
 			base.FixedUpdate();
 
-			Vector3 direction = m_thisObject.transform.position - m_companion.transform.position;
+			Vector3 direction = m_thisObject.transform.position - m_companion.transform.localPosition;
 
-			m_thisObject.transform.position = direction * Time.fixedDeltaTime;
+			//m_thisObject.transform.position = direction * Time.fixedDeltaTime;
+			m_thisObject.transform.position = m_thisObject.transform.position  - (m_thisObject.transform.forward) * Time.fixedDeltaTime;
+
+			m_stunTimer.Start();
+			m_stunTimer.Lock();
+
+			if(m_stunTimer.Check())
+			{
+				InternalEvent(EventSubtype.PlayerLost);
+				m_stunTimer.Unlock();
+			}
 
 			return;
 		}
