@@ -23,20 +23,21 @@ namespace GSP.States
 		{
 			base.Awake();
 
-			m_stunTimer = new GameTimer(m_stunTime);
+			m_stunTime -= m_confidenceLevel;
+			m_Timer = new GameTimer(m_stunTime);
 		}
 
 		public override void Update()
 		{
 			base.Update();
 
-			m_stunTimer.Start();
-			m_stunTimer.Lock();
+			m_Timer.Start();
+			m_Timer.Lock();
 
-			if (m_stunTimer.Check())
+			if (m_Timer.Check())
 			{
-				InternalEvent(EventSubtype.PlayerLost);
-				m_stunTimer.Unlock();
+				InternalEvent(EventSubtype.PlayerSpotted);
+				m_Timer.Unlock();
 			}
 
 			return;

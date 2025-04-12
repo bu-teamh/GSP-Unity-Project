@@ -19,7 +19,10 @@ namespace GSP.States
 		protected float m_health = 100;
 
 		protected float m_stunTime = 2.0f;
-		protected GameTimer m_stunTimer;
+		protected float m_bashTime = 1.0f;
+		protected GameTimer m_Timer;
+
+		protected int m_confidenceLevel = UnityEngine.Random.Range(0,3); // 0: Coward, 1: Wary, 2: Confident
 
 		protected LayerMask m_companionMask = LayerMask.GetMask("Companion");
 
@@ -55,6 +58,7 @@ namespace GSP.States
 		protected override void Awake()
 		{
 			if(m_attackType == 1) { m_attackRange = m_sightRange; }
+			Debug.Log("confidence " + m_confidenceLevel);
 		}
 
 		public override void Update()
