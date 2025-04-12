@@ -6,6 +6,7 @@ using GSP.Mediator;
 using GSP.Controller;
 using GSP.Events;
 using GSP.InputHandling;
+using GSP.Timer;
 
 namespace GSP.States
 {
@@ -19,6 +20,9 @@ namespace GSP.States
 		protected float m_dampingThreshold = 10;
 
 		protected bool m_combatActive;
+
+		protected GameTimer m_dashTimer;
+		protected float m_dashTime = 0.5f;
 		protected bool m_hasDashed;
 
 		protected MeshRenderer m_defendSphereRenderer;

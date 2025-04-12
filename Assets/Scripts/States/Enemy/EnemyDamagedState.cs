@@ -2,6 +2,7 @@ using UnityEngine;
 
 using GSP.Events;
 using GSP.Controller;
+using GSP.Timer;
 
 namespace GSP.States
 {
@@ -18,32 +19,37 @@ namespace GSP.States
 			SetTransition(typeof(EnemyDieState), EventArchetype.Internal, EventSubtype.Death);
 		}
 
+		protected override void Awake()
+		{
+			base.Awake();
+
+			m_stunTimer = new GameTimer(m_stunTime);
+		}
+
 		public override void Update()
 		{
 			base.Update();
 
+			m_stunTimer.Start();
+			m_stunTimer.Lock();
 
+			if (m_stunTimer.Check())
+			{
+				InternalEvent(EventSubtype.PlayerLost);
+				m_stunTimer.Unlock();
+			}
 
 			return;
 		}
 
 		public override void FixedUpdate()
-		{
+		{ 
 			base.FixedUpdate();
 
-			Vector3 direction = m_thisObject.transform.position - m_companion.transform.localPosition;
+			Vector3 direction = m_companion.transform.position - m_thisObject.transform.position;
 
 			//m_thisObject.transform.position = direction * Time.fixedDeltaTime;
-			m_thisObject.transform.position = m_thisObject.transform.position  - (m_thisObject.transform.forward) * Time.fixedDeltaTime;
-
-			m_stunTimer.Start();
-			m_stunTimer.Lock();
-
-			if(m_stunTimer.Check())
-			{
-				InternalEvent(EventSubtype.PlayerLost);
-				m_stunTimer.Unlock();
-			}
+			m_thisObject.m_characterController.Move(direction * Time.fixedDeltaTime);
 
 			return;
 		}

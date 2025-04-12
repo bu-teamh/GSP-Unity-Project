@@ -17,7 +17,9 @@ namespace GSP.States
 		protected float m_attackRange = 5.0f;
 
 		protected float m_health = 100;
-		protected GameTimer m_stunTimer = new GameTimer(3.0f, true);
+
+		protected float m_stunTime = 2.0f;
+		protected GameTimer m_stunTimer;
 
 		protected LayerMask m_companionMask = LayerMask.GetMask("Companion");
 

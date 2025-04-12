@@ -2,6 +2,7 @@ using UnityEngine;
 
 using GSP.Controller;
 using GSP.Events;
+using GSP.Timer;
 
 namespace GSP.States
 {
@@ -13,7 +14,7 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			SetTransition(m_switchStateMap[SwitchState.Combat], EventArchetype.GameplayInput, EventSubtype.Dodge, EventFlag.KeyUp);
+			SetTransition(m_switchStateMap[SwitchState.Combat], EventArchetype.Internal, EventSubtype.Dodge, EventFlag.KeyUp);
 			SetTransition(typeof(PlayerDefendState), EventArchetype.GameplayInput, EventSubtype.Defend, EventFlag.KeyDown);
 		}
 
@@ -30,11 +31,20 @@ namespace GSP.States
 				m_switchStateMap[SwitchState.Combat] = typeof(PlayerIdleState);
 				m_velocity = m_thisObject.transform.forward;
 			}
+
+			m_dashTimer = new GameTimer(m_dashTime);
 		}
 
 		public override void Update()
 		{
 			base.Update();
+			m_dashTimer.Start();
+			m_dashTimer.Lock();
+
+			if(m_dashTimer.Check())
+			{
+				InternalEvent(EventSubtype.Dodge, EventFlag.KeyUp);
+			}
 
 			return;
 		}
@@ -59,7 +69,7 @@ namespace GSP.States
 			if (!m_hasDashed)
 			{
 				m_velocity += m_velocity * m_acceleration * Time.fixedDeltaTime;
-				if (m_velocity.magnitude >= (m_maxSpeed * 2))
+				if (m_velocity.magnitude >= (m_maxSpeed * 1.5))
 				{
 					m_hasDashed = true;
 				}
