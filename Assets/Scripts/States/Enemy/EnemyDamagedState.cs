@@ -23,8 +23,8 @@ namespace GSP.States
 		{
 			base.Awake();
 
-			m_stunTime -= m_confidenceLevel;
 			m_Timer = new GameTimer(m_stunTime);
+
 		}
 
 		public override void Update()

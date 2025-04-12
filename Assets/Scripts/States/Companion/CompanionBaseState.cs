@@ -9,6 +9,7 @@ using UnityEngine;
 
 using GSP.Mediator;
 using GSP.Controller;
+using GSP.Timer;
 
 namespace GSP.States
 {
@@ -33,7 +34,9 @@ namespace GSP.States
 		protected float m_hovHeight = 3.0f;
 
 		// this is for companion physics sphere (WIP)
-		protected float m_attackRange = 5.0f;  
+		protected float m_attackRange = 5.0f;
+		protected float m_attackTime = 0.3f;
+		protected GameTimer m_timer;
 
 		//stored stuff (physics, not globals)
 		protected Vector3 m_velocity = Vector3.zero;

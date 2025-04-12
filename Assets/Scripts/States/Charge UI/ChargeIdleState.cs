@@ -30,7 +30,7 @@ namespace GSP.States
 		//I might change this dictionary another time to something else as it's very annoying to format
 		protected override void Awake()
 		{
-
+			base.Awake();
 		}
 
 		public override void Update()

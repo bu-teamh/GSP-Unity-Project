@@ -21,6 +21,7 @@ namespace GSP.States
 		protected float m_stunTime = 2.0f;
 		protected float m_bashTime = 1.0f;
 		protected GameTimer m_Timer;
+		protected Vector3 m_pushDirection;
 
 		protected int m_confidenceLevel = UnityEngine.Random.Range(0,3); // 0: Coward, 1: Wary, 2: Confident
 
@@ -58,7 +59,6 @@ namespace GSP.States
 		protected override void Awake()
 		{
 			if(m_attackType == 1) { m_attackRange = m_sightRange; }
-			Debug.Log("confidence " + m_confidenceLevel);
 		}
 
 		public override void Update()
@@ -76,7 +76,6 @@ namespace GSP.States
 			if(m_compHit && m_companion.GetState() == typeof(CompanionAttackState) && !m_isHurt)
 			{
 				m_isHurt = true;
-				Debug.Log("Enemy Hit by Companion");
 				m_health -= 20;
 				InternalEvent(EventSubtype.Damaged);
 			}

@@ -22,7 +22,7 @@ namespace GSP.States
 		protected bool m_combatActive;
 
 		protected GameTimer m_dashTimer;
-		protected float m_dashTime = 0.5f;
+		protected float m_dashTime = 0.3f;
 		protected bool m_hasDashed;
 
 		protected MeshRenderer m_defendSphereRenderer;

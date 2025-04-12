@@ -3,6 +3,7 @@ using UnityEngine;
 using GSP.Events;
 using GSP.Controller;
 using Unity.VisualScripting.FullSerializer;
+using GSP.Timer;
 
 namespace GSP.States
 {
@@ -16,16 +17,25 @@ namespace GSP.States
 		{
 			base.Awake();
 			m_switchStateMap[SwitchState.Combat] = typeof(CompanionCombatState);
+			m_timer = new GameTimer(m_attackTime);
 		}
 
 		protected override void InitializeMap()
 		{
-			SetTransition(m_switchStateMap[SwitchState.Combat], EventArchetype.GameplayInput, EventSubtype.Shoot, EventFlag.KeyUp);
+			SetTransition(m_switchStateMap[SwitchState.Combat], EventArchetype.Internal, EventSubtype.Shoot, EventFlag.KeyUp);
 		}
 
 		public override void Update()
 		{
 			base.Update();
+			m_timer.Start();
+			m_timer.Lock();
+
+			if(m_timer.Check())
+			{
+				InternalEvent(EventSubtype.Shoot, EventFlag.KeyUp);
+				m_timer.Unlock();
+			}
 
 			return;
 		}
