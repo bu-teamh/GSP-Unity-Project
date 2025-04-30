@@ -16,6 +16,7 @@ namespace GSP.States
 			SetTransition(typeof(EnemyChaseState), EventArchetype.Internal, EventSubtype.PlayerOutRange);
 			SetTransition(typeof(EnemyDieState), EventArchetype.Internal, EventSubtype.Death);
 			SetTransition(typeof(EnemyDamagedState), EventArchetype.Internal, EventSubtype.Damaged);
+			SetTransition(typeof(EnemyBashState), EventArchetype.Internal, EventSubtype.Shoot);
 		}
 
 
@@ -69,6 +70,7 @@ namespace GSP.States
 			if(m_attackType == 0)
 			{
 				//Debug.Log("Melee Attack");
+				InternalEvent(EventSubtype.Shoot);
 			}
 			else
 			{

@@ -19,7 +19,8 @@ namespace GSP.States
 		protected float m_health = 100;
 
 		protected float m_stunTime = 2.0f;
-		protected float m_bashTime = 1.0f;
+		protected float m_bashWaitTime = 1.0f;
+		protected float m_bashTime = 2.0f;
 		protected GameTimer m_Timer;
 		protected Vector3 m_pushDirection;
 
@@ -33,6 +34,7 @@ namespace GSP.States
 		protected bool m_hasBuff = true;
 
 		protected bool m_isHurt = false;
+		protected bool m_isDashing = false;
 
 		protected int m_timer = 0;
 		protected int m_timerTime = 50;
