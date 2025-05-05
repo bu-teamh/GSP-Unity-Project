@@ -33,7 +33,7 @@ namespace GSP.States
 
 		protected InputManagerComponentInterface m_inputManager;
 		protected HashSet<ControllerComponent> m_enemies;
-
+		protected GameStateManagerComponentInterface m_gameStateManager;
 		public PlayerBaseState(ControllerComponent _object) : base(_object) { }
 
 		public PlayerBaseState(BaseState _state) : base(_state) { }
@@ -42,6 +42,7 @@ namespace GSP.States
 		{
 			m_inputManager = (InputManagerComponentInterface)m_thisObject.m_mediatedObjects[MediatedObject.InputManager];
 			m_enemies = m_thisObject.m_mediatedGroups[MediatedGroup.Enemies];
+			m_gameStateManager = (GameStateManagerComponentInterface)m_thisObject.m_mediatedObjects[MediatedObject.GameStateManager];
 		}
 
 		protected override void Awake()
@@ -53,6 +54,11 @@ namespace GSP.States
 		public override void Update()
 		{
 			base.Update();
+
+			if(m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth) <= 0)
+			{
+				InternalEvent(EventSubtype.Death);
+			}
 
 			return;
 		}
