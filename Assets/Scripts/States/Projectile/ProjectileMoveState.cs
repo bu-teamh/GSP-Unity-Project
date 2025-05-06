@@ -59,6 +59,10 @@ namespace GSP.States
 					{
 						Debug.Log("Defended");
 					}
+					else
+					{
+						m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, 20);
+					}
 					//Debug.Log("Hit Player");
 				}
 				

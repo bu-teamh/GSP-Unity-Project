@@ -27,6 +27,8 @@ namespace GSP.States
 		{
 			base.Update();
 
+			Debug.Log("player died");
+
 			return;
 		}
 

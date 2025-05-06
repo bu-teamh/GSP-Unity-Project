@@ -16,6 +16,7 @@ namespace GSP.States
 		{
 			SetTransition(m_switchStateMap[SwitchState.Combat], EventArchetype.Internal, EventSubtype.Dodge, EventFlag.KeyUp);
 			SetTransition(typeof(PlayerDefendState), EventArchetype.GameplayInput, EventSubtype.Defend, EventFlag.KeyDown);
+			SetTransition(typeof(PlayerDeathState), EventArchetype.Internal, EventSubtype.Death);
 		}
 
 		protected override void Awake()

@@ -45,6 +45,7 @@ namespace GSP.States
 		protected NavMeshComponent m_navMesh;
 		protected GameObject m_projectilePrefab = Resources.Load<GameObject>("Projectile");
 		protected HashSet<ControllerComponent> m_projectiles = new HashSet<ControllerComponent>();
+		protected GameStateManagerComponentInterface m_gameStateManager;
 
 		public EnemyBaseState(ControllerComponent _object) : base(_object) { }
 
@@ -56,6 +57,7 @@ namespace GSP.States
 			m_companion = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Companion];
 			m_navMesh = (NavMeshComponent)m_thisObject.m_mediatedObjects[MediatedObject.NavMesh];
 			m_projectiles = m_thisObject.m_mediatedGroups[MediatedGroup.Projectiles];
+			m_gameStateManager = (GameStateManagerComponentInterface)m_thisObject.m_mediatedObjects[MediatedObject.GameStateManager];
 		}
 
 		protected override void Awake()

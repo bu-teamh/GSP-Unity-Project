@@ -55,6 +55,8 @@ namespace GSP.States
 		{
 			base.Update();
 
+			//Debug.Log(m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth));
+
 			if(m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth) <= 0)
 			{
 				InternalEvent(EventSubtype.Death);

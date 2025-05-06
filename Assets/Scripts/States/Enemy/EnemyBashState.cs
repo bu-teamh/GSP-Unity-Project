@@ -53,6 +53,7 @@ namespace GSP.States
 			if (Physics.CheckSphere(m_thisObject.transform.position, 1.0f, m_thisObject.m_playerMask))
 			{
 				Debug.Log("i hit player ok");
+				m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -20);
 				m_isDashing = false;
 				//m_thisObject.m_agent.speed /= 2;
 				InternalEvent(EventSubtype.PlayerOutRange);

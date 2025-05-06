@@ -17,6 +17,8 @@ namespace GSP.States
 		protected HashSet<ControllerComponent> m_enemies;
 		protected HashSet<ControllerComponent> m_projectiles;
 
+		protected GameStateManagerComponentInterface m_gameStateManager;
+
 	
 
 		public ProjectileBaseState(ControllerComponent _object) : base(_object) { }
@@ -25,6 +27,7 @@ namespace GSP.States
 
 		protected override void GetMediations()
 		{
+			m_gameStateManager = (GameStateManagerComponentInterface)m_thisObject.m_mediatedObjects[MediatedObject.GameStateManager];
 			m_player = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Player];
 			m_enemies = m_thisObject.m_mediatedGroups[MediatedGroup.Enemies];
 			m_projectiles = m_thisObject.m_mediatedGroups[MediatedGroup.Projectiles];
