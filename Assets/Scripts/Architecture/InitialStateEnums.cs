@@ -15,7 +15,8 @@ namespace GSP.States
 		TeleportInitialState,
 		GameInitialState,					//one day delete, doesnt need assigning in inspector
 		UIInitialState,						//one day delete, doesnt need assigning in inspector
-		UnboundMainCameraInitialState		//legacy unbound camera, one day delete
+		UnboundMainCameraInitialState,		//legacy unbound camera, one day delete
+		MandelaInitialState
 	}
 
 	public class InitialStates
@@ -33,7 +34,8 @@ namespace GSP.States
 				{ InitialState.ChargeInitialState, typeof(ChargeIdleState) },
 				{ InitialState.TeleportInitialState, typeof(TeleportListenState) },
 				{ InitialState.GameInitialState, typeof(NormalGameplayState) },								//get rid
-				{ InitialState.UIInitialState, typeof(UIClearState) }										//get rid
+				{ InitialState.UIInitialState, typeof(UIClearState) },                                       //get rid
+				{ InitialState.MandelaInitialState, typeof(MandelaBaseState) }
 			};
 	}
 }
