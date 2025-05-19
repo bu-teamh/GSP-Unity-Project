@@ -59,11 +59,7 @@
         }
     ],
     "m_GroupDatas": [],
-    "m_StickyNoteDatas": [
-        {
-            "m_Id": "0281c66dccc347b0afbf8ea69bb6ba6f"
-        }
-    ],
+    "m_StickyNoteDatas": [],
     "m_Edges": [
         {
             "m_OutputSlot": {
@@ -170,26 +166,6 @@
             "m_Id": "15bddc20b83047de860ac57ef5fb682d"
         }
     ]
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "0281c66dccc347b0afbf8ea69bb6ba6f",
-    "m_Title": "LightOnly + Shadow",
-    "m_Content": "Renders every object in plain white, with shadow,\nas a pass in the render pipeline.\nThe result is blitted to a render texture in order to manipulate the shades and shadows in the moebius shader\nCombined with the \"no shadow\" sister shader, I can manage shades and shadows independently",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": -558.0,
-        "y": 98.0,
-        "width": 376.66668701171877,
-        "height": 183.99998474121095
-    },
-    "m_Group": {
-        "m_Id": ""
-    }
 }
 
 {

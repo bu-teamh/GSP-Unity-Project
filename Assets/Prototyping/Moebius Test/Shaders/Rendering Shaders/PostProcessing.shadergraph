@@ -146,23 +146,7 @@
         }
     ],
     "m_GroupDatas": [],
-    "m_StickyNoteDatas": [
-        {
-            "m_Id": "eabeb9c4bc3241438029a5dce713723d"
-        },
-        {
-            "m_Id": "dcbd8d7ae0784275ac9a17c0606d3462"
-        },
-        {
-            "m_Id": "b32a5d48a2e744b6a42aef309d285c29"
-        },
-        {
-            "m_Id": "e8a762f8c4d245c1837a55c161702bf7"
-        },
-        {
-            "m_Id": "6b3849ef547f4048b23a0b16083ee59f"
-        }
-    ],
+    "m_StickyNoteDatas": [],
     "m_Edges": [
         {
             "m_OutputSlot": {
@@ -2766,26 +2750,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "6b3849ef547f4048b23a0b16083ee59f",
-    "m_Title": "Gamma",
-    "m_Content": "Write something here",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": -688.0,
-        "y": -32.66666793823242,
-        "width": 200.00003051757813,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
-    }
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "6b424aa2c5ac475597d22558ca8da72b",
     "m_Id": 2,
@@ -4110,26 +4074,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "b32a5d48a2e744b6a42aef309d285c29",
-    "m_Title": "Brightness",
-    "m_Content": "Write something here",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": -2040.666748046875,
-        "y": -148.0,
-        "width": 200.0,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
-    }
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "b9b87139b9a54e81a5aac2dd6793fb56",
     "m_Id": 2,
@@ -4463,26 +4407,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "dcbd8d7ae0784275ac9a17c0606d3462",
-    "m_Title": "Contrast",
-    "m_Content": "Write something here",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": -2632.66650390625,
-        "y": -43.333335876464847,
-        "width": 200.0,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
-    }
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicValueMaterialSlot",
     "m_ObjectId": "e09a9099aec24f6988fe3888622d8684",
     "m_Id": 1,
@@ -4623,46 +4547,6 @@
         "y": 0.0
     },
     "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "e8a762f8c4d245c1837a55c161702bf7",
-    "m_Title": "Saturation",
-    "m_Content": "Write something here",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": -1522.666748046875,
-        "y": -647.3333740234375,
-        "width": 200.0,
-        "height": 160.00003051757813
-    },
-    "m_Group": {
-        "m_Id": ""
-    }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "eabeb9c4bc3241438029a5dce713723d",
-    "m_Title": "Film Grain",
-    "m_Content": "Write something here",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": -5550.18017578125,
-        "y": 480.0895080566406,
-        "width": 200.0,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
-    }
 }
 
 {

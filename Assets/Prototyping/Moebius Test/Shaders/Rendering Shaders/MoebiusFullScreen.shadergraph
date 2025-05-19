@@ -531,38 +531,7 @@
         }
     ],
     "m_GroupDatas": [],
-    "m_StickyNoteDatas": [
-        {
-            "m_Id": "a52b64d9eea84f5abdb1c7c56a7f0420"
-        },
-        {
-            "m_Id": "d332a982f5eb4117ae609c03b781ba8b"
-        },
-        {
-            "m_Id": "17f7706a242e4246987f5cdd08fd3f56"
-        },
-        {
-            "m_Id": "7a5c95e259ce421791486375bd6b4be6"
-        },
-        {
-            "m_Id": "c0473b0ec0004ccd8783e7a0883ed43b"
-        },
-        {
-            "m_Id": "a083f6afb9b64dfd89d56e9e71ebe4ff"
-        },
-        {
-            "m_Id": "ba1a2009c4a44537bebd593555ca741e"
-        },
-        {
-            "m_Id": "ef3371981b664c75bfac57f03cd21fcc"
-        },
-        {
-            "m_Id": "4208a2a076344fafb3cf158af087128e"
-        },
-        {
-            "m_Id": "a9ec7ca1ab214e3fa7b784911c499d5e"
-        }
-    ],
+    "m_StickyNoteDatas": [],
     "m_Edges": [
         {
             "m_OutputSlot": {
@@ -4126,26 +4095,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "17f7706a242e4246987f5cdd08fd3f56",
-    "m_Title": "Shade & Shadow",
-    "m_Content": "Shade and shadows are provided by these two textures (rendered early in the pipeline) in order to manipulate them independently.\nThis way I can have shadows at 20% strength while shade is at 60% strength for instance\n",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": 19.0,
-        "y": 1158.0,
-        "width": 344.8999938964844,
-        "height": 179.550048828125
-    },
-    "m_Group": {
-        "m_Id": ""
-    }
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.AddNode",
     "m_ObjectId": "1805e3ae06404389ac841fb447d79dbe",
     "m_Group": {
@@ -6459,26 +6408,6 @@
         "e31": 0.0,
         "e32": 0.0,
         "e33": 1.0
-    }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "4208a2a076344fafb3cf158af087128e",
-    "m_Title": "Color change",
-    "m_Content": "Everything at full brightness",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": 6124.0,
-        "y": 280.0,
-        "width": 200.0,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
     }
 }
 
@@ -10266,26 +10195,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "7a5c95e259ce421791486375bd6b4be6",
-    "m_Title": "Shadow outline",
-    "m_Content": "This is an attempt at outlining the shadows like moebius does.\nEnded up not using it",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": 818.0,
-        "y": 217.0,
-        "width": 200.0,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
-    }
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "7b14913939c2428a9c8670bfc9ba20fe",
     "m_Id": 1,
@@ -12638,26 +12547,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "a083f6afb9b64dfd89d56e9e71ebe4ff",
-    "m_Title": "A bunch of convolution filters",
-    "m_Content": "Mostly Depth Sobel and Normal Sobel.\nTo see what's inside these custom functions check out EdgeDetectionOutlineInclude.hlsl",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": 3420.0,
-        "y": -329.0,
-        "width": 442.017578125,
-        "height": 138.8050079345703
-    },
-    "m_Group": {
-        "m_Id": ""
-    }
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "a17cd48aa02c48b6939ed9ba37f77725",
     "m_Id": 0,
@@ -12972,26 +12861,6 @@
         "m_SerializableColors": []
     },
     "m_BlendMode": 21
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "a52b64d9eea84f5abdb1c7c56a7f0420",
-    "m_Title": "Noise",
-    "m_Content": "To get wiggly lines",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": -2104.0,
-        "y": -1656.0,
-        "width": 200.0,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
-    }
 }
 
 {
@@ -13316,26 +13185,6 @@
     },
     "m_Property": {
         "m_Id": "c9dfdf0a4291441bbf96b31a40980e4f"
-    }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "a9ec7ca1ab214e3fa7b784911c499d5e",
-    "m_Title": "Finally",
-    "m_Content": "let's get out of here",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": 10363.0,
-        "y": 195.0,
-        "width": 200.0,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
     }
 }
 
@@ -14431,26 +14280,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "ba1a2009c4a44537bebd593555ca741e",
-    "m_Title": "Color toggle",
-    "m_Content": "Booleans overseeing the toggling of colors when the player enters a portal",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": 7512.0,
-        "y": -230.0,
-        "width": 200.0,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
-    }
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicValueMaterialSlot",
     "m_ObjectId": "ba6ab050a4804fdeaa08c8b1629042f7",
     "m_Id": 1,
@@ -14937,26 +14766,6 @@
         "y": 0.0,
         "z": 0.0,
         "w": 0.0
-    }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "c0473b0ec0004ccd8783e7a0883ed43b",
-    "m_Title": "Crosshatch",
-    "m_Content": "All of this is crosshatch. For a better understanding check out the ChannelSplit shader graph, it's the same but without everything else",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": 3118.0,
-        "y": 1838.0,
-        "width": 328.54443359375,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
     }
 }
 
@@ -16350,26 +16159,6 @@
         "w": 0.0
     },
     "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "d332a982f5eb4117ae609c03b781ba8b",
-    "m_Title": "An attempt at noisy line thickness",
-    "m_Content": "To try and emulate the variation of pressure of the pen on paper.\nNot very successful so I disabled it.",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": 828.0,
-        "y": -3082.0,
-        "width": 465.0,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
-    }
 }
 
 {
@@ -18259,26 +18048,6 @@
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
-    }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "ef3371981b664c75bfac57f03cd21fcc",
-    "m_Title": "Other shadows",
-    "m_Content": "This is a different version of the shadows without crosshatch but I ended up not using them",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": 8885.0,
-        "y": 892.0,
-        "width": 200.0,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
     }
 }
 

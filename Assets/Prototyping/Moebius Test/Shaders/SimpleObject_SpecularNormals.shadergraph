@@ -303,17 +303,7 @@
         }
     ],
     "m_GroupDatas": [],
-    "m_StickyNoteDatas": [
-        {
-            "m_Id": "82d8ab4f590c49cdbcf4da0ec95261a6"
-        },
-        {
-            "m_Id": "1e8b2adc7922458fbb7b4461515063ad"
-        },
-        {
-            "m_Id": "c6116ea9394f4d42b929038d69779302"
-        }
-    ],
+    "m_StickyNoteDatas": [],
     "m_Edges": [
         {
             "m_OutputSlot": {
@@ -2567,26 +2557,6 @@
         "e31": 0.0,
         "e32": 0.0,
         "e33": 1.0
-    }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "1e8b2adc7922458fbb7b4461515063ad",
-    "m_Title": "Specular Reflection",
-    "m_Content": "Although multiple people pointed out in the comments that these aren't technically specular reflections.\nThey're the white spots you get on smooth objects",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": -1457.0,
-        "y": 1559.0,
-        "width": 434.21478271484377,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
     }
 }
 
@@ -6134,26 +6104,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "82d8ab4f590c49cdbcf4da0ec95261a6",
-    "m_Title": "Object-space crosshatch",
-    "m_Content": "This renders crosshatched lines along the object, in the normal buffer, in order to get them outlined by the sobel filter down the pipeline.\nIt is currently disabled (multiplied by 0 at the end) because we use screen-space crosshatch",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": 863.0,
-        "y": 2193.0,
-        "width": 559.1304931640625,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
-    }
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "86098d40ff4544e09b0b7fe11e9e1f63",
     "m_Id": 2,
@@ -7947,26 +7897,6 @@
     },
     "m_Property": {
         "m_Id": "d872b703d2de4aa8b06a961586255223"
-    }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
-    "m_ObjectId": "c6116ea9394f4d42b929038d69779302",
-    "m_Title": "Color Gradient",
-    "m_Content": "For varying the color at the base of the object and at the top",
-    "m_TextSize": 0,
-    "m_Theme": 0,
-    "m_Position": {
-        "serializedVersion": "2",
-        "x": -1878.0,
-        "y": -852.0,
-        "width": 200.0,
-        "height": 160.0
-    },
-    "m_Group": {
-        "m_Id": ""
     }
 }
 
