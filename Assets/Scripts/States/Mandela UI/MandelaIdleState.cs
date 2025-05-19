@@ -51,6 +51,7 @@ namespace GSP.States
 			base.FixedUpdate();
 
 			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
+			m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -1);
 
 			return;
 		}

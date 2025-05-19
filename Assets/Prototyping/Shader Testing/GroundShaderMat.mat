@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3075624623056675609
+--- !u!114 &-399064802122354669
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Dummy
+  m_Name: GroundShaderMat
   m_Shader: {fileID: -6465566751694194690, guid: 706f91950853f064da928c0ca5933c2e,
     type: 3}
   m_Parent: {fileID: -876546973899608171, guid: 706f91950853f064da928c0ca5933c2e,
@@ -37,17 +37,11 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs:
-    - _ShadowTexture:
-        m_Texture: {fileID: 2800000, guid: 67e4e022453e77d468b0aeb7701dc7c2, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+    m_TexEnvs: []
     m_Ints: []
     m_Floats:
     - _QueueControl: 0
-    - _ShadowStep: 0.2
+    - _ShadowStep: 0.3
     m_Colors:
-    - _MainColor: {r: 0.4089652, g: 0, b: 0.5283019, a: 0}
-    - _ShadowPatternColor: {r: 0, g: 0, b: 0, a: 0}
-    - _ShadowTexCoords: {r: 20, g: 20, b: 0, a: 0}
+    - _MainColor: {r: 0.59748423, g: 0.59748423, b: 0.59748423, a: 0}
   m_BuildTextureStacks: []

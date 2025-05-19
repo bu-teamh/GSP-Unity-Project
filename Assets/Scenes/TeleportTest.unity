@@ -691,7 +691,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: c5de6f74a516a4d4b9d26a9cf6c042e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -954,6 +954,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1505095248657374195, guid: ffbcfa08cde1b3b4697b02cbf3696b11,
+        type: 3}
+      propertyPath: m_AgentTypeID
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3291500382247831544, guid: ffbcfa08cde1b3b4697b02cbf3696b11,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2918,6 +2923,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1505095248657374195, guid: ffbcfa08cde1b3b4697b02cbf3696b11,
+        type: 3}
+      propertyPath: m_AgentTypeID
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3291500382247831544, guid: ffbcfa08cde1b3b4697b02cbf3696b11,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4134,6 +4144,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_requestedMediatedObjects.Array.data[1]
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967921230585438006, guid: e1fffc7ce0fbb8948a4c11573cd179a4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5449,6 +5464,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1505095248657374195, guid: ffbcfa08cde1b3b4697b02cbf3696b11,
+        type: 3}
+      propertyPath: m_AgentTypeID
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3291500382247831544, guid: ffbcfa08cde1b3b4697b02cbf3696b11,
         type: 3}
       propertyPath: m_LocalPosition.x
