@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3075624623056675609
+--- !u!114 &-2212500381661504320
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Dummy
+  m_Name: Ground
   m_Shader: {fileID: -6465566751694194690, guid: e1765f56a893d444c8c7a4cfce76783f,
     type: 3}
   m_Parent: {fileID: -876546973899608171, guid: e1765f56a893d444c8c7a4cfce76783f,
@@ -38,16 +38,32 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _ShadowTexture:
-        m_Texture: {fileID: 2800000, guid: 67e4e022453e77d468b0aeb7701dc7c2, type: 3}
+    - _ColorTexture:
+        m_Texture: {fileID: 2800000, guid: 9b353bc5e8acb9943a6d6d3395004e6f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 22a3be023bf4c6c478cd26f1ce97b9ff, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _StripedNormal:
+        m_Texture: {fileID: 2800000, guid: 6934500186230884f9eec367d6b75f44, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _GRADIENT: 0
+    - _HueChange: 0.9
     - _QueueControl: 0
-    - _ShadowStep: 0.2
+    - _SPECULAR: 0
+    - _ShadePower: 1
+    - _ShadeRotation: 1
+    - _SpecularStep: 0.327
     m_Colors:
-    - _MainColor: {r: 0.4089652, g: 0, b: 0.5283019, a: 0}
-    - _ShadowPatternColor: {r: 0, g: 0, b: 0, a: 0}
-    - _ShadowTexCoords: {r: 20, g: 20, b: 0, a: 0}
+    - _BottomColor: {r: 1, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.23270428, g: 0.18290469, b: 0.088544674, a: 0}
+    - _ScreenColorRange: {r: 1, g: 1, b: 0, a: 0}
+    - _ShadeTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _SpecularColor: {r: 1, g: 0, b: 0, a: 0}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

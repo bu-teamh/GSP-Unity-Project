@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6409560001121122310
+--- !u!114 &-2143446214020967431
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Door
+  m_Name: PlayerFace
   m_Shader: {fileID: -6465566751694194690, guid: 79fa4d6ce8612e440b80560da0d44f6d,
     type: 3}
   m_Parent: {fileID: -876546973899608171, guid: 79fa4d6ce8612e440b80560da0d44f6d,
@@ -42,5 +42,5 @@ Material:
     m_Floats:
     - _QueueControl: 0
     m_Colors:
-    - _MainColor: {r: 0.59119487, g: 0.53084874, b: 0.43688926, a: 0}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
