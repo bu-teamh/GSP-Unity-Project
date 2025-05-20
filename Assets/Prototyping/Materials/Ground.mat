@@ -21,9 +21,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ground
-  m_Shader: {fileID: -6465566751694194690, guid: e1765f56a893d444c8c7a4cfce76783f,
+  m_Shader: {fileID: -6465566751694194690, guid: 79fa4d6ce8612e440b80560da0d44f6d,
     type: 3}
-  m_Parent: {fileID: -876546973899608171, guid: e1765f56a893d444c8c7a4cfce76783f,
+  m_Parent: {fileID: -876546973899608171, guid: 79fa4d6ce8612e440b80560da0d44f6d,
     type: 3}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -61,7 +61,7 @@ Material:
     - _SpecularStep: 0.327
     m_Colors:
     - _BottomColor: {r: 1, g: 0, b: 0, a: 1}
-    - _MainColor: {r: 0.23270428, g: 0.18290469, b: 0.088544674, a: 0}
+    - _MainColor: {r: 0.0754717, g: 0.06384241, b: 0.06384241, a: 0}
     - _ScreenColorRange: {r: 1, g: 1, b: 0, a: 0}
     - _ShadeTiling: {r: 1, g: 1, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 0, b: 0, a: 0}

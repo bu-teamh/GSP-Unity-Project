@@ -60,7 +60,7 @@ namespace GSP.States
 
 			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
 
-			m_thisObject.m_volume.weight = 0f;
+			//m_thisObject.m_volume.weight = 0f;
 			Time.timeScale = 1.0f;
 			m_thisObject.m_characterController.Move(m_thisObject.transform.forward * m_accel * 2 * Time.fixedDeltaTime);
 

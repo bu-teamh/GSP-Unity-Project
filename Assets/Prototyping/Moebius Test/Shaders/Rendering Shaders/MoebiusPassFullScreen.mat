@@ -15,7 +15,7 @@ Material:
   m_ValidKeywords:
   - REQUIRE_OPAQUE_TEXTURE
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -38,15 +38,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadeMap:
-        m_Texture: {fileID: 8400000, guid: 1086bf1d53fe3c842a6eafb2c01ffcb0, type: 2}
+        m_Texture: {fileID: 8400000, guid: 14e1049a45f78914fbd56986c73660c4, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowMap:
-        m_Texture: {fileID: 8400000, guid: 2012ef57a9639574ba1d42916ca2de89, type: 2}
+        m_Texture: {fileID: 8400000, guid: 1302a827d0745c443b555fc952b6b4fb, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TestTex:
-        m_Texture: {fileID: 2800000, guid: 2594a8e22394bf14b9da7b2b596eb7ad, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6934500186230884f9eec367d6b75f44, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TextureSobelCustomFunction_d4bbccd427484811b4d1d17eadc04f49_Tex_4:
@@ -71,16 +71,16 @@ Material:
     - _COLORS: 0
     - _ColorStrength: 0
     - _ColorThickness: 0.91
-    - _ColorThreshold: 0.228
-    - _DepthStrength: 15
+    - _ColorThreshold: 0.01
+    - _DepthStrength: 19
     - _DepthThickness: 1
-    - _DepthThreshold: 1
+    - _DepthThreshold: 0.2
     - _NormalMultiply: 1.5
     - _NormalStrength: 15
     - _NormalThickness: 20
     - _NormalThreshold: 1
     - _PerturbationFactor: 1
-    - _ShadePower: 0.61
+    - _ShadePower: 0.81
     - _ShadeStrength: 0.722
     - _ShadowPower: 2.55
     - _ShadowRemap: 0.239
@@ -98,11 +98,11 @@ Material:
     - _UVMapDepthFactor: 1.41
     - _UVMapOffset: 14.43
     - _Wiggle: 0.001
-    - _WiggleScale: 30
+    - _WiggleScale: 15
     m_Colors:
     - _CrosshatchTiling: {r: 1.505, g: 1, b: 0, a: 0}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadeRemap: {r: -0.17, g: 0.87, b: 0, a: 0}
+    - _ShadeRemap: {r: -0.17, g: 0.52, b: 0, a: 0}
     - _ShadowColor: {r: 0.5471698, g: 0.15890065, b: 0, a: 1}
     - _ShadowRemap: {r: -0.16, g: 0.22, b: 0, a: 0}
     - _ShadowRemapMax: {r: 0, g: 1, b: 0, a: 0}
