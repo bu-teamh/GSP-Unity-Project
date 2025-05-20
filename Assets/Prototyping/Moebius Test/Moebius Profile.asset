@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   lift:
-    m_OverrideState: 1
-    m_Value: {x: 0.9733532, y: 0.9657643, z: 1, w: 0}
+    m_OverrideState: 0
+    m_Value: {x: 0.9733532, y: 0.9657643, z: 1, w: -0.023923531}
   gamma:
     m_OverrideState: 0
-    m_Value: {x: 1, y: 0.9703058, z: 0.9734445, w: 0.2850876}
+    m_Value: {x: 1, y: 0.9703058, z: 0.9734445, w: 0.021929704}
   gain:
     m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0.09210526}
+    m_Value: {x: 0.95732695, y: 0.9547353, z: 1, w: 0.0000001813977}
 --- !u!114 &-4402395676246165694
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -34,10 +34,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
   m_Name: ChromaticAberration
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.19
+    m_Value: 0.094
 --- !u!114 &-4112049888204743182
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -50,16 +50,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29fa0085f50d5e54f8144f766051a691, type: 3}
   m_Name: FilmGrain
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   type:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 2
   intensity:
     m_OverrideState: 1
     m_Value: 0.53
   response:
-    m_OverrideState: 0
-    m_Value: 0.8
+    m_OverrideState: 1
+    m_Value: 1
   texture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
@@ -95,16 +95,16 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: -3
+    m_Value: -3.99
   contrast:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 15
   colorFilter:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
   hueShift:
     m_OverrideState: 0
     m_Value: 0
   saturation:
-    m_OverrideState: 1
-    m_Value: -47
+    m_OverrideState: 0
+    m_Value: 0

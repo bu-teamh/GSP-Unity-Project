@@ -39,12 +39,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _Brightness: 0
-    - _Contrast: 5
+    - _Contrast: 1
     - _Gamma: 1
     - _GrainIntensity: 0.08
     - _GrainPosterize: 4
     - _GrainScale: 10
-    - _GrainScroll: 0.08
+    - _GrainScroll: 0.5
     - _Saturation: 1
     m_Colors: []
   m_BuildTextureStacks: []

@@ -72,16 +72,25 @@ Material:
     - _ColorStrength: 0
     - _ColorThickness: 0.91
     - _ColorThreshold: 0.01
-    - _DepthStrength: 19
+    - _DepthStrength: 13
     - _DepthThickness: 1
-    - _DepthThreshold: 0.2
-    - _NormalMultiply: 1.5
+    - _DepthThreshold: 0.29
+    - _Fullscreen_AlphaBlendOperation: 0
+    - _Fullscreen_BlendMode: 0
+    - _Fullscreen_ColorBlendOperation: 0
+    - _Fullscreen_DepthTest: 0
+    - _Fullscreen_DepthWrite: 0
+    - _Fullscreen_DstAlphaBlend: 10
+    - _Fullscreen_DstColorBlend: 10
+    - _Fullscreen_SrcAlphaBlend: 1
+    - _Fullscreen_SrcColorBlend: 5
+    - _NormalMultiply: 1
     - _NormalStrength: 15
     - _NormalThickness: 20
     - _NormalThreshold: 1
     - _PerturbationFactor: 1
     - _ShadePower: 0.81
-    - _ShadeStrength: 0.722
+    - _ShadeStrength: 1
     - _ShadowPower: 2.55
     - _ShadowRemap: 0.239
     - _ShadowScroll: 1335749.8
@@ -101,9 +110,9 @@ Material:
     - _WiggleScale: 15
     m_Colors:
     - _CrosshatchTiling: {r: 1.505, g: 1, b: 0, a: 0}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0.56078434}
     - _ShadeRemap: {r: -0.17, g: 0.52, b: 0, a: 0}
-    - _ShadowColor: {r: 0.5471698, g: 0.15890065, b: 0, a: 1}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowRemap: {r: -0.16, g: 0.22, b: 0, a: 0}
     - _ShadowRemapMax: {r: 0, g: 1, b: 0, a: 0}
     - _V1: {r: 10, g: 10, b: 0, a: 0}
