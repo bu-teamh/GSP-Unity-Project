@@ -41,6 +41,12 @@ namespace GSP.States
 		protected float m_attackDelayTime = 1.0f;
 		protected bool m_canAttack = true;
 
+		protected GameTimer m_phoebusTimer;
+		protected float m_phoebusTime = 15.0f;
+
+		protected ParticleSystem m_particleSystem;
+		protected ParticleSystem.LightsModule m_lightsModule;
+
 		//stored stuff (physics, not globals)
 		protected Vector3 m_velocity = Vector3.zero;
 		protected Quaternion m_targetRot;
@@ -68,6 +74,8 @@ namespace GSP.States
 		protected override void Awake()
 		{
 			m_lineRenderer = m_thisObject.GetComponent<LineRenderer>();
+			m_particleSystem = m_thisObject.GetComponentInChildren<ParticleSystem>();
+			m_lightsModule = m_particleSystem.lights;
 		}
 
 		public override void Update()

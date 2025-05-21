@@ -37,7 +37,7 @@ Material:
     m_Floats:
     - _QueueControl: 0
     m_Colors:
-    - _MainColor: {r: 0.3490566, g: 0.08067818, b: 0.08067818, a: 0}
+    - _MainColor: {r: 0.5660378, g: 0.22384848, b: 0.20024922, a: 0}
     - _Tiling: {r: 4, g: 4, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8841679242429450860

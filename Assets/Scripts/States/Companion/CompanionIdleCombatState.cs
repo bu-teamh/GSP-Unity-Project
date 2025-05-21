@@ -22,7 +22,7 @@ namespace GSP.States
 		protected override void InitializeMap()
 		{
 			SetTransition(typeof(CompanionFollowState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
-			SetTransition(typeof(CompanionAimState), EventArchetype.GameplayInput, EventSubtype.Aim, EventFlag.KeyDown);
+			SetTransition(typeof(CompanionPhoebusState), EventArchetype.GameplayInput, EventSubtype.Aim, EventFlag.KeyDown);
 		}
 
 		public override void Update()

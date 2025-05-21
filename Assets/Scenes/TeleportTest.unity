@@ -15940,7 +15940,7 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
   LightsModule:
-    enabled: 0
+    enabled: 1
     ratio: 1
     light: {fileID: 5739458536868628702, guid: c9a44e96dcad14e42bf96429e5283181, type: 3}
     randomDistribution: 0
@@ -18801,6 +18801,16 @@ PrefabInstance:
       propertyPath: m_characterController
       value: 
       objectReference: {fileID: 1701761583}
+    - target: {fileID: 2537872084316020791, guid: e1fffc7ce0fbb8948a4c11573cd179a4,
+        type: 3}
+      propertyPath: m_subscribedEvents.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2537872084316020791, guid: e1fffc7ce0fbb8948a4c11573cd179a4,
+        type: 3}
+      propertyPath: m_subscribedEvents.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2537872084316020791, guid: e1fffc7ce0fbb8948a4c11573cd179a4,
         type: 3}
       propertyPath: m_requestedMediatedGroups.Array.size
