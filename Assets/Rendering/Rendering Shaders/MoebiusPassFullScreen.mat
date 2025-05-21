@@ -88,7 +88,7 @@ Material:
     - _NormalStrength: 1
     - _NormalThickness: 1
     - _NormalThreshold: 0.5
-    - _PerturbationFactor: 0
+    - _PerturbationFactor: 1
     - _ShadePower: 1
     - _ShadeStrength: 1
     - _ShadowPower: 1

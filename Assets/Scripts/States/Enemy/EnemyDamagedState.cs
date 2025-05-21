@@ -21,7 +21,6 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
-			base.Awake();
 
 			m_waitTimer = new GameTimer(m_stunTime);
 

@@ -37,6 +37,9 @@ namespace GSP.States
 		protected float m_attackRange = 5.0f;
 		protected float m_attackTime = 0.3f;
 		protected GameTimer m_timer;
+		protected GameTimer m_attackDelayTimer;
+		protected float m_attackDelayTime = 1.0f;
+		protected bool m_canAttack = true;
 
 		//stored stuff (physics, not globals)
 		protected Vector3 m_velocity = Vector3.zero;

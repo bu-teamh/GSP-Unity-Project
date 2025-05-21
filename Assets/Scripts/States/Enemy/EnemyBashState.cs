@@ -20,10 +20,10 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
-			base.Awake();
 			m_waitTimer = new GameTimer(m_bashWaitTime);
 			m_bashTimer = new GameTimer(m_bashTime);
-			m_thisObject.m_agent.SetDestination(m_player.transform.position);
+			m_targetDirection = m_player.transform.position - m_thisObject.transform.position;
+			m_thisObject.m_agent.SetDestination(m_player.transform.position);	
 			m_thisObject.m_agent.speed = 0;
 		}
 
@@ -40,6 +40,8 @@ namespace GSP.States
 			}
 			if(m_bashTimer.Check())
 			{
+				m_thisObject.m_agent.acceleration = 8;
+				m_thisObject.m_agent.speed = 10;
 				InternalEvent(EventSubtype.PlayerOutRange);
 				m_waitTimer.Unlock();
 			}
@@ -51,7 +53,7 @@ namespace GSP.States
 			base.FixedUpdate();
 
 			if(m_dashed)
-			{
+			{ 
 				m_thisObject.m_agent.speed = 20;
 				m_thisObject.m_agent.acceleration = 15;
 				if (Physics.CheckSphere(m_thisObject.transform.position, 1f, m_thisObject.m_playerMask))
@@ -60,7 +62,6 @@ namespace GSP.States
 					m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -10);
 				}
 			}
-
 
 			return;
 		}

@@ -24,6 +24,7 @@ namespace GSP.States
 		protected GameTimer m_waitTimer;
 		protected GameTimer m_bashTimer;
 		protected Vector3 m_pushDirection;
+		protected Vector3 m_targetDirection;
 
 
 		protected int m_confidenceLevel = UnityEngine.Random.Range(0,3); // 0: Coward, 1: Wary, 2: Confident
@@ -64,7 +65,9 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
-			if(m_attackType == 1) { m_attackRange = m_sightRange; }
+			if(m_attackType == 1) { m_attackRange = m_sightRange;
+				m_thisObject.name = (m_thisObject.name + " Ranged");
+			}
 		}
 
 		public override void Update()
