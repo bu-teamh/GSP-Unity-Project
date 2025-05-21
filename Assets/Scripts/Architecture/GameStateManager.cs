@@ -41,7 +41,6 @@ namespace GSP.States
 			m_globalValues[GlobalValue.InventoryHealth] = new GlobalValueBundle(0, 3, 0);
 			m_globalValues[GlobalValue.InventoryRevive] = new GlobalValueBundle(0, 3, 0);
 			m_globalValues[GlobalValue.InventoryFuel] = new GlobalValueBundle(0, 3, 0);
-
 		}
 
 		public void Start()
@@ -88,6 +87,35 @@ namespace GSP.States
 			}
 
 			return value;
+		}
+
+		public int? GetMaximum(GlobalValue _attribute)
+		{
+			int? maximum = null;
+
+			if(m_globalValues.ContainsKey(_attribute))
+			{
+				maximum = m_globalValues[_attribute].Maximum();
+			}
+			else
+			{
+				//error, no such attribute stored
+			}
+			return maximum;
+		}
+
+		public int? GetMinimum(GlobalValue _attribute)
+		{
+			int? mimimum = null;
+			if((m_globalValues.ContainsKey(_attribute)))
+			{
+				mimimum = m_globalValues[_attribute].Minimum();
+			}
+			else
+			{
+				//error, no such attribute stored
+			}
+			return mimimum;
 		}
 		#nullable disable
 

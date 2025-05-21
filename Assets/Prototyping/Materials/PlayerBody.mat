@@ -21,9 +21,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PlayerBody
-  m_Shader: {fileID: -6465566751694194690, guid: f0824e8ab225fa94683153bf5a41e65e,
+  m_Shader: {fileID: -6465566751694194690, guid: 79fa4d6ce8612e440b80560da0d44f6d,
     type: 3}
-  m_Parent: {fileID: -876546973899608171, guid: f0824e8ab225fa94683153bf5a41e65e,
+  m_Parent: {fileID: -876546973899608171, guid: 79fa4d6ce8612e440b80560da0d44f6d,
     type: 3}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -49,7 +49,7 @@ Material:
     - _QueueControl: 0
     m_Colors:
     - _BottomColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MainColor: {r: 0.45911938, g: 0.1473853, b: 0, a: 0}
+    - _MainColor: {r: 1, g: 0.33647794, b: 0.46629736, a: 0}
     - _ScreenColorRange: {r: 1, g: 1, b: 0, a: 0}
     - _Tiling: {r: 3, g: 3, b: 0, a: 0}
   m_BuildTextureStacks: []

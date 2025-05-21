@@ -34,7 +34,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Portals:
-        m_Texture: {fileID: 8400000, guid: 521a7cd94ecac434b83712838994068e, type: 2}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadeMap:
@@ -46,7 +46,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TestTex:
-        m_Texture: {fileID: 2800000, guid: 6934500186230884f9eec367d6b75f44, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TextureSobelCustomFunction_d4bbccd427484811b4d1d17eadc04f49_Tex_4:
@@ -72,48 +72,48 @@ Material:
     - _ColorStrength: 0
     - _ColorThickness: 0.91
     - _ColorThreshold: 0.01
-    - _DepthStrength: 13
+    - _DepthStrength: 1
     - _DepthThickness: 1
-    - _DepthThreshold: 0.29
+    - _DepthThreshold: 0.5
     - _Fullscreen_AlphaBlendOperation: 0
-    - _Fullscreen_BlendMode: 0
+    - _Fullscreen_BlendMode: 2
     - _Fullscreen_ColorBlendOperation: 0
-    - _Fullscreen_DepthTest: 0
-    - _Fullscreen_DepthWrite: 0
+    - _Fullscreen_DepthTest: 7
+    - _Fullscreen_DepthWrite: 1
     - _Fullscreen_DstAlphaBlend: 10
     - _Fullscreen_DstColorBlend: 10
     - _Fullscreen_SrcAlphaBlend: 1
-    - _Fullscreen_SrcColorBlend: 5
+    - _Fullscreen_SrcColorBlend: 1
     - _NormalMultiply: 1
-    - _NormalStrength: 15
-    - _NormalThickness: 20
-    - _NormalThreshold: 1
-    - _PerturbationFactor: 1
-    - _ShadePower: 0.81
+    - _NormalStrength: 1
+    - _NormalThickness: 1
+    - _NormalThreshold: 0.5
+    - _PerturbationFactor: 0
+    - _ShadePower: 1
     - _ShadeStrength: 1
-    - _ShadowPower: 2.55
+    - _ShadowPower: 1
     - _ShadowRemap: 0.239
-    - _ShadowScroll: 1335749.8
-    - _ShadowScrollSpeed: 0
-    - _ShadowStrength: 0.631
+    - _ShadowScroll: 0
+    - _ShadowScrollSpeed: 1
+    - _ShadowStrength: 1
     - _T1: 0.000005
     - _TDepthMax: 2.58
     - _TDepthMin: 0.228
     - _TDepthPow: 8.8
-    - _Thickness: 5
+    - _Thickness: 1
     - _ThicknessNoise: 0
-    - _ThicknessNoiseScale: 42.6
+    - _ThicknessNoiseScale: 10
     - _UVMapAngle: 11.4
     - _UVMapDepthFactor: 1.41
     - _UVMapOffset: 14.43
-    - _Wiggle: 0.001
-    - _WiggleScale: 15
+    - _Wiggle: 0
+    - _WiggleScale: 10
     m_Colors:
-    - _CrosshatchTiling: {r: 1.505, g: 1, b: 0, a: 0}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0.56078434}
-    - _ShadeRemap: {r: -0.17, g: 0.52, b: 0, a: 0}
+    - _CrosshatchTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadeRemap: {r: 0, g: 1, b: 0, a: 0}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowRemap: {r: -0.16, g: 0.22, b: 0, a: 0}
+    - _ShadowRemap: {r: 0, g: 0.5, b: 0, a: 0}
     - _ShadowRemapMax: {r: 0, g: 1, b: 0, a: 0}
     - _V1: {r: 10, g: 10, b: 0, a: 0}
     - _V2: {r: 0, g: 0.37, b: 0, a: 0}

@@ -35,7 +35,7 @@ namespace GSP.States
 				{ InitialState.TeleportInitialState, typeof(TeleportListenState) },
 				{ InitialState.GameInitialState, typeof(NormalGameplayState) },								//get rid
 				{ InitialState.UIInitialState, typeof(UIClearState) },                                       //get rid
-				{ InitialState.MandelaInitialState, typeof(MandelaBaseState) }
+				{ InitialState.MandelaInitialState, typeof(MandelaIdleState) }
 			};
 	}
 }

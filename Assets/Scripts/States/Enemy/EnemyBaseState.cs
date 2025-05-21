@@ -21,8 +21,10 @@ namespace GSP.States
 		protected float m_stunTime = 2.0f;
 		protected float m_bashWaitTime = 1.0f;
 		protected float m_bashTime = 2.0f;
-		protected GameTimer m_Timer;
+		protected GameTimer m_waitTimer;
+		protected GameTimer m_bashTimer;
 		protected Vector3 m_pushDirection;
+
 
 		protected int m_confidenceLevel = UnityEngine.Random.Range(0,3); // 0: Coward, 1: Wary, 2: Confident
 
@@ -34,7 +36,7 @@ namespace GSP.States
 		protected bool m_hasBuff = true;
 
 		protected bool m_isHurt = false;
-		protected bool m_isDashing = false;
+		protected bool m_dashed = false;
 
 		protected int m_timer = 0;
 		protected int m_timerTime = 50;

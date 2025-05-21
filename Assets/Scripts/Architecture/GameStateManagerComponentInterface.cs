@@ -11,6 +11,10 @@ namespace GSP.States
 
 		int? GetGlobalValue(GlobalValue _attribute);
 
+		int? GetGlobalMaximum(GlobalValue _attribute);
+
+		int? GetGlobalMinimum(GlobalValue _attribute);
+
 		void AddToGlobalValue(GlobalValue _attribute, int _value);
 	}
 }

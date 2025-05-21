@@ -13,7 +13,7 @@ namespace GSP.States
 		InventoryFuel
 	}
 
-	public struct GlobalValueBundle
+	public class GlobalValueBundle
 	{
 		private int m_minimum;
 		private int m_maximum;
@@ -35,6 +35,16 @@ namespace GSP.States
 		public int Value()
 		{
 			return m_value;
+		}
+
+		public int Maximum()
+		{
+			return m_maximum;
+		}
+
+		public int Minimum()
+		{
+			return m_minimum;
 		}
 	}
 }

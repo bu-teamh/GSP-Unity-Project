@@ -23,7 +23,7 @@ namespace GSP.States
 		{
 			base.Awake();
 
-			m_Timer = new GameTimer(m_stunTime);
+			m_waitTimer = new GameTimer(m_stunTime);
 
 		}
 
@@ -31,13 +31,13 @@ namespace GSP.States
 		{
 			base.Update();
 
-			m_Timer.Start();
-			m_Timer.Lock();
+			m_waitTimer.Start();
+			m_waitTimer.Lock();
 
-			if (m_Timer.Check())
+			if (m_waitTimer.Check())
 			{
 				InternalEvent(EventSubtype.PlayerSpotted);
-				m_Timer.Unlock();
+				m_waitTimer.Unlock();
 			}
 
 			return;

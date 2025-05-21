@@ -55,7 +55,6 @@ namespace GSP.States
 		protected override void Awake()
 		{
 			m_image = m_thisObject.GetComponentInChildren<Image>();
-			m_image.fillAmount = ((float)m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth) / 100);
 		}
 		public override void Update()
 		{

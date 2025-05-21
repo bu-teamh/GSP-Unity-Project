@@ -30,6 +30,7 @@ namespace GSP.States
 		//I might change this dictionary another time to something else as it's very annoying to format
 		protected override void Awake()
 		{
+			base.Awake();
 		}
 
 		public override void Update()
@@ -51,7 +52,7 @@ namespace GSP.States
 			base.FixedUpdate();
 
 			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
-			m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -1);
+			Debug.Log("player health: " + m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth));
 
 			return;
 		}
@@ -61,7 +62,7 @@ namespace GSP.States
 
 		void FillAmount()
 		{
-			m_image.fillAmount = Mathf.Lerp(m_image.fillAmount, ((float)m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth) / 100), m_lerpSpeed);
+			m_image.fillAmount = Mathf.Lerp(m_image.fillAmount, (float)((m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth)) / (m_gameStateManager.GetGlobalMaximum(GlobalValue.PlayerHealth))), m_lerpSpeed);
 		}
 	}
 }
