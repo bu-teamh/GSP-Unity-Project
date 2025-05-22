@@ -6,7 +6,7 @@ using GSP.Timer;
 
 namespace GSP.States
 {
-	public class CompanionPhoebusState : CompanionBaseState
+	public class CompanionPhoebusState : CompanionFollowState
 	{
 		public CompanionPhoebusState(ControllerComponent _object) : base(_object) { }
 
@@ -14,7 +14,7 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(CompanionIdleState), EventArchetype.Internal, EventSubtype.ToggleMenu);
+			SetTransition(typeof(CompanionCombatState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
 		}
 
 		protected override void Awake()
@@ -37,7 +37,9 @@ namespace GSP.States
 
 			if(m_phoebusTimer.Check())
 			{
-				InternalEvent(EventSubtype.ToggleMenu);
+				m_particleSystem.startColor = Color.yellow;
+				m_lightsModule.rangeMultiplier -= 2;
+				m_lightsModule.intensityMultiplier -= 2;
 				m_phoebusTimer.Unlock();
 			}
 

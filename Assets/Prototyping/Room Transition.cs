@@ -12,8 +12,4 @@ public class RoomTransition : MonoBehaviour
 	{
 		return Destination;
 	}
-	
-
-
-
 }
