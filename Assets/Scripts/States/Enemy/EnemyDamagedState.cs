@@ -23,6 +23,7 @@ namespace GSP.States
 		{
 
 			m_waitTimer = new GameTimer(m_stunTime);
+			m_thisObject.m_agent.ResetPath();
 
 		}
 
@@ -48,8 +49,7 @@ namespace GSP.States
 
 			Vector3 direction = m_companion.transform.position - m_thisObject.transform.position;
 
-			//m_thisObject.transform.position = direction * Time.fixedDeltaTime;
-			m_thisObject.m_characterController.Move(direction * Time.fixedDeltaTime);
+			m_thisObject.m_agent.Move(direction * Time.deltaTime);
 
 			return;
 		}

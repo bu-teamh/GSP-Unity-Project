@@ -23,8 +23,8 @@ namespace GSP.States
 			m_waitTimer = new GameTimer(m_bashWaitTime);
 			m_bashTimer = new GameTimer(m_bashTime);
 			m_targetDirection = m_player.transform.position - m_thisObject.transform.position;
-			m_thisObject.m_agent.SetDestination(m_player.transform.position);	
-			m_thisObject.m_agent.speed = 0;
+			m_thisObject.m_agent.SetDestination(m_player.transform.position);
+			m_thisObject.m_agent.isStopped = true;
 		}
 
 		public override void Update()
