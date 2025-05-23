@@ -2,6 +2,7 @@ using UnityEngine;
 
 using GSP.Events;
 using GSP.Controller;
+using GSP.Timer;
 
 namespace GSP.States
 {
@@ -18,11 +19,24 @@ namespace GSP.States
 			SetTransition(typeof(EnemyDamagedState), EventArchetype.Internal, EventSubtype.Damaged);
 			SetTransition(typeof(EnemyBashState), EventArchetype.Internal, EventSubtype.Shoot);
 		}
+		protected override void Awake()
+		{
+			m_attackTimer = new GameTimer(m_attackDelay);
+		}
 
 
 		public override void Update()
 		{
 			base.Update();
+			m_attackTimer.Start();
+			m_attackTimer.Lock();
+
+			if(m_attackTimer.Check())
+			{
+				Debug.Log("attacking now");
+				AttackType();
+				m_attackTimer.Unlock();
+			}
 
 			return;
 		}
@@ -39,29 +53,8 @@ namespace GSP.States
 			m_thisObject.m_agent.SetDestination(m_thisObject.transform.position);
 			m_thisObject.transform.LookAt(m_player.transform);
 
-			if (!m_alreadyAttacked)
-			{
-				AttackType();
-
-				m_alreadyAttacked = true;
-			}
-
-			if (m_alreadyAttacked && m_timer < m_timerTime)
-			{
-				m_timer++;
-			}
-			else
-			{
-				m_timer = 0;
-				m_alreadyAttacked = false;
-			}
 
 			return;
-		}
-
-		private void ResetAttack()
-		{
-			m_alreadyAttacked = false;
 		}
 
 		private void AttackType()

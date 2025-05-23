@@ -31,7 +31,7 @@ namespace GSP.States
 		protected float m_mouseDecel = 35.0f;
 		protected float m_mouseFollowSpeed = 75.0f;
 		protected float m_mouseDecelThreshold = 1.0f;
-		protected float m_hovHeight = 3.0f;
+		protected float m_hovHeight = 2.0f;
 
 		// this is for companion physics sphere (WIP)
 		protected float m_attackRange = 5.0f;

@@ -21,14 +21,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ground
-  m_Shader: {fileID: -6465566751694194690, guid: f0824e8ab225fa94683153bf5a41e65e,
+  m_Shader: {fileID: -6465566751694194690, guid: e1765f56a893d444c8c7a4cfce76783f,
     type: 3}
-  m_Parent: {fileID: -876546973899608171, guid: f0824e8ab225fa94683153bf5a41e65e,
+  m_Parent: {fileID: -876546973899608171, guid: e1765f56a893d444c8c7a4cfce76783f,
     type: 3}
   m_ModifiedSerializedProperties: 2
-  m_ValidKeywords:
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _SPECULAR
-  m_InvalidKeywords: []
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -62,9 +62,9 @@ Material:
     - _SpecularStep: 0.5
     m_Colors:
     - _BottomColor: {r: 0.63522005, g: 0.63522005, b: 0.63522005, a: 1}
-    - _MainColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
+    - _MainColor: {r: 0.33454967, g: 0.3962264, b: 0.36159486, a: 1}
     - _ScreenColorRange: {r: 1, g: 1, b: 0, a: 0}
     - _ShadeTiling: {r: 1, g: 1, b: 0, a: 0}
-    - _SpecularColor: {r: 0.06289297, g: 0.06289297, b: 0.06289297, a: 0}
+    - _SpecularColor: {r: 0.3773585, g: 0.29725882, b: 0.29725882, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

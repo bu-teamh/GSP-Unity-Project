@@ -14,17 +14,20 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(EnemyChaseState), EventArchetype.Internal, EventSubtype.PlayerOutRange);
+			SetTransition(m_switchStateMap[SwitchState.Combat], EventArchetype.Internal, EventSubtype.Combat);
 			SetTransition(typeof(EnemyDamagedState), EventArchetype.Internal, EventSubtype.Damaged);
 		}
 
 		protected override void Awake()
 		{
+			m_switchStateMap[SwitchState.Combat] = typeof(EnemyChaseState);
+
 			m_waitTimer = new GameTimer(m_bashWaitTime);
 			m_bashTimer = new GameTimer(m_bashTime);
 			m_targetDirection = m_player.transform.position - m_thisObject.transform.position;
-			m_thisObject.m_agent.SetDestination(m_player.transform.position);
+			m_thisObject.m_agent.ResetPath();
 			m_thisObject.m_agent.isStopped = true;
+			m_hitPlayer = false;
 		}
 
 		public override void Update()
@@ -35,14 +38,19 @@ namespace GSP.States
 
 			if(m_waitTimer.Check())
 			{
-				m_dashed = true;
+				m_isDashing = true;
 				m_bashTimer.Start();
 			}
 			if(m_bashTimer.Check())
 			{
-				m_thisObject.m_agent.acceleration = 8;
-				m_thisObject.m_agent.speed = 10;
-				InternalEvent(EventSubtype.PlayerOutRange);
+				if(Physics.CheckSphere(m_thisObject.transform.position, m_sightRange, m_thisObject.m_playerMask))
+				{
+					m_switchStateMap[SwitchState.Combat] = typeof(EnemyChaseState);
+				}
+				m_thisObject.m_agent.isStopped = false;
+				m_hitPlayer = false;
+				InternalEvent(EventSubtype.Combat);
+				m_isDashing = false;
 				m_waitTimer.Unlock();
 			}
 			return;
@@ -52,14 +60,19 @@ namespace GSP.States
 		{
 			base.FixedUpdate();
 
-			if(m_dashed)
-			{ 
-				m_thisObject.m_agent.speed = 20;
-				m_thisObject.m_agent.acceleration = 15;
-				if (Physics.CheckSphere(m_thisObject.transform.position, 1f, m_thisObject.m_playerMask))
+			if(m_isDashing)
+			{
+				m_thisObject.m_agent.Move(m_targetDirection * Time.fixedDeltaTime);
+
+				if(!m_hitPlayer)
 				{
-					Debug.Log("bashed player yeahhh!!!");
-					m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -10);
+					if (Physics.CheckSphere(m_thisObject.transform.position, 1f, m_thisObject.m_playerMask))
+					{
+						Debug.Log("bashed player yeahhh!!!");
+						m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -10);
+						m_hitPlayer = true;
+					}
+
 				}
 			}
 

@@ -12,9 +12,11 @@ namespace GSP.States
 	public class EnemyBaseState : BodyBaseState
 	{
 		protected float m_walkPointRange = 10.0f;
-		//protected float m_attackDelay = 0.5f;
+		protected float m_attackDelay = 1.5f;
 		protected float m_sightRange = 15.0f;
-		protected float m_attackRange = 5.0f;
+		protected float m_attackRange = 10.0f;
+		protected GameTimer m_attackTimer;
+		protected bool m_hitPlayer;
 
 		protected float m_health = 100;
 
@@ -29,18 +31,20 @@ namespace GSP.States
 
 		protected int m_confidenceLevel = UnityEngine.Random.Range(0,3); // 0: Coward, 1: Wary, 2: Confident
 
+		protected ParticleSystem m_attackEffect;
+
+
 		protected LayerMask m_companionMask = LayerMask.GetMask("Companion");
 
 		protected Vector3 m_walkPoint;
 		protected bool m_walkPointSet;
-		protected bool m_alreadyAttacked;
+
 		protected bool m_hasBuff = true;
 
 		protected bool m_isHurt = false;
-		protected bool m_dashed = false;
+		protected bool m_isDashing = false;
 
-		protected int m_timer = 0;
-		protected int m_timerTime = 50;
+
 		protected int m_attackType = UnityEngine.Random.Range(0, 2);
 
 		protected ControllerComponent m_player;
@@ -65,9 +69,9 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
-			if(m_attackType == 1) { m_attackRange = m_sightRange;
-				m_thisObject.name = (m_thisObject.name + " Ranged");
-			}
+			if(m_attackType == 1) { m_attackRange = m_sightRange;}
+			m_attackEffect = m_thisObject.GetComponent<ParticleSystem>();
+			m_attackEffect.Stop();
 		}
 
 		public override void Update()

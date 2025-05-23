@@ -14,7 +14,7 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(CompanionCombatState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
+			SetTransition(typeof(CompanionFollowState), EventArchetype.Internal, EventSubtype.Fade);
 		}
 
 		protected override void Awake()
@@ -40,6 +40,7 @@ namespace GSP.States
 				m_particleSystem.startColor = Color.yellow;
 				m_lightsModule.rangeMultiplier -= 2;
 				m_lightsModule.intensityMultiplier -= 2;
+				InternalEvent(EventSubtype.Fade);
 				m_phoebusTimer.Unlock();
 			}
 
