@@ -35,6 +35,7 @@ namespace GSP.States
 			if(m_timer.Check())
 			{
 				InternalEvent(EventSubtype.Shoot, EventFlag.KeyUp);
+				m_canAttack = false;
 				m_timer.Unlock();
 			}
 

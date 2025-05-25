@@ -63,18 +63,12 @@ namespace GSP.States
 					{
 						m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -20);
 					}
-					//Debug.Log("Hit Player");
 				}
 				
 			}
 			if(nearbyNotProj.Count > 0)
 			{
 				m_thisObject.Remove();
-
-				foreach (Collider collider in nearbyNotProj)
-				{
-					//Debug.Log("this" + m_thisObject.GetInstanceID() + "collided with " + collider.name + " " + collider.GetInstanceID());
-				}
 			}
 
 			m_rigidbody.velocity = m_thisObject.transform.forward * m_speed;

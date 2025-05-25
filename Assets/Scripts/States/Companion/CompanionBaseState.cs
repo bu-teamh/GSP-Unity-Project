@@ -39,6 +39,7 @@ namespace GSP.States
 		protected GameTimer m_timer;
 		protected GameTimer m_attackDelayTimer;
 		protected float m_attackDelayTime = 1.0f;
+
 		protected bool m_canAttack = true;
 
 		protected GameTimer m_phoebusTimer;
@@ -76,10 +77,22 @@ namespace GSP.States
 			m_lineRenderer = m_thisObject.GetComponent<LineRenderer>();
 			m_particleSystem = m_thisObject.GetComponentInChildren<ParticleSystem>();
 			m_lightsModule = m_particleSystem.lights;
+			m_attackDelayTimer = new GameTimer(m_attackDelayTime);
 		}
 
 		public override void Update()
 		{
+			m_attackDelayTimer.Start();
+			m_attackDelayTimer.Lock();
+
+			if(m_attackDelayTimer.Check())
+			{
+				if(!m_canAttack)
+				{
+					m_canAttack = true;
+				}
+				m_attackDelayTimer.Unlock();
+			}
 
 			return;
 		}

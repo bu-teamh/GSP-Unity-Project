@@ -23,18 +23,10 @@ namespace GSP.States
 			m_thisObject.m_volume.weight = 1.0f;
 			Time.timeScale = 1.0f;
 			m_lineRenderer.enabled = false;
-			m_attackDelayTimer = new GameTimer(m_attackDelayTime);
 		}
 
 		public override void Update()
 		{
-			m_attackDelayTimer.Start();
-			m_attackDelayTimer.Lock();
-
-			if(m_attackDelayTimer.Check())
-			{
-				m_attackDelayTimer.Unlock();
-			}
 			base.Update();
 
 			return;
