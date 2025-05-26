@@ -54,9 +54,6 @@ namespace GSP.States
 				m_vignette.intensity.Override(Mathf.Lerp((float)m_vignette.intensity, (float)m_gameStateManager.GetGlobalMaximum(GlobalValue.PlayerHealth) / (float)m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth) - 1, m_lerpSpeed));
 			}
 
-			Debug.Log("vignette = " + m_vignette.intensity);
-			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
-
 			return;
 		}
 		void FillAmount()

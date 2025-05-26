@@ -67,7 +67,6 @@ namespace GSP.States
 			}
 			else
 			{
-				//Debug.Log("Ranged Attack");
 				Vector3 m_projectilePos = m_thisObject.transform.position;
 				m_projectilePos.z += 2;
 

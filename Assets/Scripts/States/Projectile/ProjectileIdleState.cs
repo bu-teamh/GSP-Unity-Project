@@ -12,6 +12,7 @@ namespace GSP.States
 		protected override void Awake()
 		{
 			base.Awake();
+			m_direction = m_player.transform.position - m_thisObject.transform.position;
 		}
 
 		protected override void InitializeMap()
@@ -22,8 +23,6 @@ namespace GSP.States
 		public override void Update()
 		{
 			base.Update();
-
-			m_direction = m_thisObject.transform.forward;
 
 			InternalEvent(EventSubtype.Move);
 

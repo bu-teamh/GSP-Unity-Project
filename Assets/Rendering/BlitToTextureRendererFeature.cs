@@ -78,9 +78,4 @@ internal class BlitToTextureRendererFeature : ScriptableRendererFeature
     {
         m_RenderPass = new ColorBlitPass(m_renderTexture, m_event);
     }
-
-    protected override void Dispose(bool disposing)
-    {
-        //CoreUtils.Destroy(m_Material);
-    }
 }

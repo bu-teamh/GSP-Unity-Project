@@ -78,7 +78,7 @@ namespace GSP.States
 				m_thisObject.Remove();
 			}
 
-			m_rigidbody.velocity = m_thisObject.transform.forward * m_speed;
+			m_rigidbody.velocity = m_direction * m_speed;
 
 			return;
 		}

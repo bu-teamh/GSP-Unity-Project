@@ -125,6 +125,7 @@ MonoBehaviour:
   m_enemyMask:
     serializedVersion: 2
     m_Bits: 0
+  m_parry: 0
   m_volume: {fileID: 0}
 --- !u!198 &7202568505169066200
 ParticleSystem:

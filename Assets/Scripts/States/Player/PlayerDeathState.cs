@@ -20,7 +20,6 @@ namespace GSP.States
 		{
 			base.Awake();
 			
-
 		}
 
 		public override void Update()
@@ -35,7 +34,6 @@ namespace GSP.States
 		public override void React(GameEvent _event)
 		{
 			base.React(_event);
-			
 
 		}
 

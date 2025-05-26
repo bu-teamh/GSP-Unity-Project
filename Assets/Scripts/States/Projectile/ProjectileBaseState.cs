@@ -9,7 +9,7 @@ namespace GSP.States
 {
 	public class ProjectileBaseState : EntityBaseState
 	{
-		protected float m_speed = 5.0f;
+		protected float m_speed = 2.0f;
 		protected Rigidbody m_rigidbody;
 		protected Vector3 m_direction;
 

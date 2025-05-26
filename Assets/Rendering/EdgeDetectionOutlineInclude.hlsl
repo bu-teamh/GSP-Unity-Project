@@ -69,7 +69,6 @@ void NormalSobel_float(float2 UV, float Thickness, out float Out) {
 
 void NormalTextureSample_float(float2 UV, out float3 Out) {
 	Out = mul(SHADERGRAPH_SAMPLE_SCENE_NORMAL(UV), (float3x3) UNITY_MATRIX_I_V);
-	//Out = SHADERGRAPH_SAMPLE_SCENE_NORMAL(UV);
 }
 #endif
 
