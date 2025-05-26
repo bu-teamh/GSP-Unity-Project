@@ -574,7 +574,7 @@ MonoBehaviour:
   m_enemyMask:
     serializedVersion: 2
     m_Bits: 0
-  m_volume: {fileID: 0}
+  m_volume: {fileID: 17755392}
 --- !u!114 &221771204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2107,7 +2107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.06007338, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4065,7 +4065,7 @@ MonoBehaviour:
   m_liveOnAwake: 1
   m_declaredMediatedObject: 0
   m_declaredMediatedGroups: 
-  m_requestedMediatedObjects: 0200000007000000
+  m_requestedMediatedObjects: 020000000700000006000000
   m_requestedMediatedGroups: 
   m_subscribedEvents: 
   m_initialState: 6
@@ -4490,6 +4490,12 @@ PrefabInstance:
       propertyPath: m_liveOnAwake
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2537872084316020791, guid: e1fffc7ce0fbb8948a4c11573cd179a4,
+        type: 3}
+      propertyPath: m_volumeProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: 08ff0e20e11d2de43b7b92ee404f61ff,
+        type: 2}
     - target: {fileID: 2537872084316020791, guid: e1fffc7ce0fbb8948a4c11573cd179a4,
         type: 3}
       propertyPath: m_enemyMask.m_Bits
@@ -5083,6 +5089,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2933884926233723338, guid: 4a28ca8638f788b42a4f6eb6866419f0,
+        type: 3}
+      propertyPath: m_volumeProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: 08ff0e20e11d2de43b7b92ee404f61ff,
+        type: 2}
     - target: {fileID: 2933884926233723338, guid: 4a28ca8638f788b42a4f6eb6866419f0,
         type: 3}
       propertyPath: m_characterController

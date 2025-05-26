@@ -69,7 +69,20 @@ namespace GSP.States
 					if (Physics.CheckSphere(m_thisObject.transform.position, 1f, m_thisObject.m_playerMask))
 					{
 						Debug.Log("bashed player yeahhh!!!");
-						m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -10);
+						if(m_player.GetState() == typeof(PlayerDefendState))
+						{
+							Debug.Log("he defended that whaaaaat???");
+							if(m_player.m_parry)
+							{
+								Debug.Log("Parried!!!!");
+								m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerCharge, 1);
+							}
+							else { m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -5); }
+						}
+						else
+						{
+							m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -10);
+						}
 						m_hitPlayer = true;
 					}
 

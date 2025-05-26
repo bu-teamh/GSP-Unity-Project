@@ -49,13 +49,19 @@ namespace GSP.States
 			//Does base state physics.
 			base.FixedUpdate();
 
+			if(m_thisObject.m_volume.profile.TryGet(out m_vignette))
+			{
+				m_vignette.intensity.Override(Mathf.Lerp((float)m_vignette.intensity, (float)m_gameStateManager.GetGlobalMaximum(GlobalValue.PlayerHealth) / (float)m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth) - 1, m_lerpSpeed));
+			}
+
+			Debug.Log("vignette = " + m_vignette.intensity);
 			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
 
 			return;
 		}
 		void FillAmount()
 		{
-			m_image.fillAmount = Mathf.Lerp(m_image.fillAmount, (float)((m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth)) / (m_gameStateManager.GetGlobalMaximum(GlobalValue.PlayerHealth))), m_lerpSpeed);
+			m_image.fillAmount = Mathf.Lerp(m_image.fillAmount, (float)((m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth)) / (float)(m_gameStateManager.GetGlobalMaximum(GlobalValue.PlayerHealth))), m_lerpSpeed);
 		}
 	}
 }

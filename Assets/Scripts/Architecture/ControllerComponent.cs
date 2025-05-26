@@ -49,6 +49,8 @@ namespace GSP.Controller
 		public LayerMask m_groundMask;
 		public LayerMask m_enemyMask;
 
+		public bool m_parry;
+
 		public Volume m_volume;
 
 		private bool m_activated;

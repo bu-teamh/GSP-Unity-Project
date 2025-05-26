@@ -26,6 +26,8 @@ namespace GSP.States
 		protected bool m_hasDashed;
 
 		protected MeshRenderer m_defendSphereRenderer;
+		protected GameTimer m_parryWindow;
+		protected float m_parryTime = 1.0f;
 
 
 		protected Vector3 m_velocity = Vector3.zero;

@@ -58,10 +58,17 @@ namespace GSP.States
 					if(m_player.GetState() == typeof(PlayerDefendState))
 					{
 						Debug.Log("Defended");
+
+						if(m_player.m_parry)
+						{
+							Debug.Log("Parried");
+							m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerCharge, 1);
+						}
+						else { m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -5); }
 					}
 					else
 					{
-						m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -20);
+						m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -10);
 					}
 				}
 				
