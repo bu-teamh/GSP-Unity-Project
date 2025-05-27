@@ -29,6 +29,7 @@ namespace GSP.States
 		protected GameTimer m_parryWindow;
 		protected float m_parryTime = 1.0f;
 
+		protected Animator m_animator;
 
 		protected Vector3 m_velocity = Vector3.zero;
 		protected Quaternion m_targetRot;
@@ -51,11 +52,26 @@ namespace GSP.States
 		{
 			GameObject m_defendSphere = GameObject.Find("Defend Sphere");
 			m_defendSphereRenderer = m_defendSphere.GetComponent<MeshRenderer>();
+			m_animator = m_thisObject.GetComponentInChildren<Animator>();
 		}
 
 		public override void Update()
 		{
-			base.Update();
+			if(m_thisObject.GetState() == typeof(PlayerIdleState))
+			{
+				m_animator.SetBool("IsMoving", false);
+			}
+			else if(m_thisObject.GetState() == typeof(PlayerMoveState) || m_thisObject.GetState() == typeof(PlayerDashState))
+			{
+				m_animator.SetBool("IsMoving", true);
+			}
+
+
+			if(m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth) <= 0)
+			{
+				Debug.Log("Player Died now");
+				InternalEvent(EventSubtype.Death);
+			}
 
 			//Debug.Log(m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth));
 

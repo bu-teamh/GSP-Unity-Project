@@ -87,7 +87,7 @@ namespace GSP.States
 		public override void FixedUpdate()
 		{
 			bool m_compHit = Physics.CheckSphere(m_thisObject.transform.position, 3.0f, m_companionMask);
-			bool m_ultHit = Physics.CheckSphere(m_companion.m_AOE.transform.position, 3.0f, m_thisObject.m_enemyMask);
+			bool m_ultHit = Physics.CheckSphere(m_thisObject.transform.position, 1.0f, m_ultMask);
 			if (m_compHit && m_companion.GetState() == typeof(CompanionAttackState) && !m_isHurt)
 			{
 				m_isHurt = true;

@@ -17,8 +17,10 @@ namespace GSP.States
 		{
 			base.Awake();
 			m_switchStateMap[SwitchState.Combat] = typeof(CompanionCombatState);
-			m_timer = new GameTimer(m_attackTime);
+			m_timer = new GameTimer(m_attackTime / 2);
 			//m_thisObject.m_AOE.SetActive(false);
+			m_AOEeffect.Play();
+			m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerCharge, (int)-(m_gameStateManager.GetGlobalMaximum(GlobalValue.PlayerCharge)));
 		}
 
 		protected override void InitializeMap()

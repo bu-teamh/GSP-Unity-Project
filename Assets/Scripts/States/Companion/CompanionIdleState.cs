@@ -23,6 +23,8 @@ namespace GSP.States
 			m_thisObject.m_volume.weight = 1.0f;
 			Time.timeScale = 1.0f;
 			m_lineRenderer.enabled = false;
+			m_thisObject.m_AOE.transform.localPosition = Vector3.zero;
+			m_thisObject.m_AOE.SetActive(false);
 		}
 
 		public override void Update()

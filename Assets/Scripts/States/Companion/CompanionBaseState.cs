@@ -48,6 +48,8 @@ namespace GSP.States
 		protected ParticleSystem m_particleSystem;
 		protected ParticleSystem.LightsModule m_lightsModule;
 
+		protected ParticleSystem m_AOEeffect;
+
 		//stored stuff (physics, not globals)
 		protected Vector3 m_velocity = Vector3.zero;
 		protected Quaternion m_targetRot;
@@ -58,6 +60,7 @@ namespace GSP.States
 
 		protected ControllerComponent m_player;
 		protected InputManagerComponentInterface m_inputManager;
+		protected GameStateManagerComponentInterface m_gameStateManager;
 
 
 		// --- --- --- ---
@@ -70,6 +73,7 @@ namespace GSP.States
 		{
 			m_player = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Player];
 			m_inputManager = (InputManagerComponentInterface)m_thisObject.m_mediatedObjects[MediatedObject.InputManager];
+			m_gameStateManager = (GameStateManagerComponentInterface)m_thisObject.m_mediatedObjects[MediatedObject.GameStateManager];
 
 		}
 		protected override void Awake()
@@ -78,6 +82,7 @@ namespace GSP.States
 			m_particleSystem = m_thisObject.GetComponentInChildren<ParticleSystem>();
 			m_lightsModule = m_particleSystem.lights;
 			m_attackDelayTimer = new GameTimer(m_attackDelayTime);
+			m_AOEeffect = m_thisObject.m_AOE.GetComponentInChildren<ParticleSystem>();
 		}
 
 		public override void Update()
