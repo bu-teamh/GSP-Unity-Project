@@ -40,7 +40,7 @@ namespace GSP.States
 			m_rigidbody = m_thisObject.GetComponent<Rigidbody>();
 			m_rigidbody.excludeLayers = m_thisObject.m_enemyMask;
 			m_direction = m_player.transform.position - m_thisObject.transform.position;
-			lifeTime = Time.time + (150/m_speed);
+			lifeTime = Time.time + m_speed;
 		}
 
 		public override void Update()

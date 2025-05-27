@@ -59,15 +59,15 @@ namespace GSP.States
 
 			foreach (Collider collider in canCollideWith)
 			{
-				if(collider.gameObject.layer == m_thisObject.m_playerMask)
+				if (collider.GetComponentInParent<ControllerComponent>() == m_player)
 				{
-					if(m_player.GetState() == typeof(PlayerDefendState))
+					if (m_player.GetState() == typeof(PlayerDefendState))
 					{
-						Debug.Log("Defended");
+						Debug.Log("projectile Defended");
 
-						if(m_player.m_parry)
+						if (m_player.m_parry)
 						{
-							Debug.Log("Parried");
+							Debug.Log("projectile Parried");
 							m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerCharge, 1);
 						}
 						else { m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -5); }
@@ -80,8 +80,8 @@ namespace GSP.States
 					m_thisObject.Remove();
 				}
 				else m_thisObject.Remove();
+				
 			}
-
 			return;
 		}
 	}
