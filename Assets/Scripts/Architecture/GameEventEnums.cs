@@ -36,6 +36,7 @@ namespace GSP.Events
         Aim,
         Shoot,
 		Dodge,
+		Ult,
 
 		//Emeny emuns
 		PlayerSpotted,

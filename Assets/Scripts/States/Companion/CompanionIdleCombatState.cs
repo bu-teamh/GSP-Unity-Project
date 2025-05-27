@@ -23,6 +23,7 @@ namespace GSP.States
 		{
 			SetTransition(typeof(CompanionFollowState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
 			SetTransition(typeof(CompanionAimState), EventArchetype.GameplayInput, EventSubtype.Aim, EventFlag.KeyDown);
+			SetTransition(typeof(CompanionUltAimState), EventArchetype.GameplayInput, EventSubtype.Ult, EventFlag.KeyDown);
 		}
 
 		public override void Update()

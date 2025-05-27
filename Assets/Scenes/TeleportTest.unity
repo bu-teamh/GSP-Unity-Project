@@ -574,6 +574,10 @@ MonoBehaviour:
   m_enemyMask:
     serializedVersion: 2
     m_Bits: 0
+  m_ultMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_AOE: {fileID: 0}
   m_parry: 0
   m_volume: {fileID: 17755392}
 --- !u!114 &221771204
@@ -4114,6 +4118,10 @@ MonoBehaviour:
   m_enemyMask:
     serializedVersion: 2
     m_Bits: 0
+  m_ultMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_AOE: {fileID: 0}
   m_parry: 0
   m_volume: {fileID: 0}
 --- !u!1 &1496735323
@@ -4388,6 +4396,89 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1617029278}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1630463118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1630463121}
+  - component: {fileID: 1630463120}
+  - component: {fileID: 1630463119}
+  m_Layer: 8
+  m_Name: AOESphere
+  m_TagString: Ult
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!23 &1630463119
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630463118}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a4fa5a0be0e3cea429b1f05e935c0bc0, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1630463120
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630463118}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1630463121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630463118}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1692657221}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1641195727
 GameObject:
   m_ObjectHideFlags: 0
@@ -4516,6 +4607,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2537872084316020791, guid: e1fffc7ce0fbb8948a4c11573cd179a4,
         type: 3}
+      propertyPath: m_AOE
+      value: 
+      objectReference: {fileID: 1630463118}
+    - target: {fileID: 2537872084316020791, guid: e1fffc7ce0fbb8948a4c11573cd179a4,
+        type: 3}
       propertyPath: m_volume
       value: 
       objectReference: {fileID: 17755392}
@@ -4530,6 +4626,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 08ff0e20e11d2de43b7b92ee404f61ff,
         type: 2}
+    - target: {fileID: 2537872084316020791, guid: e1fffc7ce0fbb8948a4c11573cd179a4,
+        type: 3}
+      propertyPath: m_ultMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 2537872084316020791, guid: e1fffc7ce0fbb8948a4c11573cd179a4,
         type: 3}
       propertyPath: m_enemyMask.m_Bits
@@ -4625,6 +4726,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1310300865}
+    - targetCorrespondingSourceObject: {fileID: 807143253610648738, guid: e1fffc7ce0fbb8948a4c11573cd179a4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1630463121}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2245684855954865615, guid: e1fffc7ce0fbb8948a4c11573cd179a4,
         type: 3}

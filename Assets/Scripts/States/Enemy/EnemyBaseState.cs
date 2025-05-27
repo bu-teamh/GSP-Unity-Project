@@ -35,6 +35,7 @@ namespace GSP.States
 
 
 		protected LayerMask m_companionMask = LayerMask.GetMask("Companion");
+		protected LayerMask m_ultMask = LayerMask.GetMask("Ult");
 
 		protected Vector3 m_walkPoint;
 		protected bool m_walkPointSet;
@@ -86,13 +87,24 @@ namespace GSP.States
 		public override void FixedUpdate()
 		{
 			bool m_compHit = Physics.CheckSphere(m_thisObject.transform.position, 3.0f, m_companionMask);
-			if(m_compHit && m_companion.GetState() == typeof(CompanionAttackState) && !m_isHurt)
+			bool m_ultHit = Physics.CheckSphere(m_companion.m_AOE.transform.position, 3.0f, m_thisObject.m_enemyMask);
+			if (m_compHit && m_companion.GetState() == typeof(CompanionAttackState) && !m_isHurt)
 			{
 				m_isHurt = true;
 				m_health -= 20;
 				InternalEvent(EventSubtype.Damaged);
 			}
-			else if (!(m_companion.GetState() == typeof(CompanionAttackState)))
+
+			if(m_ultHit && m_companion.GetState() == typeof(CompanionUltAttackState) && !m_isHurt)
+			{
+				Debug.Log("ultimate hit me");
+				m_isHurt = true;
+				m_health -= 100;
+				InternalEvent(EventSubtype.Damaged);
+			}
+
+
+			if (!(m_companion.GetState() == typeof(CompanionAttackState)) || (m_companion.GetState() == typeof(CompanionUltAttackState)))
 			{
 				m_isHurt = false;
 			}

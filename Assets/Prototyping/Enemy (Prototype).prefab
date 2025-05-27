@@ -124,7 +124,11 @@ MonoBehaviour:
     m_Bits: 2147483648
   m_enemyMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
+  m_ultMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_AOE: {fileID: 0}
   m_parry: 0
   m_volume: {fileID: 0}
 --- !u!198 &7202568505169066200
