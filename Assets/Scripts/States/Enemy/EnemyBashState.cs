@@ -62,7 +62,7 @@ namespace GSP.States
 
 			if(m_isDashing)
 			{
-				m_thisObject.m_agent.Move(m_targetDirection * Time.fixedDeltaTime);
+				m_thisObject.m_agent.Move(m_targetDirection.normalized * 15 * Time.fixedDeltaTime);
 
 				if(!m_hitPlayer)
 				{

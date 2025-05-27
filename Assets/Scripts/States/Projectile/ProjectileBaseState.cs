@@ -51,7 +51,7 @@ namespace GSP.States
 
 		public override void FixedUpdate()
 		{
-			m_rigidbody.velocity = m_direction * m_speed;
+			m_rigidbody.velocity = m_direction.normalized * 10 * m_speed;
 			return;
 		}
 	}
