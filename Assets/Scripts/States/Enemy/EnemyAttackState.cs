@@ -68,7 +68,6 @@ namespace GSP.States
 			else
 			{
 				Vector3 m_projectilePos = m_thisObject.transform.position;
-				m_projectilePos.z += 2;
 
 				GameObject prefab = GameObject.Instantiate(m_projectilePrefab, m_projectilePos, m_thisObject.transform.rotation);
 			}

@@ -35,25 +35,31 @@ namespace GSP.States
 
 			Collider[] nearbyObjects = Physics.OverlapSphere(m_thisObject.transform.position, (m_rigidbody.transform.localScale.magnitude / 2));
 
-			HashSet<Collider> nearbyNotProj = new HashSet<Collider>(nearbyObjects);
+			HashSet<Collider> canCollideWith = new HashSet<Collider>(nearbyObjects);
 			HashSet<Collider> projectiles = new HashSet<Collider>();
+			HashSet<Collider> enemies = new HashSet<Collider>();
 
 			foreach (ControllerComponent proj in m_projectiles)
 			{
-				projectiles.Add(proj.GetComponent<Collider>());
+				projectiles.Add(proj.GetComponent<Collider>());		// Makes List of all Projectiles
 			}
 
-			foreach (var near in nearbyObjects)
+			foreach(ControllerComponent enemy in m_enemies)
 			{
-				if (projectiles.Contains(near))
+				enemies.Add(enemy.GetComponent<Collider>());
+			}
+
+			foreach (var near in nearbyObjects)		// Removes projectiles from collision list
+			{
+				if (projectiles.Contains(near) || enemies.Contains(near))
 				{
-					nearbyNotProj.Remove(near);
+					canCollideWith.Remove(near);
 				}
 			}
 
-			foreach (Collider collider in nearbyNotProj)
+			foreach (Collider collider in canCollideWith)
 			{
-				if(collider.GetComponentInParent<ControllerComponent>() == m_player)
+				if(collider.gameObject.layer == m_thisObject.m_playerMask)
 				{
 					if(m_player.GetState() == typeof(PlayerDefendState))
 					{
@@ -70,15 +76,11 @@ namespace GSP.States
 					{
 						m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -10);
 					}
-				}
-				
-			}
-			if(nearbyNotProj.Count > 0)
-			{
-				m_thisObject.Remove();
-			}
 
-			m_rigidbody.velocity = m_direction * m_speed;
+					m_thisObject.Remove();
+				}
+				else m_thisObject.Remove();
+			}
 
 			return;
 		}

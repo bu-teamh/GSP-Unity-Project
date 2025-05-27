@@ -13,6 +13,8 @@ namespace GSP.States
 		protected Rigidbody m_rigidbody;
 		protected Vector3 m_direction;
 
+		protected float lifeTime;
+
 		protected ControllerComponent m_player;
 		protected HashSet<ControllerComponent> m_enemies;
 		protected HashSet<ControllerComponent> m_projectiles;
@@ -36,15 +38,20 @@ namespace GSP.States
 		protected override void Awake()
 		{
 			m_rigidbody = m_thisObject.GetComponent<Rigidbody>();
+			m_rigidbody.excludeLayers = m_thisObject.m_enemyMask;
+			m_direction = m_player.transform.position - m_thisObject.transform.position;
+			lifeTime = Time.time + (150/m_speed);
 		}
 
 		public override void Update()
 		{
+			if(Time.time > lifeTime) { m_thisObject.Remove(); }
 			return;
 		}
 
 		public override void FixedUpdate()
 		{
+			m_rigidbody.velocity = m_direction * m_speed;
 			return;
 		}
 	}
