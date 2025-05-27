@@ -12,7 +12,6 @@ namespace GSP.States
 		protected override void Awake()
 		{
 			base.Awake();
-			m_direction = m_player.transform.position - m_thisObject.transform.position;
 		}
 
 		protected override void InitializeMap()
