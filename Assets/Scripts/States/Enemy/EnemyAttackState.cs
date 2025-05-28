@@ -61,7 +61,7 @@ namespace GSP.States
 		private void AttackType()
 		{
 			// Creates a Random 0 - 1 Value (Melee = 0, Ranged = 1)
-			if(m_attackType == 0)
+			if(!m_thisObject.m_enemyRanged)
 			{
 				//Debug.Log("Melee Attack");
 				InternalEvent(EventSubtype.Shoot);

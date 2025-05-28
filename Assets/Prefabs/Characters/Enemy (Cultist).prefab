@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7202568505169066200}
   - component: {fileID: 8205911090546827604}
   m_Layer: 6
-  m_Name: Enemy (Prototype)
+  m_Name: Enemy (Cultist)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,6 +128,7 @@ MonoBehaviour:
   m_ultMask:
     serializedVersion: 2
     m_Bits: 256
+  m_enemyRanged: 1
   m_AOE: {fileID: 0}
   m_parry: 0
   m_volume: {fileID: 0}

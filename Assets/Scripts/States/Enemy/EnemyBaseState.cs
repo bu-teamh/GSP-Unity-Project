@@ -47,9 +47,6 @@ namespace GSP.States
 		protected bool m_isHurt = false;
 		protected bool m_isDashing = false;
 
-
-		protected int m_attackType = UnityEngine.Random.Range(0, 2);
-
 		protected ControllerComponent m_player;
 		protected ControllerComponent m_companion;
 		protected NavMeshComponent m_navMesh;
@@ -72,7 +69,7 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
-			if(m_attackType == 1) { m_attackRange = m_sightRange;}
+			if(m_thisObject.m_enemyRanged) { m_attackRange = m_sightRange;}
 			m_attackEffect = m_thisObject.GetComponent<ParticleSystem>();
 			m_attackEffect.Stop();
 			m_animator = m_thisObject.GetComponentInChildren<Animator>();
