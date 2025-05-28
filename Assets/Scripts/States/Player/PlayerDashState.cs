@@ -54,7 +54,7 @@ namespace GSP.States
 		{
 			base.React(_event);
 
-			if (CompareEvent(_event, EventArchetype.Input, EventSubtype.Move, EventFlag.KeyDown))
+			if (CompareEvent(_event, EventArchetype.GameplayInput, EventSubtype.Move, EventFlag.KeyDown))
 			{
 				m_switchStateMap[SwitchState.Combat] = typeof(PlayerMoveState);
 			}

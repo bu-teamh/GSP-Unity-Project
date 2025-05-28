@@ -10,10 +10,12 @@ namespace GSP.States
 		PlayerCharge,
 		InventoryHealth,
 		InventoryRevive,
-		InventoryFuel
+		InventoryFuel,
+		InventoryCog,
+		InventoryKey
 	}
 
-	public struct GlobalValueBundle
+	public class GlobalValueBundle
 	{
 		private int m_minimum;
 		private int m_maximum;

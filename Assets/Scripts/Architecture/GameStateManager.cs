@@ -37,11 +37,12 @@ namespace GSP.States
 			m_handler.Subscribe(EventArchetype.MenuInput);
 
 			m_globalValues[GlobalValue.PlayerHealth] = new GlobalValueBundle(0, 100, 100);
-			m_globalValues[GlobalValue.PlayerCharge] = new GlobalValueBundle(0, 6, 0);
+			m_globalValues[GlobalValue.PlayerCharge] = new GlobalValueBundle(0, 200, 200);
 			m_globalValues[GlobalValue.InventoryHealth] = new GlobalValueBundle(0, 3, 0);
 			m_globalValues[GlobalValue.InventoryRevive] = new GlobalValueBundle(0, 3, 0);
 			m_globalValues[GlobalValue.InventoryFuel] = new GlobalValueBundle(0, 3, 0);
-
+			m_globalValues[GlobalValue.InventoryKey] = new GlobalValueBundle(0, 1, 0);
+			m_globalValues[GlobalValue.InventoryCog] = new GlobalValueBundle(0, 1, 0);
 		}
 
 		public void Start()
@@ -60,6 +61,7 @@ namespace GSP.States
 
 			//update attributes
 			m_stateMachine.Update();
+
 		}
 
 		public void FixedUpdate()

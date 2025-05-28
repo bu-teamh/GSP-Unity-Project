@@ -23,11 +23,7 @@ namespace GSP.States
 
 		//And your constant physics attributes
 
-		protected float m_entityRadius = 20.0f;
-
 		//And any variables you need to store stuff to be persistent over state (like currentRot or something)
-
-		protected HashSet<ControllerComponent> m_localEnemies = new();
 
 		//Define attributes for mediated objects listed in Inspector here
 
@@ -38,6 +34,17 @@ namespace GSP.States
 		public GameplayBaseState(BaseState _state) : base(_state) { }
 
 		//Here, assign the mediated objects like so
+
+		protected override void InitializeMap()
+		{
+			SetTransition(typeof(PauseMenuState), EventArchetype.GameplayInput, EventSubtype.TogglePause, EventFlag.KeyDown);
+			SetTransition(typeof(InventoryMenuState), EventArchetype.GameplayInput, EventSubtype.ToggleMenu, EventFlag.KeyDown);
+		}
+
+		protected override void Awake()
+		{
+			
+		}
 
 		public override void Update()
 		{
@@ -52,6 +59,11 @@ namespace GSP.States
 			//no physics to be done here!
 
 			return;
+		}
+
+		public override void React(GameEvent _event)
+		{
+
 		}
 
 		public override void FixedUpdate()

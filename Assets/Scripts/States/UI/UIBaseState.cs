@@ -24,6 +24,10 @@ namespace GSP.States
 
 		protected GameTimer m_fadeTimer = new GameTimer(0.25f);
 
+		protected GameStateManagerComponentInterface m_gameStateManager;
+		protected ControllerComponent m_ringMenu;
+		protected ControllerComponent m_scrapbook;
+
 		public UIBaseState(UIManager _object) : base(_object)
 		{
 			m_thisObject = _object;
@@ -34,7 +38,9 @@ namespace GSP.States
 		//Here, assign the mediated objects like so
 		protected override void GetMediations()
 		{
-
+			m_gameStateManager = (GameStateManagerComponentInterface)m_thisObject.m_component.m_mediatedObjects[MediatedObject.GameStateManager];
+			m_ringMenu = (ControllerComponent)m_thisObject.m_component.m_mediatedObjects[MediatedObject.RingMenu];
+			m_scrapbook = (ControllerComponent)m_thisObject.m_component.m_mediatedObjects[MediatedObject.Scrapbook];
 		}
 	}
 }

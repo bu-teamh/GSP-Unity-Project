@@ -51,7 +51,12 @@ namespace GSP.Controller
 
 		public Volume m_volume;
 
+		public ControllerComponent m_tooltip;
+
 		private bool m_activated;
+		private bool m_paused;
+
+		public bool m_pausable = true;
 
 		void Awake()
 		{
@@ -109,14 +114,24 @@ namespace GSP.Controller
 		{
 			m_handler.Listen();
 
-			if (m_activated)
+			if (m_activated && !m_paused)
 			{
+				
 				GameEvent ev = null;
 
+				Debug.Log(this.name + " loop begin");
 				if (m_handler.Dequeue(ref ev))
 				{
+					Debug.Log("Event dequeued for :" + this.name + " // was type " + ev.m_type + ev.m_subtype + ev.m_flag);
+
 					m_stateMachine.Process(ev);
 				}
+				else
+				{
+					Debug.Log("No events in queue for :" + this.name);
+				}
+				Debug.Log(this.name + " loop end");
+
 
 				//update attributes
 				m_stateMachine.Update();
@@ -124,7 +139,6 @@ namespace GSP.Controller
 				//Pass current state to animator
 
 				//
-
 			}
 			else
 			{
@@ -135,7 +149,10 @@ namespace GSP.Controller
 		void FixedUpdate()
 		{
 			//do physics
-			m_stateMachine.FixedUpdate();
+			if (m_activated && !m_paused)
+			{
+				m_stateMachine.FixedUpdate();
+			}
 		}
 
 		private void Initialize()
@@ -180,14 +197,32 @@ namespace GSP.Controller
 			return m_stateMachine.GetState();
 		}
 
+		public void Pause()
+		{
+			if (m_pausable)
+			{
+				m_paused = true;
+			}
+		}
+
+		public void Unpause()
+		{
+			if (m_pausable)
+			{
+				m_paused = false;
+			}
+		}
+
 		public void Enable()
 		{
 			m_activated = true;
+			m_handler.StashEvents();
 		}
 
 		public void Disable()
 		{
 			m_activated = false;
+			m_handler.UnstashEvents();
 		}
 
 		public void Spawn()

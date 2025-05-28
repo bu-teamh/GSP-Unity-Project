@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using GSP.Controller;
+using GSP.Events;
 
 namespace GSP.States
 {
@@ -9,6 +10,11 @@ namespace GSP.States
 		public MainCameraPassiveState(ControllerComponent _object) : base(_object) { }
 
 		public MainCameraPassiveState(BaseState _state) : base(_state) { }
+
+		protected override void InitializeMap()
+		{
+			SetTransition(typeof(MainCameraMenuState), EventArchetype.UI, EventSubtype.Menu, EventFlag.Active);
+		}
 
 		protected override void Awake()
 		{

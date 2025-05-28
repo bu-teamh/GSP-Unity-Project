@@ -32,11 +32,16 @@ namespace GSP.States
 		protected override void InitializeMap()
 		{
 			SetTransition(typeof(UIFadeOutState), EventArchetype.UI, EventSubtype.Fade, EventFlag.Out);
+			SetTransition(typeof(UIInventoryState), EventArchetype.UI, EventSubtype.Menu, EventFlag.Active);
+			SetTransition(typeof(UIPauseState), EventArchetype.UI, EventSubtype.Pause, EventFlag.Active);
 		}
 
 		protected override void Awake()
 		{
 			m_thisObject.m_component.m_sceneFader.SetActive(false);
+			m_thisObject.m_component.m_menuLayer.SetActive(false);
+			m_ringMenu.Remove();
+			m_scrapbook.Remove();
 		}
 
 		public override void Update()

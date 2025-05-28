@@ -14,6 +14,7 @@ namespace GSP.States
 		protected override void InitializeMap()
 		{
 			SetTransition(typeof(MainCameraTargetFollowState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
+			SetTransition(typeof(MainCameraTargetMenuState), EventArchetype.UI, EventSubtype.Menu, EventFlag.Active);
 		}
 
 		public override void Update()

@@ -14,7 +14,9 @@ namespace GSP.Mediator
         InputManager,
 		NavMesh,
 		GameStateManager,
-		MainCamera
+		MainCamera,
+		RingMenu,
+		Scrapbook
     }
 
 	public enum MediatedGroup

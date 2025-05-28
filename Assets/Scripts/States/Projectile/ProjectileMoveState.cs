@@ -61,7 +61,7 @@ namespace GSP.States
 					}
 					else
 					{
-						m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, 20);
+						m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -20);
 					}
 					//Debug.Log("Hit Player");
 				}

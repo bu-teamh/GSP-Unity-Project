@@ -16,7 +16,18 @@ namespace GSP.States
 		GameInitialState,					//one day delete, doesnt need assigning in inspector
 		UIInitialState,						//one day delete, doesnt need assigning in inspector
 		UnboundMainCameraInitialState,		//legacy unbound camera, one day delete
-		MandelaInitialState
+		MandelaInitialState,
+		PickupHealthState,
+		PickupFuelState,
+		PickupReviveState,
+		PickupKeyState,
+		PickupCogState,
+		TooltipIdleState,
+		WoodenDoorInitialState,
+		PortcullisInitialState,
+		GooInitialState,
+		RingMenuInitialState,
+		ScrapbookInitialState
 	}
 
 	public class InitialStates
@@ -35,7 +46,18 @@ namespace GSP.States
 				{ InitialState.TeleportInitialState, typeof(TeleportListenState) },
 				{ InitialState.GameInitialState, typeof(NormalGameplayState) },								//get rid
 				{ InitialState.UIInitialState, typeof(UIClearState) },                                       //get rid
-				{ InitialState.MandelaInitialState, typeof(MandelaBaseState) }
+				{ InitialState.MandelaInitialState, typeof(MandelaBaseState) },
+				{ InitialState.PickupHealthState, typeof(PickupHealthState) },
+				{ InitialState.PickupFuelState, typeof(PickupFuelState) },
+				{ InitialState.PickupReviveState, typeof(PickupReviveState) },
+				{ InitialState.PickupKeyState, typeof(PickupKeyState) },
+				{ InitialState.PickupCogState, typeof(PickupCogState) },
+				{ InitialState.TooltipIdleState, typeof(TooltipIdleState) },
+				{ InitialState.WoodenDoorInitialState, typeof(WoodenDoorInitialState) },
+				{ InitialState.PortcullisInitialState, typeof(PortcullisInitialState) },
+				{ InitialState.GooInitialState, typeof(GooIdleState) },
+				{ InitialState.RingMenuInitialState, typeof(RingMenuIdleState) },
+				{ InitialState.ScrapbookInitialState, typeof(ScrapbookIdleState) }
 			};
 	}
 }

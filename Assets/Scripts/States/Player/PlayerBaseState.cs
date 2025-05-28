@@ -47,8 +47,8 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
-			GameObject m_defendSphere = GameObject.Find("Defend Sphere");
-			m_defendSphereRenderer = m_defendSphere.GetComponent<MeshRenderer>();
+			//GameObject m_defendSphere = GameObject.Find("Defend Sphere");
+			//m_defendSphereRenderer = m_defendSphere.GetComponent<MeshRenderer>();
 		}
 
 		public override void Update()
@@ -77,13 +77,21 @@ namespace GSP.States
 				m_thisObject.transform.position = teleport.transform.position;
 				m_thisObject.m_characterController.enabled = true;
 			}
+
+			//Rotate for menu, but not working atm because event gets pumped before comp controller can react
+			/*
+			if (CompareEvent(_event, EventArchetype.UI, EventSubtype.Menu, EventFlag.Active))
+			{
+				m_thisObject.transform.rotation = Quaternion.Euler(0.0f, -45.0f, 0.0f);
+			}
+			*/
 		}
 
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
 
-			m_defendSphereRenderer.enabled = false;
+			//m_defendSphereRenderer.enabled = false;
 
 			//rotation, always calculated
 			if (m_velocity != Vector3.zero)

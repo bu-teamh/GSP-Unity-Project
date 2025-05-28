@@ -250,6 +250,7 @@ namespace GSP.States
 		}
 		#nullable disable
 
+
 		/// <summary>
 		/// Called by the StateMachine. If a dequeued event doesn't trigger a state change, then the StateMachine passes it to this method for further conditional exection.
 		/// </summary>

@@ -15,6 +15,7 @@ namespace GSP.States
 		protected float m_lantMaxDist = 9.0f;
 		protected float m_smoothPosSpeed = 5.0f;
 		protected float m_smoothDistSpeed = 0.8f;
+		protected float m_menuCamDist = 2.5f;
 
 		protected float m_currentCamDist;
 

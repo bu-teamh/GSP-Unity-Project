@@ -241,7 +241,7 @@ MonoBehaviour:
   m_liveOnAwake: 1
   m_declaredMediatedObject: 1
   m_declaredMediatedGroups: 
-  m_requestedMediatedObjects: 04000000
+  m_requestedMediatedObjects: 0400000006000000
   m_requestedMediatedGroups: 00000000
   m_subscribedEvents: 0500000003000000
   m_initialState: 0
@@ -252,6 +252,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   m_groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_enemyMask:
     serializedVersion: 2
     m_Bits: 0
   m_volume: {fileID: 0}
