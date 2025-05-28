@@ -34,6 +34,7 @@ namespace GSP.States
 			if(m_attackTimer.Check())
 			{
 				Debug.Log("attacking now");
+				m_animator.SetBool("IsAttacking", true);
 				AttackType();
 				m_attackTimer.Unlock();
 			}

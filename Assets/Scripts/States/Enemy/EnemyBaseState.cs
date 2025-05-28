@@ -33,6 +33,8 @@ namespace GSP.States
 
 		protected ParticleSystem m_attackEffect;
 
+		protected Animator m_animator;
+
 
 		protected LayerMask m_companionMask = LayerMask.GetMask("Companion");
 		protected LayerMask m_ultMask = LayerMask.GetMask("Ult");
@@ -73,6 +75,7 @@ namespace GSP.States
 			if(m_attackType == 1) { m_attackRange = m_sightRange;}
 			m_attackEffect = m_thisObject.GetComponent<ParticleSystem>();
 			m_attackEffect.Stop();
+			m_animator = m_thisObject.GetComponentInChildren<Animator>();
 		}
 
 		public override void Update()
@@ -81,6 +84,21 @@ namespace GSP.States
 			{
 				InternalEvent(EventSubtype.Death);
 			}
+
+			if (m_thisObject.GetState() == typeof(EnemyPatrolState) || m_thisObject.GetState() == typeof(EnemyChaseState))
+			{
+				m_animator.SetBool("IsMoving", true);
+			}
+			else
+			{
+				m_animator.SetBool("IsMoving", false);
+			}
+
+			if(!(m_thisObject.GetState() == typeof(EnemyAttackState)) || !(m_thisObject.GetState() == typeof(EnemyBashState)))
+			{
+				m_animator.SetBool("IsAttacking", false);
+			}
+
 			return;
 		}
 

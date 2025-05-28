@@ -13,7 +13,7 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
-
+			m_animator.SetBool("IsDead", true);
 		}
 
 		public override void Update()
@@ -28,7 +28,7 @@ namespace GSP.States
 			base.FixedUpdate();
 
 			Debug.Log("i died ahhhh");
-			m_thisObject.Remove();
+			//m_thisObject.Remove();
 
 			return;
 		}
