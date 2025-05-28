@@ -78,9 +78,14 @@ namespace GSP.States
 			{
 				m_animator.SetBool("IsMoving", false);
 			}
-			else if(m_thisObject.GetState() == typeof(PlayerMoveState) || m_thisObject.GetState() == typeof(PlayerDashState))
+			else if(m_thisObject.GetState() == typeof(PlayerMoveState))
 			{
 				m_animator.SetBool("IsMoving", true);
+			}
+
+			if(!(m_thisObject.GetState() == typeof(PlayerDashState)))
+			{
+				m_animator.SetBool("IsDashing", false) ;
 			}
 
 

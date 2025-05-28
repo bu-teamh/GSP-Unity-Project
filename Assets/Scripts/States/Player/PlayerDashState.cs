@@ -34,6 +34,7 @@ namespace GSP.States
 			}
 
 			m_dashTimer = new GameTimer(m_dashTime);
+			m_animator.SetBool("IsDashing", true);
 		}
 
 		public override void Update()
