@@ -29,6 +29,10 @@ namespace GSP.States
 		protected GameTimer m_parryWindow;
 		protected float m_parryTime = 1.0f;
 
+		protected bool m_canDefend = true;
+		protected GameTimer m_defendTimer;
+		protected float m_defendResetTime = 1.0f;
+
 		protected Animator m_animator;
 
 		protected Vector3 m_velocity = Vector3.zero;
@@ -53,10 +57,23 @@ namespace GSP.States
 			GameObject m_defendSphere = GameObject.Find("Defend Sphere");
 			m_defendSphereRenderer = m_defendSphere.GetComponent<MeshRenderer>();
 			m_animator = m_thisObject.GetComponentInChildren<Animator>();
+			m_defendTimer = new GameTimer(m_defendResetTime);
 		}
 
 		public override void Update()
 		{
+			m_defendTimer.Start();
+			m_defendTimer.Lock();
+
+			if(m_defendTimer.Check())
+			{
+				if(!m_canDefend)
+				{
+					m_canDefend = true;
+				}
+				m_defendTimer.Unlock();
+			}
+
 			if(m_thisObject.GetState() == typeof(PlayerIdleState))
 			{
 				m_animator.SetBool("IsMoving", false);
@@ -89,6 +106,15 @@ namespace GSP.States
 				m_thisObject.transform.rotation = teleport.transform.rotation;
 				m_thisObject.transform.position = teleport.transform.position;
 				m_thisObject.m_characterController.enabled = true;
+			}
+
+			if(CompareEvent(_event, EventArchetype.GameplayInput, EventSubtype.Defend, EventFlag.KeyDown))
+			{
+				if (m_canDefend)
+				{
+					InternalEvent(EventSubtype.Defend, EventFlag.KeyDown);
+				}
+				else Debug.Log("cant defend yet");
 			}
 		}
 

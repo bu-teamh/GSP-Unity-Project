@@ -32,6 +32,7 @@ namespace GSP.States
 
 			m_parryWindow = new GameTimer(m_parryTime);
 			m_thisObject.m_parry = true;
+			m_canDefend = false;
 
 		}
 

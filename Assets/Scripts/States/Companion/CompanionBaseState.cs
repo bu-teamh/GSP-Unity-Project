@@ -98,7 +98,6 @@ namespace GSP.States
 				}
 				m_attackDelayTimer.Unlock();
 			}
-
 			return;
 		}
 
