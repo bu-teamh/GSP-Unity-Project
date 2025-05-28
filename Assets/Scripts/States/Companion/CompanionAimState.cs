@@ -31,16 +31,11 @@ namespace GSP.States
 		{
 			SetTransition(typeof(CompanionAttackState), EventArchetype.GameplayInput, EventSubtype.Shoot, EventFlag.KeyDown);
 			SetTransition(typeof(CompanionIdleState), EventArchetype.GameplayInput, EventSubtype.Aim, EventFlag.KeyUp);
-			SetTransition(typeof(CompanionCombatState), EventArchetype.Internal, EventSubtype.Aim);
 		}
 
 		protected override void Awake()
 		{
 			base.Awake();
-			if(!m_canAttack)
-			{
-				InternalEvent(EventSubtype.Aim);
-			}
 		}
 
 		public override void Update()

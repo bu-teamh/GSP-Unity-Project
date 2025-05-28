@@ -22,8 +22,6 @@ namespace GSP.States
 	{
 		//Define constant state attributes here (like health)
 
-		protected float m_current = 0.0f;
-		protected float m_max = 100.0f;
 		protected Color m_color;
 
 		//And your constant physics attributes
@@ -59,7 +57,8 @@ namespace GSP.States
 		protected override void Awake()
 		{
 			m_image = m_thisObject.GetComponentInChildren<Image>();
-			m_current = 0.0f;
+			m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerCharge, -(int)m_gameStateManager.GetGlobalMaximum(GlobalValue.PlayerCharge));
+			
 		}
 
 		public override void Update()
