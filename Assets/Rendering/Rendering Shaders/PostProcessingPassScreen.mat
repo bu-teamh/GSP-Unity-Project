@@ -41,10 +41,10 @@ Material:
     - _Brightness: 0
     - _Contrast: 1
     - _Gamma: 1
-    - _GrainIntensity: 0.04
+    - _GrainIntensity: 0.01
     - _GrainPosterize: 4
     - _GrainScale: 15
     - _GrainScroll: 0.5
-    - _Saturation: 1
+    - _Saturation: 0.5
     m_Colors: []
   m_BuildTextureStacks: []
