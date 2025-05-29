@@ -28,8 +28,9 @@ namespace GSP.States
 
 		//The map where should you go from this state.
 		//I might change this dictionary another time to something else as it's very annoying to format
-		protected override void InitializeMap()
+		protected override void Awake()
 		{
+			base.Awake();
 		}
 
 		public override void Update()
@@ -38,14 +39,6 @@ namespace GSP.States
 			base.Update();
 
 			//See comments in "Base" template for what should be done here (but in this case it applies only to this state).
-			if (m_current > m_max)
-			{
-				m_current = m_max;
-			}
-			if (m_current < 0)
-			{
-				m_current = 0;
-			}
 
 			m_lerpSpeed = 3f * Time.deltaTime;
 
@@ -61,7 +54,6 @@ namespace GSP.States
 			base.FixedUpdate();
 
 			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
-			m_current += 0.1f;
 
 			return;
 		}
@@ -71,12 +63,12 @@ namespace GSP.States
 
 		public void FillCharge()
 		{
-			m_image.fillAmount = Mathf.Lerp(m_image.fillAmount, m_current / m_max, m_lerpSpeed);
+			m_image.fillAmount = Mathf.Lerp(m_image.fillAmount, (float)(m_gameStateManager.GetGlobalValue(GlobalValue.PlayerCharge) / (float)m_gameStateManager.GetGlobalMaximum(GlobalValue.PlayerCharge)), m_lerpSpeed);
 		}
 
 		public void ColorChange()
 		{
-			m_color = Color.Lerp(Color.red, Color.green, (m_current / m_max));
+			m_color = Color.Lerp(Color.red, Color.green, (float)(m_gameStateManager.GetGlobalValue(GlobalValue.PlayerCharge) / (float)m_gameStateManager.GetGlobalMaximum(GlobalValue.PlayerCharge)));
 
 			m_image.color = m_color;
 		}

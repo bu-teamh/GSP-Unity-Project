@@ -28,7 +28,7 @@ namespace GSP.States.Template
 
 		//The map where should you go from this state.
 		//I might change this dictionary another time to something else as it's very annoying to format
-		protected override void InitializeMap()
+		protected override void Awake()
 		{
 			SetTransition(typeof(PlayerMoveState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyDown); // << Like this now!
 			SetTransition(typeof(PlayerMoveState), EventArchetype.Input, EventSubtype.Move); // If you don't specify flag, it will default to "None"

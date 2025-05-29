@@ -4,13 +4,10 @@ using System.Collections.Generic;
 using GSP.Controller;
 using UnityEngine;
 
+
+
 namespace GSP.Mediator
 {
-    public class GlobalEventManager
-    {
-        
-    }
-
     public class Mediator : MediatorInterface
     {
         private Dictionary<

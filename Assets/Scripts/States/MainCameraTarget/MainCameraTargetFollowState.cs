@@ -1,14 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using GSP.Events;
-using GSP.InputHandling;
 using UnityEngine;
 
-using GSP.Mediator;
+using GSP.Events;
 using GSP.Controller;
-using UnityEngine.UIElements;
-using System.Linq;
 
 namespace GSP.States
 {
@@ -21,22 +14,12 @@ namespace GSP.States
 		protected override void InitializeMap()
 		{
 			SetTransition(typeof(MainCameraTargetCombatState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
+			SetTransition(typeof(MainCameraTargetMenuState), EventArchetype.UI, EventSubtype.Menu, EventFlag.Active);
 		}
 
 		public override void Update()
 		{
-			// does base class update method
 			base.Update();
-
-			//if block, if event = w, do x, else do y, nextstate = z
-			// this state inherits from base state and theefore this should have functionality that should be only done during specific state
-			// on top of general logic
-
-			//you should not instruct the gameobject to go to a specific state from here:
-			//if it is called for, you need to send an event like so:
-			// GameEvent ev = new GameEvent(params);
-			// m_gameObject.m_handler.Enqueue(ev)
-			// and then add that event type to state map to react to that event in this state
 
 			return;
 		}
@@ -50,9 +33,7 @@ namespace GSP.States
 
 			newTarget /= (m_playerWeight + m_companionWeight);
 
-			m_targetPosition = newTarget; //Vector3.Lerp(m_previousTarget, newTarget, Time.deltaTime * m_damping);
-
-			//m_previousTarget = m_targetPosition;
+			m_targetPosition = newTarget;
 
 			base.FixedUpdate();
 

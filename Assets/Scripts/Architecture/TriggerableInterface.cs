@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace GSP.Triggers
@@ -9,6 +10,10 @@ namespace GSP.Triggers
 		void Enable();
 
 		void Disable();
+
+		void Pause();
+
+		void Unpause();
 	}
 }
 

@@ -1,19 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Xml.Linq;
-
-using UnityEngine;
-
-//Include if this state listens out for input:
-using GSP.InputHandling;
-
-using GSP.Timer;
 using GSP.Events;
-using GSP.Mediator;
 using GSP.Controller;
-using Unity.VisualScripting;
+using UnityEngine;
+using GSP.Timer;
 
 namespace GSP.States
 {
@@ -23,14 +11,23 @@ namespace GSP.States
 		//Constructor doesn't need touching.
 		public TeleportListenState(ControllerComponent _object) : base(_object) { }
 
-		//Constructor doesn't need touching.
 		public TeleportListenState(BaseState _state) : base(_state) { }
 
-		//The map where should you go from this state.
-		//I might change this dictionary another time to something else as it's very annoying to format
-		protected override void InitializeMap()
+		protected override void Awake()
 		{
-			
+			Ray ray = new Ray(m_thisObject.transform.position, Vector3.down);
+			RaycastHit hit;
+
+			if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("GROUND")))
+			{
+				Vector3 targetPosition = hit.point + Vector3.up * m_heightAboveGround;
+
+				//snap to the calculated position
+				m_thisObject.transform.position = targetPosition;
+			}
+
+			m_fadeoutTimer = new GameTimer(m_fadeTime);
+			m_blackoutTimer = new GameTimer(m_blackoutTime);
 		}
 
 		public override void Update()
@@ -38,16 +35,49 @@ namespace GSP.States
 			//Does base state functionality. 
 			base.Update();
 
-			SendExternalEvent(
-				this,
+			//start fadeout timer
+			m_fadeoutTimer.Start();
+			m_fadeoutTimer.Lock();
+
+			//send ui fadeout
+			SendEvent(
 				EventPriority.Routine,
-				EventArchetype.Gameplay,
-				EventSubtype.Teleport,
-				EventFlag.None,
-				m_gameObject
+				EventArchetype.UI,
+				EventSubtype.Fade,
+				EventFlag.Out,
+				null,
+				m_fadeTime
 			);
 
-			m_gameObject.Disable();
+			if (m_fadeoutTimer.Check())
+			{
+				m_blackoutTimer.Start();
+			}
+
+			if (m_blackoutTimer.Check())
+			{
+				SendEvent(
+					EventPriority.Routine,
+					EventArchetype.Gameplay,
+					EventSubtype.Teleport,
+					EventFlag.None,
+					m_thisObject
+				);
+
+				SendEvent(
+					EventPriority.Routine,
+					EventArchetype.UI,
+					EventSubtype.Fade,
+					EventFlag.In,
+					null,
+					m_fadeTime
+				);
+
+				m_fadeoutTimer.Unlock();
+				m_thisObject.Disable();
+
+				Debug.Log(m_thisObject.name + " sent a teleport event");
+			}
 
 			return;
 		}
@@ -61,8 +91,5 @@ namespace GSP.States
 
 			return;
 		}
-
-		//You can add your own methods if you need. Like i.e. DoBigMathsThing() But only this state will be able to use it, because the StateMachine/CurrentState is hidden/encapsulted.
-		//I'm thinking of a workaround for get/set. 
 	}
 }

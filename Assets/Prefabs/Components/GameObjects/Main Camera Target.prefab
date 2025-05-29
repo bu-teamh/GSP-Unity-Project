@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1647238140150993396
+--- !u!1 &5097301986137114268
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2589359260437213018}
-  - component: {fileID: 3873979185440159670}
+  - component: {fileID: 8297480847801963531}
+  - component: {fileID: 6003050529900715573}
   m_Layer: 0
   m_Name: Main Camera Target
   m_TagString: Untagged
@@ -17,38 +17,39 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2589359260437213018
+--- !u!4 &8297480847801963531
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647238140150993396}
+  m_GameObject: {fileID: 5097301986137114268}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3873979185440159670
+--- !u!114 &6003050529900715573
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647238140150993396}
+  m_GameObject: {fileID: 5097301986137114268}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f710891684ce5054985cabce50d155e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_liveOnAwake: 1
   m_declaredMediatedObject: 3
   m_declaredMediatedGroups: 
   m_requestedMediatedObjects: 0100000002000000
   m_requestedMediatedGroups: 00000000
-  m_subscribedEvents: 03000000
+  m_subscribedEvents: 0300000007000000
   m_initialState: 2
   m_characterController: {fileID: 0}
   m_agent: {fileID: 0}
@@ -59,4 +60,9 @@ MonoBehaviour:
   m_groundMask:
     serializedVersion: 2
     m_Bits: 0
+  m_enemyMask:
+    serializedVersion: 2
+    m_Bits: 0
   m_volume: {fileID: 0}
+  m_tooltip: {fileID: 0}
+  m_pausable: 0

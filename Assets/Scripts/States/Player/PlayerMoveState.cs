@@ -1,14 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Xml.Linq;
-using GSP.Events;
-using GSP.InputHandling;
 using UnityEngine;
 
-using GSP.Mediator;
 using GSP.Controller;
+using GSP.Events;
 
 namespace GSP.States
 {
@@ -21,8 +14,15 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(PlayerIdleState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyUp);
-			SetTransition(typeof(PlayerDashState), EventArchetype.Input, EventSubtype.Dodge, EventFlag.KeyDown);
+			SetTransition(typeof(PlayerIdleState), EventArchetype.GameplayInput, EventSubtype.Move, EventFlag.KeyUp);
+			SetTransition(typeof(PlayerDashState), EventArchetype.GameplayInput, EventSubtype.Dodge, EventFlag.KeyDown);
+			SetTransition(typeof(PlayerDefendState), EventArchetype.Internal, EventSubtype.Defend, EventFlag.KeyDown);
+			SetTransition(typeof(PlayerDeathState), EventArchetype.Internal, EventSubtype.Death);
+		}
+
+		public override void React(GameEvent _event)
+		{
+			base.React(_event);
 		}
 
 		public override void Update()
@@ -52,7 +52,7 @@ namespace GSP.States
 
 			m_targetRot = Quaternion.LookRotation(m_velocity);
 
-			m_characterController.Move(m_velocity * Time.deltaTime);
+			m_thisObject.m_characterController.Move(m_velocity * Time.deltaTime);
 
 			return;
 		}

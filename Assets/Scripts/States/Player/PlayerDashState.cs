@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using GSP.Events;
-using GSP.InputHandling;
 using UnityEngine;
 
-using GSP.Mediator;
 using GSP.Controller;
+using GSP.Events;
+using GSP.Timer;
 
 namespace GSP.States
 {
@@ -18,32 +14,78 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(PlayerMoveState), EventArchetype.Input, EventSubtype.Dodge, EventFlag.KeyUp);
-			SetTransition(typeof(PlayerIdleState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyUp);
+			SetTransition(m_switchStateMap[SwitchState.Combat], EventArchetype.Internal, EventSubtype.Dodge, EventFlag.KeyUp);
+			SetTransition(typeof(PlayerDefendState), EventArchetype.Internal, EventSubtype.Defend, EventFlag.KeyDown);
+			SetTransition(typeof(PlayerDeathState), EventArchetype.Internal, EventSubtype.Death);
+		}
+
+		protected override void Awake()
+		{
+			base.Awake();
+
+			if (m_inputManager.DualAxisHeld(EventSubtype.Move))
+			{
+				m_switchStateMap[SwitchState.Combat] = typeof(PlayerMoveState);
+			}
+			else
+			{
+				m_switchStateMap[SwitchState.Combat] = typeof(PlayerIdleState);
+				m_velocity = m_thisObject.transform.forward;
+			}
+
+			m_dashTimer = new GameTimer(m_dashTime);
+			m_animator.SetBool("IsDashing", true);
 		}
 
 		public override void Update()
 		{
-			// does base class update method
 			base.Update();
+			m_dashTimer.Start();
+			m_dashTimer.Lock();
 
-			//if block, if event = w, do x, else do y, nextstate = z
-			// this state inherits from base state and theefore this should have functionality that should be only done during specific state
-			// on top of general logic
-
-			//you should not instruct the gameobject to go to a specific state from here:
-			//if it is called for, you need to send an event like so:
-			// GameEvent ev = new GameEvent(params);
-			// m_gameObject.m_handler.Enqueue(ev)
-			// and then add that event type to state map to react to that event in this state
+			if(m_dashTimer.Check())
+			{
+				InternalEvent(EventSubtype.Dodge, EventFlag.KeyUp);
+			}
 
 			return;
+		}
+
+		public override void React(GameEvent _event)
+		{
+			base.React(_event);
+
+			if (CompareEvent(_event, EventArchetype.GameplayInput, EventSubtype.Move, EventFlag.KeyDown))
+			{
+				m_switchStateMap[SwitchState.Combat] = typeof(PlayerMoveState);
+			}
+			else
+			{
+				m_switchStateMap[SwitchState.Combat] = typeof(PlayerIdleState);
+			}
 		}
 
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
-			m_characterController.Move(m_velocity * 3.0f * Time.deltaTime);
+			if (!m_hasDashed)
+			{
+				m_velocity += m_velocity * m_acceleration * Time.fixedDeltaTime;
+				if (m_velocity.magnitude >= (m_maxSpeed * 1.5))
+				{
+					m_hasDashed = true;
+				}
+			}
+
+			if (m_velocity.magnitude > m_maxSpeed && m_hasDashed)
+			{
+				m_velocity -= m_velocity * Time.fixedDeltaTime;
+			}
+			else
+			{
+				m_hasDashed = false;
+			}
+			m_thisObject.m_characterController.Move(m_velocity * Time.fixedDeltaTime);
 
 			return;
 		}

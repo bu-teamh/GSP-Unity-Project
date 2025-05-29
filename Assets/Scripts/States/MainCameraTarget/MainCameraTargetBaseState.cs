@@ -1,25 +1,15 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Xml.Linq;
-using GSP.Events;
-using GSP.InputHandling;
+
 using UnityEngine;
 
 using GSP.Mediator;
 using GSP.Controller;
-using System.Linq;
+using GSP.Events;
 
 namespace GSP.States
 {
-	public class MainCameraTargetBaseState : BaseState
+	public class MainCameraTargetBaseState : EntityBaseState
 	{
-		// --- --- --- ---
-		// attributes for component state (health, etc) are defined here
-
-		// physics attributes (pos, rot, speed etc) for fixed update
-
 		protected float m_threshold = 6.0f;
 		protected float m_accel = 20.0f;
 		protected float m_decel = 5.0f;
@@ -33,8 +23,6 @@ namespace GSP.States
 
 		protected float m_entityRadius = 20.0f;
 
-		//stored stuff
-
 		protected Vector3 m_velocity = Vector3.zero;
 		protected Vector3 m_targetPosition = Vector3.zero;
 		protected Vector3 m_previousTarget = Vector3.zero;
@@ -42,13 +30,9 @@ namespace GSP.States
 
 		protected HashSet<ControllerComponent> m_localEnemies = new HashSet<ControllerComponent>();
 
-		//define attributes for mediated objects need to know about here
-
 		protected ControllerComponent m_player;
 		protected ControllerComponent m_companion;
 		protected HashSet<ControllerComponent> m_enemies;
-
-		// --- --- --- ---
 
 		public MainCameraTargetBaseState(ControllerComponent _object) : base(_object) { }
 
@@ -56,34 +40,37 @@ namespace GSP.States
 
 		protected override void GetMediations()
 		{
-			m_player = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Player];
-			m_companion = (ControllerComponent)m_gameObject.m_mediatedObjects[MediatedObject.Companion];
-			m_enemies = m_gameObject.m_mediatedGroups[MediatedGroup.Enemies];
+			m_player = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Player];
+			m_companion = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Companion];
+			m_enemies = m_thisObject.m_mediatedGroups[MediatedGroup.Enemies];
 		}
 
 		public override void Update()
 		{
-			// this has functionality that should be done during ALL states
-			//if block, if event = w, do x, else do y
-
-			//this base class should never directly interrupt and change a state after doing logic, only manipulate attributes, otherwise there could be a conflict
-			//if need to trigger state based on this logic
-			//you should not instruct the gameobject to go to a specific state from here:
-			//if it is called for, you need to send an event like so:
-			// GameEvent ev = new GameEvent(params);
-			// m_gameObject.m_handler.Enqueue(ev)
-			// and then add that event type to state map to react to that event in this state
-
-			//no physics to be done here!!
-
 			return;
+		}
+
+		public override void React(GameEvent _event)
+		{
+			if (CompareEvent(_event, EventArchetype.Gameplay, EventSubtype.Teleport))
+			{
+				ControllerComponent teleport = (ControllerComponent)_event.m_subject;
+
+				m_targetPosition = teleport.transform.position;
+
+				m_thisObject.transform.position = new Vector3(
+					teleport.transform.position.x,
+					teleport.transform.position.y,
+					teleport.transform.position.z + 1
+				);
+			}
 		}
 
 		public override void FixedUpdate()
 		{
 			//smooth translate
-			Vector3 direction = (m_targetPosition - m_transform.position).normalized;
-			float distance = Vector3.Distance(m_transform.position, m_targetPosition);
+			Vector3 direction = (m_targetPosition - m_thisObject.transform.position).normalized;
+			float distance = Vector3.Distance(m_thisObject.transform.position, m_targetPosition);
 
 			if (distance > m_threshold ||
 				distance > m_previousDistance
@@ -101,7 +88,7 @@ namespace GSP.States
 
 			m_previousDistance = distance;
 
-			m_transform.position += m_velocity * Time.fixedDeltaTime;
+			m_thisObject.transform.position += m_velocity * Time.fixedDeltaTime;
 
 			return;
 		}

@@ -17,8 +17,15 @@ using GSP.Timer;
 namespace GSP.States
 {
 	//Replace "Entity" with game object name in the class name
-	public class TeleportBaseState : BaseState
+	public class TeleportBaseState : EntityBaseState
 	{
+		protected float m_heightAboveGround = 1.18f;
+		protected float m_fadeTime = 0.25f;
+		protected float m_blackoutTime = 0.1f;
+
+		protected GameTimer m_fadeoutTimer;
+		protected GameTimer m_blackoutTimer;
+
 		//Constructor doesn't need touching
 		public TeleportBaseState(ControllerComponent _object) : base(_object) { }
 
@@ -27,11 +34,6 @@ namespace GSP.States
 
 		//Here, assign the mediated objects like so
 		protected override void GetMediations()
-		{
-
-		}
-
-		protected override void InitializeTimers()
 		{
 
 		}

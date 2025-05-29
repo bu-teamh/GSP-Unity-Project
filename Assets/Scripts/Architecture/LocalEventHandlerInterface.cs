@@ -1,5 +1,7 @@
 #nullable enable
 
+using System.Collections.Generic;
+
 namespace GSP.Events
 {
     public interface LocalEventHandlerInterface
@@ -19,5 +21,9 @@ namespace GSP.Events
         void Subscribe(EventArchetype _type);
 
         void Unsubscribe();
-    }
+
+		void StashEvents();
+
+		void UnstashEvents();
+	}
 }

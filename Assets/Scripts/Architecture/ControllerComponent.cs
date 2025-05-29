@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,11 +15,11 @@ using GSP.Triggers;
 
 namespace GSP.Controller
 {
-	public class ControllerComponent : MonoBehaviour, ControllerComponentInterface, TriggerableInterface
+	public class ControllerComponent : MonoBehaviour, ControllerComponentInterface, TriggerableInterface, StateBasedEntityInterface
 	{
 		private MediatorComponentInterface m_mediator;
-		public LocalEventHandlerInterface m_handler;
-		public StateMachineInterface m_stateMachine;
+		private LocalEventHandlerInterface m_handler;
+		private StateMachineInterface m_stateMachine;
 		//a sound-player that is injected into the animator
 		//an animator
 
@@ -33,7 +34,12 @@ namespace GSP.Controller
 		public List<MediatedObject> m_requestedMediatedObjects;
 		public List<MediatedGroup> m_requestedMediatedGroups;
 		public List<EventArchetype> m_subscribedEvents;
+
 		public InitialState m_initialState;
+
+		public LocalEventHandlerInterface Handler => m_handler;
+
+		public InitialState InitialState => m_initialState;
 
 		public CharacterController m_characterController;
 		public NavMeshAgent m_agent;
@@ -41,11 +47,23 @@ namespace GSP.Controller
 
 		public LayerMask m_playerMask;
 		public LayerMask m_groundMask;
-		//public LayerMask m_enemyMask;
+		public LayerMask m_enemyMask;
+		public LayerMask m_ultMask;
+
+		public bool m_enemyRanged;
+
+		public GameObject m_AOE;
+
+		public bool m_parry;
 
 		public Volume m_volume;
 
+		public ControllerComponent m_tooltip;
+
 		private bool m_activated;
+		private bool m_paused;
+
+		public bool m_pausable = true;
 
 		void Awake()
 		{
@@ -57,8 +75,11 @@ namespace GSP.Controller
 			m_stateMachine = new StateMachine(this);
 
 			//only should do this if mediated object is delcared otherwise don't do this
-			m_mediator.SetObject(m_declaredMediatedObject, this);
-
+			if (m_declaredMediatedObject != MediatedObject.Unmediated)
+			{
+				m_mediator.SetObject(m_declaredMediatedObject, this);
+			}
+			
 			m_activated = m_liveOnAwake;
 		}
 
@@ -100,14 +121,24 @@ namespace GSP.Controller
 		{
 			m_handler.Listen();
 
-			if (m_activated)
+			if (m_activated && !m_paused)
 			{
+				
 				GameEvent ev = null;
 
+				Debug.Log(this.name + " loop begin");
 				if (m_handler.Dequeue(ref ev))
 				{
+					Debug.Log("Event dequeued for :" + this.name + " // was type " + ev.m_type + ev.m_subtype + ev.m_flag);
+
 					m_stateMachine.Process(ev);
 				}
+				else
+				{
+					Debug.Log("No events in queue for :" + this.name);
+				}
+				Debug.Log(this.name + " loop end");
+
 
 				//update attributes
 				m_stateMachine.Update();
@@ -115,7 +146,6 @@ namespace GSP.Controller
 				//Pass current state to animator
 
 				//
-
 			}
 			else
 			{
@@ -126,7 +156,10 @@ namespace GSP.Controller
 		void FixedUpdate()
 		{
 			//do physics
-			m_stateMachine.FixedUpdate();
+			if (m_activated && !m_paused)
+			{
+				m_stateMachine.FixedUpdate();
+			}
 		}
 
 		private void Initialize()
@@ -166,14 +199,37 @@ namespace GSP.Controller
 			return;
 		}
 
+		public Type GetState()
+		{
+			return m_stateMachine.GetState();
+		}
+
+		public void Pause()
+		{
+			if (m_pausable)
+			{
+				m_paused = true;
+			}
+		}
+
+		public void Unpause()
+		{
+			if (m_pausable)
+			{
+				m_paused = false;
+			}
+		}
+
 		public void Enable()
 		{
 			m_activated = true;
+			m_handler.StashEvents();
 		}
 
 		public void Disable()
 		{
 			m_activated = false;
+			m_handler.UnstashEvents();
 		}
 
 		public void Spawn()
@@ -182,7 +238,7 @@ namespace GSP.Controller
 			gameObject.SetActive(true);
 		}
 
-		public void Destroy()
+		public void Remove()
 		{
 			//reset pos and rot to 0,0,0 0,0,0
 			gameObject.SetActive(false);

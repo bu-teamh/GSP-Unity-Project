@@ -1,17 +1,17 @@
+using UnityEngine;
+
+using GSP.Events;
+using GSP.Controller;
+using GSP.Mediator;
+
+using GSP.InputHandling;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Xml.Linq;
 
-using UnityEngine;
-
-//Include if this state listens out for input:
-using GSP.InputHandling;
-
-using GSP.Events;
-using GSP.Mediator;
-using GSP.Controller;
 using Unity.VisualScripting;
 
 namespace GSP.States
@@ -29,32 +29,32 @@ namespace GSP.States
 		//I might change this dictionary another time to something else as it's very annoying to format
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(CompanionAttackState), EventArchetype.Input, EventSubtype.Shoot, EventFlag.KeyDown);
-			SetTransition(typeof(CompanionIdleState), EventArchetype.Input, EventSubtype.Aim, EventFlag.KeyUp);
+			SetTransition(typeof(CompanionAttackState), EventArchetype.GameplayInput, EventSubtype.Shoot, EventFlag.KeyDown);
+			SetTransition(typeof(CompanionIdleState), EventArchetype.GameplayInput, EventSubtype.Aim, EventFlag.KeyUp);
+		}
+
+		protected override void Awake()
+		{
+			base.Awake();
 		}
 
 		public override void Update()
 		{
-			//Does base state functionality. 
 			base.Update();
 
-			//See comments in "Base" template for what should be done here (but in this case it applies only to this state).
-			Debug.Log("Aim");
 			return;
 		}
 
 		public override void FixedUpdate()
 		{
-			//Does base state physics.
 			base.FixedUpdate();
 
-			//See comments in "Base" template for what should be done here (but in this case it only applies to this state).
-			m_gameObject.m_volume.weight = 0.8f;
+			m_thisObject.m_volume.weight = 0.8f;
 			Time.timeScale = 0.5f;
 
 			//Poll the input mananger the current axis state of the mouse x/y (updates only when mouse is moved)
 			System.Numerics.Vector2 axisState = m_inputManager.GetDualAxisState(EventSubtype.DirectAim);
-			Debug.Log("axis state:" + axisState);
+			//Debug.Log("axis state:" + axisState);
 
 			//Concvert to unity world vector
 			Vector3 directAim = new Vector3(axisState.X, axisState.Y, 0.0f);
@@ -73,28 +73,25 @@ namespace GSP.States
 				Vector3 intersect = hit.point;
 
 				//normalise y to current height of companion
-				intersect.y = m_transform.position.y;
+				intersect.y = m_thisObject.transform.position.y;
 
-				Vector3 m_direction = intersect - m_transform.position;
+				Vector3 m_direction = intersect - m_thisObject.transform.position;
 
-				//Debug.DrawLine(m_gameObject.transform.position, intersect);
+				Debug.DrawLine(m_thisObject.transform.position, intersect);
 				m_lineRenderer.enabled = true;
 
-				m_lineRenderer.SetPosition(0, m_transform.position);
+				m_lineRenderer.SetPosition(0, m_thisObject.transform.position);
 				m_lineRenderer.SetPosition(1,intersect);
 
 				m_targetRot = Quaternion.LookRotation(m_direction);
 
 
 				//now you Quaternion.RotateTowards >>>> intersect vector
-				Quaternion m_currentRot = m_transform.rotation;
-				m_transform.rotation = Quaternion.RotateTowards(m_currentRot, m_targetRot, 1080.0f);
+				Quaternion m_currentRot = m_thisObject.transform.rotation;
+				m_thisObject.transform.rotation = Quaternion.RotateTowards(m_currentRot, m_targetRot, 1080.0f);
 			}
 
 			return;
 		}
-
-		//You can add your own methods if you need. Like i.e. DoBigMathsThing() But only this state will be able to use it, because the StateMachine/CurrentState is hidden/encapsulted.
-		//I'm thinking of a workaround for get/set. 
 	}
 }

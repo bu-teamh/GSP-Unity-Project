@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using GSP.Events;
-using GSP.InputHandling;
 using UnityEngine;
 
-using GSP.Mediator;
 using GSP.Controller;
+using GSP.Events;
 
 namespace GSP.States
 {
@@ -18,24 +13,20 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(PlayerMoveState), EventArchetype.Input, EventSubtype.Move, EventFlag.KeyDown);
-			SetTransition(typeof(PlayerDashState), EventArchetype.Input, EventSubtype.Dodge, EventFlag.KeyDown);
+			SetTransition(typeof(PlayerMoveState), EventArchetype.GameplayInput, EventSubtype.Move, EventFlag.KeyDown);
+			SetTransition(typeof(PlayerDashState), EventArchetype.GameplayInput, EventSubtype.Dodge, EventFlag.KeyDown);
+			SetTransition(typeof(PlayerDefendState), EventArchetype.Internal, EventSubtype.Defend, EventFlag.KeyDown);
+			SetTransition(typeof(PlayerDeathState), EventArchetype.Internal, EventSubtype.Death);
+		}
+
+		public override void React(GameEvent _event)
+		{
+			base.React(_event);
 		}
 
 		public override void Update()
 		{
-			// does base class update method
 			base.Update();
-
-			//if block, if event = w, do x, else do y, nextstate = z
-			// this state inherits from base state and theefore this should have functionality that should be only done during specific state
-			// on top of general logic
-
-			//you should not instruct the gameobject to go to a specific state from here:
-			//if it is called for, you need to send an event like so:
-			// GameEvent ev = new GameEvent(params);
-			// m_gameObject.m_handler.Enqueue(ev)
-			// and then add that event type to state map to react to that event in this state
 
 			return;
 		}
@@ -46,7 +37,7 @@ namespace GSP.States
 
 			m_velocity = Vector3.Lerp(m_velocity, Vector3.zero, m_deceleration * Time.deltaTime);
 
-			m_characterController.Move(m_velocity * Time.deltaTime);
+			m_thisObject.m_characterController.Move(m_velocity * Time.deltaTime);
 
 			return;
 		}

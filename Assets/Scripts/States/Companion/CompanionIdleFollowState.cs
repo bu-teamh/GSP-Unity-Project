@@ -1,14 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using GSP.Events;
-using GSP.InputHandling;
 using UnityEngine;
 
-using GSP.Mediator;
 using GSP.Controller;
-using UnityEngine.UIElements;
-using Unity.VisualScripting;
+using GSP.Events;
 
 namespace GSP.States
 {
@@ -18,16 +11,23 @@ namespace GSP.States
 
 		public CompanionFollowState(BaseState _state) : base(_state) { }
 
-		protected override void InitializeMap()
-		{
-			SetTransition(typeof(CompanionCombatState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
-		}
-
 		protected override void Awake()
 		{
+			base.Awake();
 			m_maxDist = 9.0f;
 			m_minDist = 2.5f;
 			m_maxSpeed = 15.0f;
+		}
+
+		protected override void InitializeMap()
+		{
+			SetTransition(typeof(CompanionCombatState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
+			SetTransition(typeof(CompanionPhoebusState), EventArchetype.GameplayInput, EventSubtype.Aim, EventFlag.KeyDown);
+		}
+
+		public override void React(GameEvent _event)
+		{
+			base.React(_event);
 		}
 
 		public override void Update()
@@ -43,9 +43,9 @@ namespace GSP.States
 		{
 			base.FixedUpdate();
 
-			float distance = Vector3.Distance(m_transform.position, m_player.transform.position);
+			float distance = Vector3.Distance(m_thisObject.transform.position, m_player.transform.position);
 
-			Vector3 direction = (m_player.transform.position - m_transform.position).normalized;
+			Vector3 direction = (m_player.transform.position - m_thisObject.transform.position).normalized;
 
 			if (distance > m_maxDist)
 			{

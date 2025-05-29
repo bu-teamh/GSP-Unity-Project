@@ -1,14 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using GSP.Events;
-using GSP.InputHandling;
 using UnityEngine;
 
-using GSP.Mediator;
 using GSP.Controller;
-using UnityEngine.UIElements;
-using Unity.VisualScripting;
+using GSP.Events;
 
 namespace GSP.States
 {
@@ -18,23 +11,46 @@ namespace GSP.States
 
 		public CompanionCombatState(BaseState _state) : base(_state) { }
 
-		protected override void InitializeMap()
-		{
-			SetTransition(typeof(CompanionFollowState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
-			SetTransition(typeof(CompanionAimState), EventArchetype.Input, EventSubtype.Aim, EventFlag.KeyDown);
-		}
 		protected override void Awake()
 		{
+			base.Awake();
 			m_maxDist = 4.0f;
 			m_minDist = 2.0f;
 			m_maxSpeed = 27.5f;
 		}
 
+		protected override void InitializeMap()
+		{
+			SetTransition(typeof(CompanionFollowState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
+			SetTransition(typeof(CompanionAimState), EventArchetype.Internal, EventSubtype.Aim, EventFlag.KeyDown);
+			SetTransition(typeof(CompanionUltAimState), EventArchetype.Internal, EventSubtype.Ult, EventFlag.KeyDown);
+		}
+
+		public override void React(GameEvent _event)
+		{
+			base.React(_event);
+			if(CompareEvent(_event, EventArchetype.GameplayInput, EventSubtype.Aim, EventFlag.KeyDown))
+			{
+				if (m_canAttack)
+				{
+					InternalEvent(EventSubtype.Aim, EventFlag.KeyDown);
+				}
+				else Debug.Log("Cant Attack Yet");
+			}
+
+			if(CompareEvent(_event, EventArchetype.GameplayInput, EventSubtype.Ult, EventFlag.KeyDown))
+			{
+				if (m_gameStateManager.GetGlobalValue(GlobalValue.PlayerCharge) >= m_gameStateManager.GetGlobalMaximum(GlobalValue.PlayerCharge))
+				{
+					InternalEvent(EventSubtype.Ult, EventFlag.KeyDown);
+				}
+				else Debug.Log("No charge for ult");
+			}
+		}
+
 		public override void Update()
 		{
 			base.Update();
-
-			Debug.Log("companion combatting");
 
 			return;
 		}
@@ -43,9 +59,9 @@ namespace GSP.States
 		{
 			base.FixedUpdate();
 
-			float distance = Vector3.Distance(m_transform.position, m_player.transform.position);
+			float distance = Vector3.Distance(m_thisObject.transform.position, m_player.transform.position);
 
-			Vector3 direction = (m_player.transform.position - m_transform.position).normalized;
+			Vector3 direction = (m_player.transform.position - m_thisObject.transform.position).normalized;
 
 			if (distance > m_maxDist)
 			{

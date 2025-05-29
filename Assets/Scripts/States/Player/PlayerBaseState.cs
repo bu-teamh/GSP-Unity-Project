@@ -1,33 +1,17 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Xml.Linq;
-using GSP.Events;
-using GSP.InputHandling;
+
 using UnityEngine;
 
 using GSP.Mediator;
 using GSP.Controller;
+using GSP.Events;
+using GSP.InputHandling;
 using GSP.Timer;
-using UnityEngine.Rendering;
 
 namespace GSP.States
 {
-	public class PlayerBaseState : BaseState
+	public class PlayerBaseState : BodyBaseState
 	{
-		// --- --- --- ---
-		// attributes for component state (health, etc) are defined here
-
-
-		// physics attributes (pos, rot, speed etc) for fixed update
-
-		protected float m_epsilon = 0.0001f;
-
-		protected float m_gravity = -3.5f;
-		protected float m_currentHeight;
-		protected Vector3 m_yvelocity = Vector3.zero;
-
 		protected float m_acceleration = 40;
 		protected float m_deceleration = 10;
 		protected float m_maxSpeed = 15;
@@ -35,83 +19,84 @@ namespace GSP.States
 		protected float m_rotDamping = 5;
 		protected float m_dampingThreshold = 10;
 
-		protected float m_entityRadius = 20.0f;
-
-		//stored stuff
-
-		//this bool will eventually be handled by the gamestate manager
 		protected bool m_combatActive;
 
-		protected HashSet<ControllerComponent> m_localEnemies = new HashSet<ControllerComponent>();
+		protected GameTimer m_dashTimer;
+		protected float m_dashTime = 0.3f;
+		protected bool m_hasDashed;
+
+		protected MeshRenderer m_defendSphereRenderer;
+		protected GameTimer m_parryWindow;
+		protected float m_parryTime = 1.0f;
+
+		protected bool m_canDefend = true;
+		protected GameTimer m_defendTimer;
+		protected float m_defendResetTime = 1.0f;
+
+		protected Animator m_animator;
 
 		protected Vector3 m_velocity = Vector3.zero;
 		protected Quaternion m_targetRot;
 
-		//define attributes for mediated objects need to know about here
-
 		protected InputManagerComponentInterface m_inputManager;
 		protected HashSet<ControllerComponent> m_enemies;
-
-		// --- --- --- ---
-
+		protected GameStateManagerComponentInterface m_gameStateManager;
 		public PlayerBaseState(ControllerComponent _object) : base(_object) { }
 
 		public PlayerBaseState(BaseState _state) : base(_state) { }
 
 		protected override void GetMediations()
 		{
-			m_inputManager = (InputManagerComponentInterface)m_gameObject.m_mediatedObjects[MediatedObject.InputManager];
-			m_enemies = m_gameObject.m_mediatedGroups[MediatedGroup.Enemies];
+			m_inputManager = (InputManagerComponentInterface)m_thisObject.m_mediatedObjects[MediatedObject.InputManager];
+			m_enemies = m_thisObject.m_mediatedGroups[MediatedGroup.Enemies];
+			m_gameStateManager = (GameStateManagerComponentInterface)m_thisObject.m_mediatedObjects[MediatedObject.GameStateManager];
 		}
 
-		protected override void InitializeTimers()
+		protected override void Awake()
 		{
-			SetTimer(TimerType.CombatOver, 5.0f);
+			GameObject m_defendSphere = GameObject.Find("Defend Sphere");
+			m_defendSphereRenderer = m_defendSphere.GetComponent<MeshRenderer>();
+			m_defendSphereRenderer.enabled = false;
+			m_animator = m_thisObject.GetComponentInChildren<Animator>();
+			m_defendTimer = new GameTimer(m_defendResetTime);
 		}
 
 		public override void Update()
 		{
-			// this has functionality that should be done during ALL states
-			//if block, if event = w, do x, else do y
+			m_defendTimer.Start();
+			m_defendTimer.Lock();
 
-			//this base class should never directly interrupt and change a state after doing logic, only manipulate attributes, otherwise there could be a conflict
-			//if need to trigger state based on this logic
-			//you should not instruct the gameobject to go to a specific state from here:
-			//if it is called for, you need to send an event like so:
-			// GameEvent ev = new GameEvent(params);
-			// m_gameObject.m_handler.Enqueue(ev)
-			// and then add that event type to state map to react to that event in this state
-
-			//no physics to be done here!!
-
-			//send combat event
-			if (m_enemies.Count != 0)
+			if(m_defendTimer.Check())
 			{
-				if (m_localEnemies.Count == 0)
+				if(!m_canDefend)
 				{
-					StartTimer(TimerType.CombatOver);
+					m_canDefend = true;
 				}
-				else
-				{
-					InterruptTimer(TimerType.CombatOver);
-
-					if (!m_combatActive)
-					{
-						m_combatActive = true;
-
-						Debug.Log("combat active");
-						SendExternalEvent(this, EventPriority.Routine, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
-					}
-				}
-			}	
-			
-			if (m_combatActive && CheckTimer(TimerType.CombatOver))
-			{
-				m_combatActive = false;
-
-				Debug.Log("combat inactive");
-				SendExternalEvent(this, EventPriority.Routine, EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
+				m_defendTimer.Unlock();
 			}
+
+			if(m_thisObject.GetState() == typeof(PlayerIdleState))
+			{
+				m_animator.SetBool("IsMoving", false);
+			}
+			else if(m_thisObject.GetState() == typeof(PlayerMoveState))
+			{
+				m_animator.SetBool("IsMoving", true);
+			}
+
+			if(!(m_thisObject.GetState() == typeof(PlayerDashState)))
+			{
+				m_animator.SetBool("IsDashing", false) ;
+			}
+
+
+			if(m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth) <= 0)
+			{
+				Debug.Log("Player Died now");
+				InternalEvent(EventSubtype.Death);
+			}
+
+			//Debug.Log(m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth));
 
 			return;
 		}
@@ -122,56 +107,51 @@ namespace GSP.States
 			{
 				ControllerComponent teleport = (ControllerComponent)_event.m_subject;
 
-				m_characterController.Move(teleport.transform.position);
-				//m_transform.rotation = teleport.transform.rotation;
+				m_thisObject.m_characterController.enabled = false;
+				m_targetRot = teleport.transform.rotation;
+				m_thisObject.transform.rotation = teleport.transform.rotation;
+				m_thisObject.transform.position = teleport.transform.position;
+				m_thisObject.m_characterController.enabled = true;
+			}
+
+			//Rotate for menu, but not working atm because event gets pumped before comp controller can react
+			/*
+			if (CompareEvent(_event, EventArchetype.UI, EventSubtype.Menu, EventFlag.Active))
+			{
+				m_thisObject.transform.rotation = Quaternion.Euler(0.0f, -45.0f, 0.0f);
+			}
+			*/
+
+			if(CompareEvent(_event, EventArchetype.GameplayInput, EventSubtype.Defend, EventFlag.KeyDown))
+			{
+				if (m_canDefend)
+				{
+					InternalEvent(EventSubtype.Defend, EventFlag.KeyDown);
+				}
+				else Debug.Log("cant defend yet");
 			}
 		}
 
 		public override void FixedUpdate()
 		{
-			// regional check for enemies nearby, always updated
-			Collider[] localObjects = Physics.OverlapSphere(m_transform.position, m_entityRadius);
+			base.FixedUpdate();
 
-			m_localEnemies.Clear();
-
-			foreach (var collider in localObjects)
-			{
-				var controller = collider.GetComponentInParent<ControllerComponent>(); // << the enemey character controller does counts as a collider
-
-				if (controller != null && m_enemies.Contains(controller))
-				{
-					m_localEnemies.Add(controller); // only add valid controllers that are in m_enemies
-				}
-			}
+			//m_defendSphereRenderer.enabled = false;
 
 			//rotation, always calculated
 			if (m_velocity != Vector3.zero)
 			{
-				Quaternion currentRot = m_transform.rotation;
+				Quaternion currentRot = m_thisObject.transform.rotation;
 
 				// Apply damping to smooth out the final rotation
 				if (Quaternion.Angle(currentRot, m_targetRot) < m_dampingThreshold)
 				{
-					m_transform.rotation = Quaternion.Slerp(currentRot, m_targetRot, m_rotDamping);
+					m_thisObject.transform.rotation = Quaternion.Slerp(currentRot, m_targetRot, m_rotDamping);
 				}
 				else
 				{
-					m_transform.rotation = Quaternion.RotateTowards(currentRot, m_targetRot, m_maxRotSpeed * Time.fixedDeltaTime);
+					m_thisObject.transform.rotation = Quaternion.RotateTowards(currentRot, m_targetRot, m_maxRotSpeed * Time.fixedDeltaTime);
 				}
-			}
-
-			//Gravity simulation, always calculated
-			m_currentHeight = m_transform.position.y;
-
-			m_yvelocity.y += m_gravity * Time.fixedDeltaTime;
-
-			m_yvelocity.y = Mathf.Clamp(m_yvelocity.y, m_gravity, 0.0f);
-
-			m_characterController.Move(m_yvelocity);
-
-			if (!((m_transform.position.y - m_currentHeight) < -m_epsilon))
-			{
-				m_yvelocity = Vector3.zero;
 			}
 
 			return;

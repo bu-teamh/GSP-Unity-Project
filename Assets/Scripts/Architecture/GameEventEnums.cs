@@ -6,11 +6,14 @@ namespace GSP.Events
 {
     public enum EventArchetype
     {
-        Input,
+        Input, 
 		Internal,
-		Lifetime,
+		Lifetime, //mediator's business atm
 		Gameplay,
-		Trigger
+		Trigger,
+		GameplayInput,
+		MenuInput,
+		UI
     }
 
     public enum EventPriority
@@ -24,15 +27,28 @@ namespace GSP.Events
     public enum EventSubtype
     {
         Move,
-        DirectAim,
-        ToggleCombat,
+        DirectAim, //<<controller aim
+        //ToggleCombat, << legacy, delete
         Interact,
         Defend,
-        SwitchControl,
+        //SwitchControl, << legacy, delete
         ToggleMenu,
         Aim,
         Shoot,
 		Dodge,
+		TogglePause,
+		Unimplemented,
+		/*
+		AGREED CONTROLS
+		Dodge = space
+		Aim = R click
+		Shoot = L click 
+		Menu = tab
+		Pause = esc
+		Interact = E
+		Defend = q
+		*/
+		Ult,
 
 		//Emeny emuns
 		PlayerSpotted,
@@ -40,6 +56,7 @@ namespace GSP.Events
 		PlayerOutRange,
 		PlayerLost,
 		Death,
+		Damaged,
 
 		//Lifetime enums
 		Disable,
@@ -47,10 +64,25 @@ namespace GSP.Events
 		//Gameplay enums
 		Combat,
 		Teleport,
+		Pause,
+		UseItem,
+		Normal,
+		Translate,
+		Revive,
 
 		//Trigger
 		Component,
-		VolumeTrigger
+		VolumeTrigger,
+
+		//Door
+		Initialised,
+		Transition,
+
+		//UI
+		Fade,
+		Clear,
+		Menu,
+		Item
     }
 
     public enum EventFlag
@@ -59,12 +91,27 @@ namespace GSP.Events
         KeyUp,
 		None,
 
-		//used for combat/gameplay
+		//used for combat/gameplay and menu/gameplay
 		Active,
 		Inactive,
 
 		//Trigger enums
 		Activate,
-		Deactivate
+		Deactivate,
+
+		//Door
+		Open,
+		Close,
+		Finished,
+
+		//UI
+		Out,
+		In,
+
+		//Inventory
+		Health,
+		Fuel,
+		Revive,
+		Use
 	}
 }

@@ -12,7 +12,23 @@ namespace GSP.States
 		EnemyInitialState,
 		ProjectileInitialState,
 		ChargeInitialState,
-		TeleportInitialState
+		TeleportInitialState,
+		GameInitialState,					//one day delete, doesnt need assigning in inspector
+		UIInitialState,						//one day delete, doesnt need assigning in inspector
+		UnboundMainCameraInitialState,		//legacy unbound camera, one day delete
+		MandelaInitialState,
+		PickupHealthState,
+		PickupFuelState,
+		PickupReviveState,
+		PickupKeyState,
+		PickupCogState,
+		TooltipIdleState,
+		WoodenDoorInitialState,
+		PortcullisInitialState,
+		GooInitialState,
+		RingMenuInitialState,
+		ScrapbookInitialState,
+		TeleportFloatState
 	}
 
 	public class InitialStates
@@ -24,10 +40,26 @@ namespace GSP.States
 				{ InitialState.CompanionInitialState, typeof(CompanionFollowState) },
 				{ InitialState.MainCameraTargetInitialState, typeof(MainCameraTargetFollowState) },
 				{ InitialState.MainCameraInitialState, typeof(MainCameraPassiveState) },
+				{ InitialState.UnboundMainCameraInitialState, typeof(UnboundMainCameraPassiveState) },		//legacy
 				{ InitialState.EnemyInitialState, typeof(EnemyPatrolState) },
 				{ InitialState.ProjectileInitialState, typeof(ProjectileIdleState) },
 				{ InitialState.ChargeInitialState, typeof(ChargeIdleState) },
-				{ InitialState.TeleportInitialState, typeof(TeleportListenState) }
+				{ InitialState.TeleportInitialState, typeof(TeleportListenState) },
+				{ InitialState.GameInitialState, typeof(NormalGameplayState) },								//get rid
+				{ InitialState.UIInitialState, typeof(UIClearState) },                                       //get rid
+				{ InitialState.PickupHealthState, typeof(PickupHealthState) },
+				{ InitialState.PickupFuelState, typeof(PickupFuelState) },
+				{ InitialState.PickupReviveState, typeof(PickupReviveState) },
+				{ InitialState.PickupKeyState, typeof(PickupKeyState) },
+				{ InitialState.PickupCogState, typeof(PickupCogState) },
+				{ InitialState.TooltipIdleState, typeof(TooltipIdleState) },
+				{ InitialState.WoodenDoorInitialState, typeof(WoodenDoorInitialState) },
+				{ InitialState.PortcullisInitialState, typeof(PortcullisInitialState) },
+				{ InitialState.GooInitialState, typeof(GooIdleState) },
+				{ InitialState.RingMenuInitialState, typeof(RingMenuIdleState) },
+				{ InitialState.ScrapbookInitialState, typeof(ScrapbookIdleState) },
+				{ InitialState.TeleportFloatState, typeof(TeleportFloatState) },
+				{ InitialState.MandelaInitialState, typeof(MandelaIdleState) }
 			};
 	}
 }

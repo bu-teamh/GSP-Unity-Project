@@ -41,6 +41,7 @@ namespace GSP.Triggers
 		private bool m_initialCycle;
 		private bool m_initialEpoch;
 		private bool m_newEpoch;
+		private bool m_paused;
 		private Collider m_trippedEntity;
 
 		void Awake()
@@ -54,6 +55,8 @@ namespace GSP.Triggers
 
 			m_live = m_liveOnAwake;
 			m_tripped = false;
+
+			m_paused = false;
 
 			m_initialCycle = true;
 			m_initialEpoch = true;
@@ -74,7 +77,7 @@ namespace GSP.Triggers
 		{
 			m_handler.Listen();
 
-			if (m_live && m_tripped)
+			if (m_live && m_tripped && !m_paused)
 			{
 				if (m_initialCycle)
 				{
@@ -264,6 +267,16 @@ namespace GSP.Triggers
 		public void Disable()
 		{
 			m_live = false;
+		}
+
+		public void Pause()
+		{
+			m_paused = true;
+		}
+
+		public void Unpause()
+		{
+			m_paused = false;
 		}
 	}
 }

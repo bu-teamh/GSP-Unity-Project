@@ -8,6 +8,7 @@ using GSP.Mediator;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine.Rendering;
+using UnityEditor;
 
 namespace GSP.InputHandling
 {
@@ -21,6 +22,8 @@ namespace GSP.InputHandling
         private LocalEventHandlerInterface m_localEventHandler;
 
         private MediatorComponentInterface m_mediator;
+
+		private Queue<GameEvent> m_pauseBuffer;
 
         private HashSet<KeyCode> m_heldKeys;
         private HashSet<string> m_heldAxes;
@@ -37,7 +40,9 @@ namespace GSP.InputHandling
             m_mediator = MediatorComponent.Instance;
             m_mediator.SetObject(MediatedObject.InputManager, this);
 
-            m_heldKeys = new HashSet<KeyCode>();
+			m_pauseBuffer = new Queue<GameEvent>();
+
+			m_heldKeys = new HashSet<KeyCode>();
             m_heldAxes = new HashSet<string>();
             m_heldDualAxes = new HashSet<string>();
         }
@@ -47,6 +52,7 @@ namespace GSP.InputHandling
         /// </summary>
         void Start()
         {
+			m_localEventHandler.Subscribe(EventArchetype.Gameplay);
 
             /* Below is debug stuff to log the conntected gamepads
             string[] names = Input.GetJoystickNames();
@@ -95,8 +101,33 @@ namespace GSP.InputHandling
                 CatchDualAxisState();
             }
 
-            return;
+			Listen();
+
+			return;
         }
+
+		private void Listen()
+		{
+			GameEvent ev = null;
+
+			if (m_localEventHandler.Dequeue(ref ev))
+			{
+				if (ev.m_type == EventArchetype.Gameplay && ev.m_subtype == EventSubtype.Pause)
+				{
+					if (ev.m_flag == EventFlag.Active)
+					{
+						ReleaseHeld();
+					}
+					else if (ev.m_flag == EventFlag.Inactive)
+					{
+						while (m_pauseBuffer.Count() > 0)
+						{
+							m_localEventHandler.Dispatch(m_pauseBuffer.Dequeue());
+						}
+					}
+				}
+			}
+		}
 
         private void CatchKeyPress()
         {
@@ -258,11 +289,24 @@ namespace GSP.InputHandling
                 _flag,
                 this
             );
-			Debug.Log("Type " + _type + " + " + "Flag " + _flag);
+			
             m_localEventHandler.Dispatch(ev);
         }
 
-        public float GetAxisState(EventSubtype _subtype)
+		private void StashEvent(EventSubtype _type, EventFlag _flag)
+		{
+			GameEvent ev = new GameEvent(
+				EventArchetype.Input,
+				_type,
+				EventPriority.Urgent,
+				_flag,
+				this
+			);
+			
+			m_pauseBuffer.Enqueue(ev);
+		}
+
+		public float GetAxisState(EventSubtype _subtype)
         {
             return m_inputManager.AxisStates[_subtype];
         }
@@ -348,6 +392,40 @@ namespace GSP.InputHandling
 			}
 
 			return held;
+		}
+
+		private void ReleaseHeld()
+		{
+			foreach (var pair in m_inputManager.InputModeKeyMap)
+			{
+				if (m_heldKeys.Contains(pair.Key)				)
+				{
+					StashEvent(pair.Value, EventFlag.KeyUp);
+				}
+			}
+
+			foreach (var pair in m_inputManager.InputModeAxisMap)
+			{
+				if (m_heldAxes.Contains(pair.Key))
+				{
+					StashEvent(pair.Value, EventFlag.KeyUp);
+				}
+			}
+
+			foreach (var pair in m_inputManager.InputModeDualAxisMap)
+			{
+				if (
+						m_heldDualAxes.Contains(pair.Key.m_xAxis) ||
+						m_heldDualAxes.Contains(pair.Key.m_yAxis)
+					)
+				{
+					StashEvent(pair.Value, EventFlag.KeyUp);
+				}
+			}
+
+			m_heldKeys.Clear();
+			m_heldAxes.Clear();
+			m_heldDualAxes.Clear();
 		}
 	}
 }

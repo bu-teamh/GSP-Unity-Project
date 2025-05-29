@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using GSP.Events;
-using GSP.InputHandling;
 using UnityEngine;
 
-using GSP.Mediator;
 using GSP.Controller;
-using UnityEngine.UIElements;
+using GSP.Events;
 
 namespace GSP.States
 {
@@ -19,23 +13,17 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
+			SetTransition(typeof(MainCameraMenuState), EventArchetype.UI, EventSubtype.Menu, EventFlag.Active);
+		}
+
+		protected override void Awake()
+		{
 			
 		}
 
 		public override void Update()
 		{
-			// does base class update method
 			base.Update();
-
-			//if block, if event = w, do x, else do y, nextstate = z
-			// this state inherits from base state and theefore this should have functionality that should be only done during specific state
-			// on top of general logic
-
-			//you should not instruct the gameobject to go to a specific state from here:
-			//if it is called for, you need to send an event like so:
-			// GameEvent ev = new GameEvent(params);
-			// m_gameObject.m_handler.Enqueue(ev)
-			// and then add that event type to state map to react to that event in this state
 
 			return;
 		}
@@ -60,15 +48,15 @@ namespace GSP.States
 				targetCoords.z - m_currentCamDist
 				);
 
-			m_transform.position = Vector3.Lerp(m_transform.position, targetPos, m_smoothPosSpeed * Time.fixedDeltaTime);
+			m_thisObject.transform.position = Vector3.Lerp(m_thisObject.transform.position, targetPos, m_smoothPosSpeed * Time.fixedDeltaTime);
 
-			Vector3 direction = m_cameraTarget.transform.position - m_transform.position;
+			Vector3 direction = m_cameraTarget.transform.position - m_thisObject.transform.position;
 
 			direction.Normalize();
 
 			Quaternion rotation = Quaternion.LookRotation(direction);
 
-			m_transform.rotation = rotation;
+			m_thisObject.transform.rotation = rotation;
 
 			return;
 		}

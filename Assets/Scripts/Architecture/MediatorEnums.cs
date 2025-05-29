@@ -12,7 +12,11 @@ namespace GSP.Mediator
         Companion,
         CameraTarget,
         InputManager,
-		NavMesh
+		NavMesh,
+		GameStateManager,
+		MainCamera,
+		RingMenu,
+		Scrapbook
     }
 
 	public enum MediatedGroup
