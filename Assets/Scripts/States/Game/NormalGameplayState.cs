@@ -30,7 +30,16 @@ namespace GSP.States
 		//I might change this dictionary another time to something else as it's very annoying to format
 		protected override void InitializeMap()
 		{
+			base.InitializeMap();
+
 			SetTransition(typeof(CombatGameplayState), EventArchetype.Internal, EventSubtype.Combat, EventFlag.Active);
+		}
+
+		protected override void Awake()
+		{
+			SendEvent(EventPriority.Urgent, EventArchetype.Gameplay, EventSubtype.Pause, EventFlag.Inactive);
+			SendEvent(EventPriority.Urgent, EventArchetype.UI, EventSubtype.Menu, EventFlag.Inactive);
+			SendEvent(EventPriority.Urgent, EventArchetype.UI, EventSubtype.Pause, EventFlag.Inactive);
 		}
 
 		public override void Update()

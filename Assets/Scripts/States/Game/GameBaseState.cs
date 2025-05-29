@@ -26,6 +26,10 @@ namespace GSP.States
 
 		protected HashSet<ControllerComponent> m_enemies;
 
+
+		protected HashSet<ControllerComponent> m_localEnemies = new();
+		protected float m_entityRadius = 20.0f;
+
 		protected GameTimer m_cooldownTimer = new GameTimer(3.0f);
 
 		public GameBaseState(GameStateManager _object) : base(_object)

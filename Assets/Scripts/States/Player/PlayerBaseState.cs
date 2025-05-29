@@ -56,6 +56,7 @@ namespace GSP.States
 		{
 			GameObject m_defendSphere = GameObject.Find("Defend Sphere");
 			m_defendSphereRenderer = m_defendSphere.GetComponent<MeshRenderer>();
+			m_defendSphereRenderer.enabled = false;
 			m_animator = m_thisObject.GetComponentInChildren<Animator>();
 			m_defendTimer = new GameTimer(m_defendResetTime);
 		}
@@ -113,6 +114,14 @@ namespace GSP.States
 				m_thisObject.m_characterController.enabled = true;
 			}
 
+			//Rotate for menu, but not working atm because event gets pumped before comp controller can react
+			/*
+			if (CompareEvent(_event, EventArchetype.UI, EventSubtype.Menu, EventFlag.Active))
+			{
+				m_thisObject.transform.rotation = Quaternion.Euler(0.0f, -45.0f, 0.0f);
+			}
+			*/
+
 			if(CompareEvent(_event, EventArchetype.GameplayInput, EventSubtype.Defend, EventFlag.KeyDown))
 			{
 				if (m_canDefend)
@@ -127,7 +136,7 @@ namespace GSP.States
 		{
 			base.FixedUpdate();
 
-			m_defendSphereRenderer.enabled = false;
+			//m_defendSphereRenderer.enabled = false;
 
 			//rotation, always calculated
 			if (m_velocity != Vector3.zero)

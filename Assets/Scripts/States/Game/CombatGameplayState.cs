@@ -30,6 +30,8 @@ namespace GSP.States
 		//I might change this dictionary another time to something else as it's very annoying to format
 		protected override void InitializeMap()
 		{
+			base.InitializeMap();
+
 			SetTransition(typeof(NormalGameplayState), EventArchetype.Internal, EventSubtype.Combat, EventFlag.Inactive);
 		}
 

@@ -49,10 +49,10 @@ namespace GSP.States
 			//Does base state physics.
 			base.FixedUpdate();
 
-			if(m_thisObject.m_volume.profile.TryGet(out m_vignette))
-			{
-				m_vignette.intensity.Override(Mathf.Lerp((float)m_vignette.intensity, (float)m_gameStateManager.GetGlobalMaximum(GlobalValue.PlayerHealth) / (float)m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth) - 1, m_lerpSpeed));
-			}
+			//if(m_thisObject.m_volume.profile.TryGet(out m_vignette))
+			//{
+			//	m_vignette.intensity.Override(Mathf.Lerp((float)m_vignette.intensity, (float)m_gameStateManager.GetGlobalMaximum(GlobalValue.PlayerHealth) / (float)m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth) - 1, m_lerpSpeed));
+			//}
 
 			return;
 		}

@@ -10,7 +10,9 @@ namespace GSP.States
 		PlayerCharge,
 		InventoryHealth,
 		InventoryRevive,
-		InventoryFuel
+		InventoryFuel,
+		InventoryCog,
+		InventoryKey
 	}
 
 	public class GlobalValueBundle

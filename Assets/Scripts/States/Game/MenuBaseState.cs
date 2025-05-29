@@ -21,22 +21,6 @@ namespace GSP.States
 	{
 		//Define constant state attributes here (like health)
 
-		protected float m_example = 0.0f;
-
-		//And your constant physics attributes
-
-		protected float m_physicsExample = 0.0f;
-
-		//And any variables you need to store stuff to be persistent over state (like currentRot or something)
-
-		protected float m_currentRot;
-
-		//Define attributes for mediated objects listed in Inspector here
-
-		protected ControllerComponent m_player; // If it's a game object, it should be type ControllerComponent...
-		protected InputManagerComponentInterface m_inputManager; //... if it's a manager, use its interface identifier
-		protected HashSet<ControllerComponent> m_enemies; //If it's a collection, cast it to HashSet<ControllerComponent> !
-
 		//Constructor doesn't need touching
 		public MenuBaseState(GameStateManager _object) : base(_object) { }
 
@@ -47,6 +31,16 @@ namespace GSP.States
 		protected override void GetMediations()
 		{
 
+		}
+
+		protected override void InitializeMap()
+		{
+
+		}
+
+		protected override void Awake()
+		{
+			SendEvent(EventPriority.Urgent, EventArchetype.Gameplay, EventSubtype.Pause, EventFlag.Active);
 		}
 
 		public override void Update()

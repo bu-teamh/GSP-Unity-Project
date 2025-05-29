@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using GSP.Controller;
 using GSP.Events;
+using GSP.Mediator;
 using GSP.States;
 using GSP.Timer;
 using UnityEngine;
@@ -13,6 +15,7 @@ namespace GSP.Interface
 
 		private StateMachineInterface m_stateMachine;
 		private LocalEventHandlerInterface m_handler;
+		private MediatorComponentInterface m_mediator;
 
 		private InitialState m_initialState = InitialState.UIInitialState;
 
@@ -27,6 +30,7 @@ namespace GSP.Interface
 
 			m_stateMachine = new StateMachine(this);
 			m_handler = new LocalEventHandler();
+			m_mediator = MediatorComponent.Instance;
 
 			m_handler.Subscribe(EventArchetype.UI);
 			m_handler.Subscribe(EventArchetype.MenuInput);

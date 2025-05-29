@@ -19,8 +19,11 @@ namespace GSP.Interface
 
 		//all the public values for shit that will need to be used by the states
 		public GameObject m_sceneFader;
+		public GameObject m_menuLayer;
 
 		public Image m_blackout;
+		public Image m_menuBackground;
+
 
 		void Awake()
 		{
@@ -33,6 +36,8 @@ namespace GSP.Interface
 		void Start()
 		{
 			m_mediatedObjects[MediatedObject.GameStateManager] = m_mediator.GetObject(MediatedObject.GameStateManager, this);
+			m_mediatedObjects[MediatedObject.RingMenu] = m_mediator.GetObject(MediatedObject.RingMenu, this);
+			m_mediatedObjects[MediatedObject.Scrapbook] = m_mediator.GetObject(MediatedObject.Scrapbook, this);
 
 			m_interface.Start();
 		}

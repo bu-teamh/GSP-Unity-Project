@@ -30,7 +30,7 @@ namespace GSP.States
 		protected override void InitializeMap()
 		{
 			SetTransition(typeof(CompanionCombatState), EventArchetype.GameplayInput, EventSubtype.Ult, EventFlag.KeyUp);
-			SetTransition(typeof(CompanionUltAttackState), EventArchetype.GameplayInput, EventSubtype.Shoot, EventFlag.KeyDown);
+			SetTransition(typeof(CompanionUltAttackState), EventArchetype.GameplayInput, EventSubtype.Interact, EventFlag.KeyDown);
 		}
 
 		protected override void Awake()

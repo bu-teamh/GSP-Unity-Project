@@ -7,10 +7,6 @@ namespace GSP.Controller
 	{
 		Type GetState();
 
-		void Enable();
-
-		void Disable();
-
 		void SetCreator(object _object);
 	}
 }

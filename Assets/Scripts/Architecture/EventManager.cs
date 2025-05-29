@@ -129,6 +129,8 @@ namespace GSP.Events
 		{
 			if (_ev.m_type == EventArchetype.Input)
 			{
+				Debug.Log("Event Input type caught");
+
 				Type gameStateType = m_component.GameStateManager.GetGameState();
 
 				if (typeof(GameplayBaseState).IsAssignableFrom(gameStateType))
@@ -139,6 +141,8 @@ namespace GSP.Events
 				{
 					_ev.m_type = EventArchetype.MenuInput;
 				}
+
+				Debug.Log("Event Input type mutated to " + _ev.m_type + _ev.m_subtype + _ev.m_flag);
 			}
 
 			return;

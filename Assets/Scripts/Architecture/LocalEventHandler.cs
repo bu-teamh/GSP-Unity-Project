@@ -15,12 +15,14 @@ namespace GSP.Events
 		private TriggerableInterface m_owner;
 
 		private Queue<GameEvent> m_eventQueue;
+		private Queue<GameEvent> m_pauseBuffer;
 
 		public LocalEventHandler()
 		{
 			m_eventManager = EventManagerComponent.Instance;
 
 			m_eventQueue = new Queue<GameEvent>();
+			m_pauseBuffer = new Queue<GameEvent>();
 		}
 
 		public LocalEventHandler(TriggerableInterface _owner)
@@ -30,6 +32,7 @@ namespace GSP.Events
 			m_owner = _owner;
 
 			m_eventQueue = new Queue<GameEvent>();
+			m_pauseBuffer = new Queue<GameEvent>();
 		}
 
 		public void PumpEvents()
@@ -43,15 +46,14 @@ namespace GSP.Events
 
 			if (Peek(ref ev))
 			{
-				if (ev.m_type == EventArchetype.Trigger)
+				Debug.Log(m_owner + " handler peeked " + ev.m_type + ev.m_subtype + ev.m_flag + " // sent by: " + ev.m_author + " // id : " + ev.m_id);
+				if (ev.m_type == EventArchetype.Trigger &&
+					ev.m_subject == m_owner)
 				{
 					Dequeue(ref ev);
 
 					if (ev.m_flag == EventFlag.Activate)
 					{
-						
-						Debug.Log("Owner:" + m_owner + "had Enable() called by its local event handler");
-
 						m_owner.Enable();
 					}
 					else if (ev.m_flag == EventFlag.Deactivate)
@@ -59,7 +61,27 @@ namespace GSP.Events
 						m_owner.Disable();
 					}
 				}
+
+				if (
+					ev.m_type == EventArchetype.Gameplay &&
+					ev.m_subtype == EventSubtype.Pause)
+				{
+					Dequeue(ref ev);
+
+					if (ev.m_flag == EventFlag.Active)
+					{
+						m_owner.Pause();
+
+						Debug.Log(m_owner + "paused");
+					}
+					else if (ev.m_flag == EventFlag.Inactive)
+					{
+						m_owner.Unpause();
+						Debug.Log(m_owner + "unpaused");
+					}
+				}
 			}
+			else { Debug.Log(m_owner + " there was nothing to peek at :( ev check was false" ); }
 		}
 
 		#nullable enable
@@ -105,6 +127,16 @@ namespace GSP.Events
 		public void Unsubscribe()
 		{
 			m_eventManager.UnsubscribeListener(this);
+		}
+
+		public void StashEvents()
+		{
+			m_pauseBuffer = new Queue<GameEvent>(m_eventQueue);
+		}
+
+		public void UnstashEvents()
+		{
+			m_eventQueue = new Queue<GameEvent>(m_pauseBuffer);
 		}
 	}
 }
