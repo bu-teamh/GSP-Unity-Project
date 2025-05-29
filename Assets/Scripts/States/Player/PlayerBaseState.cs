@@ -31,7 +31,7 @@ namespace GSP.States
 
 		protected bool m_canDefend = true;
 		protected GameTimer m_defendTimer;
-		protected float m_defendResetTime = 1.0f;
+		protected float m_defendResetTime = 0.6f;
 
 		protected Animator m_animator;
 
