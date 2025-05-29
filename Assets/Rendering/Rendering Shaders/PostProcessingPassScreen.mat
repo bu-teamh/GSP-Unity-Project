@@ -45,6 +45,6 @@ Material:
     - _GrainPosterize: 4
     - _GrainScale: 15
     - _GrainScroll: 0.5
-    - _Saturation: 0.5
+    - _Saturation: 1
     m_Colors: []
   m_BuildTextureStacks: []

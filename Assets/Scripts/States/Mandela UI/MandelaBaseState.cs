@@ -30,7 +30,7 @@ namespace GSP.States
 		//And any variables you need to store stuff to be persistent over state (like currentRot or something)
 
 		protected Image m_image;
-		protected Vignette m_vignette;
+		//protected Vignette m_vignette;
 
 		//Define attributes for mediated objects listed in Inspector here
 

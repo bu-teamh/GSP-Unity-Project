@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: Render Shade and Shadows
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
     passTag: Render Shade and Shadows
     Event: 230
@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47853fdfc71e9234fa57aa49565a4481, type: 3}
   m_Name: ShadowMapBlit
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   m_Intensity: 1
   m_renderTexture: {fileID: 8400000, guid: 1302a827d0745c443b555fc952b6b4fb, type: 2}
   m_event: 240
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: Render Shade no Shadow
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
     passTag: Render Shade no Shadow
     Event: 250
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: RenderEverything
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
     passTag: RenderEverything
     Event: 250
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47853fdfc71e9234fa57aa49565a4481, type: 3}
   m_Name: ShadeMapBlit
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   m_Intensity: 1
   m_renderTexture: {fileID: 8400000, guid: 14e1049a45f78914fbd56986c73660c4, type: 2}
   m_event: 250

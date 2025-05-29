@@ -75,7 +75,7 @@ namespace GSP.States
 							if(m_player.m_parry)
 							{
 								Debug.Log("Parried!!!!");
-								m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerCharge, 1);
+								m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerCharge, 40);
 							}
 							else { m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -5); }
 						}

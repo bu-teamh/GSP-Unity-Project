@@ -34,6 +34,8 @@ MonoBehaviour:
       m_type: 2
     - m_key: 113
       m_type: 3
+    - m_key: 325
+      m_type: 10
   - m_mode: 2
     m_keyEventPairs:
     - m_key: 336
