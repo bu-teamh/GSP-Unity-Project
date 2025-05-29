@@ -28,7 +28,8 @@ namespace GSP.States
 		GooInitialState,
 		RingMenuInitialState,
 		ScrapbookInitialState,
-		TeleportFloatState
+		TeleportFloatState,
+		BossInitialState
 	}
 
 	public class InitialStates
@@ -59,7 +60,8 @@ namespace GSP.States
 				{ InitialState.RingMenuInitialState, typeof(RingMenuIdleState) },
 				{ InitialState.ScrapbookInitialState, typeof(ScrapbookIdleState) },
 				{ InitialState.TeleportFloatState, typeof(TeleportFloatState) },
-				{ InitialState.MandelaInitialState, typeof(MandelaIdleState) }
+				{ InitialState.MandelaInitialState, typeof(MandelaIdleState) },
+				{InitialState.BossInitialState, typeof(BossIdleState) }
 			};
 	}
 }
