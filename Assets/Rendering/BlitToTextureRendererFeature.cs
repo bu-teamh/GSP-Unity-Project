@@ -36,8 +36,6 @@ internal class ColorBlitPass : ScriptableRenderPass
         CommandBuffer cmd = CommandBufferPool.Get();
         using (new ProfilingScope(cmd, m_ProfilingSampler))
         {
-            //Blitter.BlitCameraTexture(cmd, m_CameraColorTarget, m_renderTexture, m_Material, 0);
-            //Graphics.Blit(m_CameraColorTarget, m_renderTexture);
             Blit(cmd, m_CameraColorTarget, m_renderTexture);
         }
         context.ExecuteCommandBuffer(cmd);
@@ -67,8 +65,6 @@ internal class BlitToTextureRendererFeature : ScriptableRendererFeature
     {
         if (renderingData.cameraData.cameraType == CameraType.Game)
         {
-            // Calling ConfigureInput with the ScriptableRenderPassInput.Color argument
-            // ensures that the opaque texture is available to the Render Pass.
             m_RenderPass.ConfigureInput(ScriptableRenderPassInput.Color);
             m_RenderPass.SetTarget(renderer.cameraColorTargetHandle, m_Intensity);
         }

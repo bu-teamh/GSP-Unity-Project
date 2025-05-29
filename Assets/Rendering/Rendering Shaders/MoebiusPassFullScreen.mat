@@ -90,7 +90,7 @@ Material:
     - _NormalThreshold: 0.5
     - _PerturbationFactor: 1
     - _ShadePower: 1
-    - _ShadeStrength: 1
+    - _ShadeStrength: 0.3
     - _ShadowPower: 1
     - _ShadowRemap: 0.239
     - _ShadowScroll: 0
@@ -113,7 +113,7 @@ Material:
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShadeRemap: {r: 0, g: 1, b: 0, a: 0}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowRemap: {r: 0, g: 0.5, b: 0, a: 0}
+    - _ShadowRemap: {r: 0, g: 1, b: 0, a: 0}
     - _ShadowRemapMax: {r: 0, g: 1, b: 0, a: 0}
     - _V1: {r: 10, g: 10, b: 0, a: 0}
     - _V2: {r: 0, g: 0.37, b: 0, a: 0}

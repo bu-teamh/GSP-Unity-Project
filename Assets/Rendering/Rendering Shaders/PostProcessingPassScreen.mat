@@ -41,9 +41,9 @@ Material:
     - _Brightness: 0
     - _Contrast: 1
     - _Gamma: 1
-    - _GrainIntensity: 0.01
-    - _GrainPosterize: 4
-    - _GrainScale: 15
+    - _GrainIntensity: 0.0005
+    - _GrainPosterize: 5
+    - _GrainScale: 5
     - _GrainScroll: 0.5
     - _Saturation: 1
     m_Colors: []
