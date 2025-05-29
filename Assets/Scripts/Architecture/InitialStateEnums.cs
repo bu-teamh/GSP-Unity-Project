@@ -47,7 +47,6 @@ namespace GSP.States
 				{ InitialState.TeleportInitialState, typeof(TeleportListenState) },
 				{ InitialState.GameInitialState, typeof(NormalGameplayState) },								//get rid
 				{ InitialState.UIInitialState, typeof(UIClearState) },                                       //get rid
-				{ InitialState.MandelaInitialState, typeof(MandelaBaseState) },
 				{ InitialState.PickupHealthState, typeof(PickupHealthState) },
 				{ InitialState.PickupFuelState, typeof(PickupFuelState) },
 				{ InitialState.PickupReviveState, typeof(PickupReviveState) },
@@ -59,7 +58,7 @@ namespace GSP.States
 				{ InitialState.GooInitialState, typeof(GooIdleState) },
 				{ InitialState.RingMenuInitialState, typeof(RingMenuIdleState) },
 				{ InitialState.ScrapbookInitialState, typeof(ScrapbookIdleState) },
-				{ InitialState.TeleportFloatState, typeof(TeleportFloatState) }
+				{ InitialState.TeleportFloatState, typeof(TeleportFloatState) },
 				{ InitialState.MandelaInitialState, typeof(MandelaIdleState) }
 			};
 	}
