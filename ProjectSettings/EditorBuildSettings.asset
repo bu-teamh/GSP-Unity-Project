@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: ed54afc6178262b44a0dfa87b7417391
   - enabled: 1
-    path: Assets/Scenes/TeleportTest.unity
-    guid: 4681b5cfe2286504db33f58bc2848c07
+    path: Assets/Scenes/VerticalSliceLevel.unity
+    guid: c336acf2286d38e4082dc17074b6edd8
   m_configObjects: {}

@@ -55,7 +55,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4961895147030807649}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.7
+  m_Radius: 2
   m_Speed: 9
   m_Acceleration: 8
   avoidancePriority: 50
@@ -132,6 +132,8 @@ MonoBehaviour:
   m_AOE: {fileID: 0}
   m_parry: 0
   m_volume: {fileID: 0}
+  m_tooltip: {fileID: 0}
+  m_pausable: 1
 --- !u!198 &7202568505169066200
 ParticleSystem:
   m_ObjectHideFlags: 0
