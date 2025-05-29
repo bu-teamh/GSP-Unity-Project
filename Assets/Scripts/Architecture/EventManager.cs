@@ -5,6 +5,7 @@ using GSP.States;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.UIElements;
+using TMPro;
 
 namespace GSP.Events
 {
@@ -116,7 +117,17 @@ namespace GSP.Events
 			//key error - if event gets sent and no one subscribes to it, a key error is thrown! need to handle this
             foreach (var listener in m_subscriberMap[_ev.m_type])
             {
-                listener.Enqueue(_ev);
+				if (_ev.m_type != EventArchetype.Trigger)
+				{
+					listener.Enqueue(_ev);
+				}
+				else if (
+					_ev.m_type == EventArchetype.Trigger &&
+					_ev.m_subject != null &&
+					(object)listener.GetOwner() == _ev.m_subject)
+				{
+					listener.Enqueue(_ev);
+				}
             }
         }
 

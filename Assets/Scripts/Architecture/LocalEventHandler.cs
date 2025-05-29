@@ -138,5 +138,10 @@ namespace GSP.Events
 		{
 			m_eventQueue = new Queue<GameEvent>(m_pauseBuffer);
 		}
+
+		public TriggerableInterface GetOwner()
+		{
+			return m_owner;
+		}
 	}
 }

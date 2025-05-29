@@ -1,6 +1,7 @@
 #nullable enable
 
 using System.Collections.Generic;
+using GSP.Triggers;
 
 namespace GSP.Events
 {
@@ -25,5 +26,7 @@ namespace GSP.Events
 		void StashEvents();
 
 		void UnstashEvents();
+
+		public TriggerableInterface GetOwner();
 	}
 }
