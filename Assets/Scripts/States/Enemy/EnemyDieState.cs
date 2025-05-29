@@ -14,6 +14,7 @@ namespace GSP.States
 		protected override void Awake()
 		{
 			m_animator.SetBool("IsDead", true);
+			m_attackEffect.Stop();
 		}
 
 		public override void Update()

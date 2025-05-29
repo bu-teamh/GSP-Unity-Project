@@ -16,8 +16,8 @@ namespace GSP.States
 		protected float m_deceleration = 10;
 		protected float m_maxSpeed = 15;
 		protected float m_maxRotSpeed = 1080;
-		protected float m_rotDamping = 5;
-		protected float m_dampingThreshold = 10;
+		protected float m_rotDamping = 1;
+		protected float m_dampingThreshold = 1;
 
 		protected bool m_combatActive;
 
