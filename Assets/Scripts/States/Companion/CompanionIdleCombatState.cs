@@ -22,7 +22,30 @@ namespace GSP.States
 		protected override void InitializeMap()
 		{
 			SetTransition(typeof(CompanionFollowState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Inactive);
-			SetTransition(typeof(CompanionAimState), EventArchetype.GameplayInput, EventSubtype.Aim, EventFlag.KeyDown);
+			SetTransition(typeof(CompanionAimState), EventArchetype.Internal, EventSubtype.Aim, EventFlag.KeyDown);
+			SetTransition(typeof(CompanionUltAimState), EventArchetype.Internal, EventSubtype.Ult, EventFlag.KeyDown);
+		}
+
+		public override void React(GameEvent _event)
+		{
+			base.React(_event);
+			if(CompareEvent(_event, EventArchetype.GameplayInput, EventSubtype.Aim, EventFlag.KeyDown))
+			{
+				if (m_canAttack)
+				{
+					InternalEvent(EventSubtype.Aim, EventFlag.KeyDown);
+				}
+				else Debug.Log("Cant Attack Yet");
+			}
+
+			if(CompareEvent(_event, EventArchetype.GameplayInput, EventSubtype.Ult, EventFlag.KeyDown))
+			{
+				if (m_gameStateManager.GetGlobalValue(GlobalValue.PlayerCharge) >= m_gameStateManager.GetGlobalMaximum(GlobalValue.PlayerCharge))
+				{
+					InternalEvent(EventSubtype.Ult, EventFlag.KeyDown);
+				}
+				else Debug.Log("No charge for ult");
+			}
 		}
 
 		public override void Update()

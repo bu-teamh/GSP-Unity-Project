@@ -15,7 +15,7 @@ namespace GSP.States
 		protected override void InitializeMap()
 		{
 			SetTransition(m_switchStateMap[SwitchState.Combat], EventArchetype.Internal, EventSubtype.Dodge, EventFlag.KeyUp);
-			SetTransition(typeof(PlayerDefendState), EventArchetype.GameplayInput, EventSubtype.Defend, EventFlag.KeyDown);
+			SetTransition(typeof(PlayerDefendState), EventArchetype.Internal, EventSubtype.Defend, EventFlag.KeyDown);
 			SetTransition(typeof(PlayerDeathState), EventArchetype.Internal, EventSubtype.Death);
 		}
 
@@ -34,6 +34,7 @@ namespace GSP.States
 			}
 
 			m_dashTimer = new GameTimer(m_dashTime);
+			m_animator.SetBool("IsDashing", true);
 		}
 
 		public override void Update()

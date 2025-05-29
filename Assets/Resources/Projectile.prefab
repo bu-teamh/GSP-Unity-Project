@@ -99,7 +99,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -158,11 +158,12 @@ MonoBehaviour:
   m_creator: {fileID: 0}
   m_playerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2147483648
   m_enemyMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
+  m_parry: 0
   m_volume: {fileID: 0}

@@ -22,8 +22,6 @@ namespace GSP.States
 	{
 		//Define constant state attributes here (like health)
 
-		protected float m_current = 0.0f;
-		protected float m_max = 100.0f;
 		protected Color m_color;
 
 		//And your constant physics attributes
@@ -40,6 +38,8 @@ namespace GSP.States
 		protected ControllerComponent m_companion; // If it's a game object, it should be type ControllerComponent...
 		protected ControllerComponent m_mainCamera;
 
+		protected GameStateManagerComponentInterface m_gameStateManager;
+
 		//Constructor doesn't need touching
 		public ChargeBaseState(ControllerComponent _object) : base(_object) { }
 
@@ -51,12 +51,14 @@ namespace GSP.States
 		{
 			m_companion = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Companion];
 			m_mainCamera = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.MainCamera];
+			m_gameStateManager = (GameStateManagerComponentInterface)m_thisObject.m_mediatedObjects[MediatedObject.GameStateManager];
 		}
 
 		protected override void Awake()
 		{
 			m_image = m_thisObject.GetComponentInChildren<Image>();
-			m_current = 0.0f;
+			m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerCharge, -(int)m_gameStateManager.GetGlobalMaximum(GlobalValue.PlayerCharge));
+			
 		}
 
 		public override void Update()

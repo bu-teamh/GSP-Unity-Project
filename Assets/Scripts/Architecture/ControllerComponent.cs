@@ -48,6 +48,13 @@ namespace GSP.Controller
 		public LayerMask m_playerMask;
 		public LayerMask m_groundMask;
 		public LayerMask m_enemyMask;
+		public LayerMask m_ultMask;
+
+		public bool m_enemyRanged;
+
+		public GameObject m_AOE;
+
+		public bool m_parry;
 
 		public Volume m_volume;
 

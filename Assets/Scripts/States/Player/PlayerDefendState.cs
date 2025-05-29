@@ -2,6 +2,7 @@ using UnityEngine;
 
 using GSP.Controller;
 using GSP.Events;
+using GSP.Timer;
 
 namespace GSP.States
 {
@@ -29,11 +30,23 @@ namespace GSP.States
 				m_switchStateMap[SwitchState.Combat] = typeof(PlayerIdleState);
 			}
 
+			m_parryWindow = new GameTimer(m_parryTime);
+			m_thisObject.m_parry = true;
+			m_canDefend = false;
+
 		}
 
 		public override void Update()
 		{
 			base.Update();
+			m_parryWindow.Start();
+			m_parryWindow.Lock();
+
+			if(m_parryWindow.Check())
+			{
+				m_thisObject.m_parry = false;
+				m_parryWindow.Unlock();
+			}
 
 			return;
 		}

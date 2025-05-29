@@ -2,6 +2,7 @@ using UnityEngine;
 
 using GSP.Controller;
 using GSP.Events;
+using GSP.Timer;
 
 namespace GSP.States
 {
@@ -13,12 +14,17 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(CompanionAimState), EventArchetype.GameplayInput, EventSubtype.Aim, EventFlag.KeyDown);
+			//SetTransition(typeof(CompanionAimState), EventArchetype.GameplayInput, EventSubtype.Aim, EventFlag.KeyDown);
 		}
 
 		protected override void Awake()
 		{
 			base.Awake();
+			m_thisObject.m_volume.weight = 1.0f;
+			Time.timeScale = 1.0f;
+			m_lineRenderer.enabled = false;
+			m_thisObject.m_AOE.transform.localPosition = Vector3.zero;
+			m_thisObject.m_AOE.SetActive(false);
 		}
 
 		public override void Update()

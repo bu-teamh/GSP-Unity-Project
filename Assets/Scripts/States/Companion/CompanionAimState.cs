@@ -35,9 +35,8 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
-			base.Awake();	
+			base.Awake();
 		}
-
 
 		public override void Update()
 		{

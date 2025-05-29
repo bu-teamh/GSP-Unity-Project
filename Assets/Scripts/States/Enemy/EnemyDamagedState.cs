@@ -21,9 +21,8 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
-			base.Awake();
-
-			m_Timer = new GameTimer(m_stunTime);
+			m_waitTimer = new GameTimer(m_stunTime);
+			m_thisObject.m_agent.ResetPath();
 
 		}
 
@@ -31,13 +30,14 @@ namespace GSP.States
 		{
 			base.Update();
 
-			m_Timer.Start();
-			m_Timer.Lock();
+			m_waitTimer.Start();
+			m_waitTimer.Lock();
 
-			if (m_Timer.Check())
+			if (m_waitTimer.Check())
 			{
+				m_attackEffect.Stop();
 				InternalEvent(EventSubtype.PlayerSpotted);
-				m_Timer.Unlock();
+				m_waitTimer.Unlock();
 			}
 
 			return;
@@ -47,10 +47,11 @@ namespace GSP.States
 		{ 
 			base.FixedUpdate();
 
+			m_attackEffect.Play();
+
 			Vector3 direction = m_companion.transform.position - m_thisObject.transform.position;
 
-			//m_thisObject.transform.position = direction * Time.fixedDeltaTime;
-			m_thisObject.m_characterController.Move(direction * Time.fixedDeltaTime);
+			m_thisObject.m_agent.Move(direction * Time.deltaTime);
 
 			return;
 		}

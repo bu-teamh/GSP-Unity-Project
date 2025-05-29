@@ -19,8 +19,9 @@ namespace GSP.States
 		protected override void Awake()
 		{
 			base.Awake();
-			
 
+			m_animator.SetBool("IsDead", true);
+			
 		}
 
 		public override void Update()
@@ -35,7 +36,6 @@ namespace GSP.States
 		public override void React(GameEvent _event)
 		{
 			base.React(_event);
-			
 
 		}
 

@@ -32,8 +32,6 @@ namespace GSP.States
 		{
 			base.FixedUpdate();
 
-
-
 			return;
 		}
 	}

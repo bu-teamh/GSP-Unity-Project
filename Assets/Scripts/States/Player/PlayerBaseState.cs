@@ -26,7 +26,14 @@ namespace GSP.States
 		protected bool m_hasDashed;
 
 		protected MeshRenderer m_defendSphereRenderer;
+		protected GameTimer m_parryWindow;
+		protected float m_parryTime = 1.0f;
 
+		protected bool m_canDefend = true;
+		protected GameTimer m_defendTimer;
+		protected float m_defendResetTime = 1.0f;
+
+		protected Animator m_animator;
 
 		protected Vector3 m_velocity = Vector3.zero;
 		protected Quaternion m_targetRot;
@@ -47,20 +54,48 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
-			//GameObject m_defendSphere = GameObject.Find("Defend Sphere");
-			//m_defendSphereRenderer = m_defendSphere.GetComponent<MeshRenderer>();
+			GameObject m_defendSphere = GameObject.Find("Defend Sphere");
+			m_defendSphereRenderer = m_defendSphere.GetComponent<MeshRenderer>();
+			m_animator = m_thisObject.GetComponentInChildren<Animator>();
+			m_defendTimer = new GameTimer(m_defendResetTime);
 		}
 
 		public override void Update()
 		{
-			base.Update();
+			m_defendTimer.Start();
+			m_defendTimer.Lock();
 
-			//Debug.Log(m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth));
+			if(m_defendTimer.Check())
+			{
+				if(!m_canDefend)
+				{
+					m_canDefend = true;
+				}
+				m_defendTimer.Unlock();
+			}
+
+			if(m_thisObject.GetState() == typeof(PlayerIdleState))
+			{
+				m_animator.SetBool("IsMoving", false);
+			}
+			else if(m_thisObject.GetState() == typeof(PlayerMoveState))
+			{
+				m_animator.SetBool("IsMoving", true);
+			}
+
+			if(!(m_thisObject.GetState() == typeof(PlayerDashState)))
+			{
+				m_animator.SetBool("IsDashing", false) ;
+			}
+
 
 			if(m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth) <= 0)
 			{
+				Debug.Log("Player Died now");
 				InternalEvent(EventSubtype.Death);
 			}
+
+			//Debug.Log(m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth));
 
 			return;
 		}
@@ -85,6 +120,15 @@ namespace GSP.States
 				m_thisObject.transform.rotation = Quaternion.Euler(0.0f, -45.0f, 0.0f);
 			}
 			*/
+
+			if(CompareEvent(_event, EventArchetype.GameplayInput, EventSubtype.Defend, EventFlag.KeyDown))
+			{
+				if (m_canDefend)
+				{
+					InternalEvent(EventSubtype.Defend, EventFlag.KeyDown);
+				}
+				else Debug.Log("cant defend yet");
+			}
 		}
 
 		public override void FixedUpdate()

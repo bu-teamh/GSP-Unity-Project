@@ -6,14 +6,13 @@ using System.Xml.Linq;
 
 using UnityEngine;
 
-//Include if this state listens out for input:
-using GSP.InputHandling;
 
 using GSP.Events;
 using GSP.Mediator;
 using GSP.Controller;
 using GSP.Timer;
 using UnityEngine.UI;
+using UnityEngine.Rendering.Universal;
 
 namespace GSP.States
 {
@@ -31,6 +30,7 @@ namespace GSP.States
 		//And any variables you need to store stuff to be persistent over state (like currentRot or something)
 
 		protected Image m_image;
+		protected Vignette m_vignette;
 
 		//Define attributes for mediated objects listed in Inspector here
 
@@ -55,7 +55,6 @@ namespace GSP.States
 		protected override void Awake()
 		{
 			m_image = m_thisObject.GetComponentInChildren<Image>();
-			m_image.fillAmount = ((float)m_gameStateManager.GetGlobalValue(GlobalValue.PlayerHealth) / 100);
 		}
 		public override void Update()
 		{

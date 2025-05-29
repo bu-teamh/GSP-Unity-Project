@@ -91,6 +91,35 @@ namespace GSP.States
 
 			return value;
 		}
+
+		public int? GetMaximum(GlobalValue _attribute)
+		{
+			int? maximum = null;
+
+			if(m_globalValues.ContainsKey(_attribute))
+			{
+				maximum = m_globalValues[_attribute].Maximum();
+			}
+			else
+			{
+				//error, no such attribute stored
+			}
+			return maximum;
+		}
+
+		public int? GetMinimum(GlobalValue _attribute)
+		{
+			int? mimimum = null;
+			if((m_globalValues.ContainsKey(_attribute)))
+			{
+				mimimum = m_globalValues[_attribute].Minimum();
+			}
+			else
+			{
+				//error, no such attribute stored
+			}
+			return mimimum;
+		}
 		#nullable disable
 
 		public void AddToValue(GlobalValue _attribute, int _value)

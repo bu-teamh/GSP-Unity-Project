@@ -59,6 +59,18 @@ namespace GSP.States
 
 			return value;
 		}
+		public int? GetGlobalMaximum(GlobalValue _attribute)
+		{
+			int? maximum = m_manager.GetMaximum(_attribute);
+
+			return maximum;
+		}
+
+		public int? GetGlobalMinimum(GlobalValue _attribute)
+		{
+			int? minimum = m_manager.GetMinimum(_attribute);
+			return minimum;
+		}
 		#nullable disable
 
 		public void AddToGlobalValue(GlobalValue _attribute, int _value)

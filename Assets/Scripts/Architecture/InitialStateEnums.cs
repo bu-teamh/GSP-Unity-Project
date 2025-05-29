@@ -60,6 +60,7 @@ namespace GSP.States
 				{ InitialState.RingMenuInitialState, typeof(RingMenuIdleState) },
 				{ InitialState.ScrapbookInitialState, typeof(ScrapbookIdleState) },
 				{ InitialState.TeleportFloatState, typeof(TeleportFloatState) }
+				{ InitialState.MandelaInitialState, typeof(MandelaIdleState) }
 			};
 	}
 }

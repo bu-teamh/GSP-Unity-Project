@@ -38,7 +38,6 @@ namespace GSP.Events
 		Dodge,
 		TogglePause,
 		Unimplemented,
-
 		/*
 		AGREED CONTROLS
 		Dodge = space
@@ -49,6 +48,7 @@ namespace GSP.Events
 		Interact = E
 		Defend = q
 		*/
+		Ult,
 
 		//Emeny emuns
 		PlayerSpotted,

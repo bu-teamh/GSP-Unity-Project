@@ -23,8 +23,6 @@ namespace GSP.States
 		{
 			base.Update();
 
-			m_direction = m_thisObject.transform.forward;
-
 			InternalEvent(EventSubtype.Move);
 
 			return;

@@ -38,6 +38,16 @@ namespace GSP.States
 		{
 			return m_value;
 		}
+
+		public int Maximum()
+		{
+			return m_maximum;
+		}
+
+		public int Minimum()
+		{
+			return m_minimum;
+		}
 	}
 }
 

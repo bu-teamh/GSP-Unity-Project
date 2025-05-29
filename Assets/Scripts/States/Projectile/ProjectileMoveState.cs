@@ -35,50 +35,53 @@ namespace GSP.States
 
 			Collider[] nearbyObjects = Physics.OverlapSphere(m_thisObject.transform.position, (m_rigidbody.transform.localScale.magnitude / 2));
 
-			HashSet<Collider> nearbyNotProj = new HashSet<Collider>(nearbyObjects);
+			HashSet<Collider> canCollideWith = new HashSet<Collider>(nearbyObjects);
 			HashSet<Collider> projectiles = new HashSet<Collider>();
+			HashSet<Collider> enemies = new HashSet<Collider>();
 
 			foreach (ControllerComponent proj in m_projectiles)
 			{
-				projectiles.Add(proj.GetComponent<Collider>());
+				projectiles.Add(proj.GetComponent<Collider>());		// Makes List of all Projectiles
 			}
 
-			foreach (var near in nearbyObjects)
+			foreach(ControllerComponent enemy in m_enemies)
 			{
-				if (projectiles.Contains(near))
+				enemies.Add(enemy.GetComponent<Collider>());
+			}
+
+			foreach (var near in nearbyObjects)		// Removes projectiles from collision list
+			{
+				if (projectiles.Contains(near) || enemies.Contains(near))
 				{
-					nearbyNotProj.Remove(near);
+					canCollideWith.Remove(near);
 				}
 			}
 
-			foreach (Collider collider in nearbyNotProj)
+			foreach (Collider collider in canCollideWith)
 			{
-				if(collider.GetComponentInParent<ControllerComponent>() == m_player)
+				if (collider.GetComponentInParent<ControllerComponent>() == m_player)
 				{
-					if(m_player.GetState() == typeof(PlayerDefendState))
+					if (m_player.GetState() == typeof(PlayerDefendState))
 					{
-						Debug.Log("Defended");
+						Debug.Log("projectile Defended");
+
+						if (m_player.m_parry)
+						{
+							Debug.Log("projectile Parried");
+							m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerCharge, 1);
+						}
+						else { m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -5); }
 					}
 					else
 					{
-						m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -20);
+						m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -10);
 					}
-					//Debug.Log("Hit Player");
+
+					m_thisObject.Remove();
 				}
+				else m_thisObject.Remove();
 				
 			}
-			if(nearbyNotProj.Count > 0)
-			{
-				m_thisObject.Remove();
-
-				foreach (Collider collider in nearbyNotProj)
-				{
-					//Debug.Log("this" + m_thisObject.GetInstanceID() + "collided with " + collider.name + " " + collider.GetInstanceID());
-				}
-			}
-
-			m_rigidbody.velocity = m_thisObject.transform.forward * m_speed;
-
 			return;
 		}
 	}

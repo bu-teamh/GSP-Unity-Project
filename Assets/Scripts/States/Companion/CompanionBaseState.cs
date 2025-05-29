@@ -31,12 +31,24 @@ namespace GSP.States
 		protected float m_mouseDecel = 35.0f;
 		protected float m_mouseFollowSpeed = 75.0f;
 		protected float m_mouseDecelThreshold = 1.0f;
-		protected float m_hovHeight = 3.0f;
+		protected float m_hovHeight = 2.0f;
 
 		// this is for companion physics sphere (WIP)
 		protected float m_attackRange = 5.0f;
 		protected float m_attackTime = 0.3f;
 		protected GameTimer m_timer;
+		protected GameTimer m_attackDelayTimer;
+		protected float m_attackDelayTime = 1.0f;
+
+		protected bool m_canAttack = true;
+
+		protected GameTimer m_phoebusTimer;
+		protected float m_phoebusTime = 15.0f;
+
+		protected ParticleSystem m_particleSystem;
+		protected ParticleSystem.LightsModule m_lightsModule;
+
+		protected ParticleSystem m_AOEeffect;
 
 		//stored stuff (physics, not globals)
 		protected Vector3 m_velocity = Vector3.zero;
@@ -48,6 +60,7 @@ namespace GSP.States
 
 		protected ControllerComponent m_player;
 		protected InputManagerComponentInterface m_inputManager;
+		protected GameStateManagerComponentInterface m_gameStateManager;
 
 
 		// --- --- --- ---
@@ -60,16 +73,31 @@ namespace GSP.States
 		{
 			m_player = (ControllerComponent)m_thisObject.m_mediatedObjects[MediatedObject.Player];
 			m_inputManager = (InputManagerComponentInterface)m_thisObject.m_mediatedObjects[MediatedObject.InputManager];
+			m_gameStateManager = (GameStateManagerComponentInterface)m_thisObject.m_mediatedObjects[MediatedObject.GameStateManager];
 
 		}
 		protected override void Awake()
 		{
 			m_lineRenderer = m_thisObject.GetComponent<LineRenderer>();
+			m_particleSystem = m_thisObject.GetComponentInChildren<ParticleSystem>();
+			m_lightsModule = m_particleSystem.lights;
+			m_attackDelayTimer = new GameTimer(m_attackDelayTime);
+			m_AOEeffect = m_thisObject.m_AOE.GetComponentInChildren<ParticleSystem>();
 		}
 
 		public override void Update()
 		{
+			m_attackDelayTimer.Start();
+			m_attackDelayTimer.Lock();
 
+			if(m_attackDelayTimer.Check())
+			{
+				if(!m_canAttack)
+				{
+					m_canAttack = true;
+				}
+				m_attackDelayTimer.Unlock();
+			}
 			return;
 		}
 
