@@ -21,6 +21,7 @@ namespace GSP.States
 		}
 		protected override void Awake()
 		{
+			base.Awake();
 			m_attackTimer = new GameTimer(m_attackDelay);
 		}
 

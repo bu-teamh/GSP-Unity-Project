@@ -13,7 +13,7 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			SetTransition(m_switchStateMap[SwitchState.Combat], EventArchetype.GameplayInput, EventSubtype.Defend, EventFlag.KeyUp);
+
 		}
 
 		protected override void Awake()

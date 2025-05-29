@@ -20,6 +20,7 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
+			base.Awake();
 			m_switchStateMap[SwitchState.Combat] = typeof(EnemyChaseState);
 
 			m_waitTimer = new GameTimer(m_bashWaitTime);
@@ -75,7 +76,7 @@ namespace GSP.States
 							if(m_player.m_parry)
 							{
 								Debug.Log("Parried!!!!");
-								m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerCharge, 1);
+								m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerCharge, 40);
 							}
 							else { m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerHealth, -5); }
 						}

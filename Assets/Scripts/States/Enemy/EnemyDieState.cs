@@ -18,15 +18,12 @@ namespace GSP.States
 
 		public override void Update()
 		{
-			base.Update();
 
 			return;
 		}
 
 		public override void FixedUpdate()
 		{
-			base.FixedUpdate();
-
 			Debug.Log("i died ahhhh");
 			//m_thisObject.Remove();
 

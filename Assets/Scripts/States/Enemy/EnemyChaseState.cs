@@ -19,6 +19,11 @@ namespace GSP.States
 			SetTransition(typeof(EnemyDamagedState), EventArchetype.Internal, EventSubtype.Damaged);
 		}
 
+		protected override void Awake()
+		{
+			base.Awake();
+		}
+
 		public override void Update()
 		{
 			base.Update();

@@ -56,6 +56,7 @@ namespace GSP.States
 		{
 			GameObject m_defendSphere = GameObject.Find("Defend Sphere");
 			m_defendSphereRenderer = m_defendSphere.GetComponent<MeshRenderer>();
+			m_defendSphereRenderer.enabled = false;
 			m_animator = m_thisObject.GetComponentInChildren<Animator>();
 			m_defendTimer = new GameTimer(m_defendResetTime);
 		}
