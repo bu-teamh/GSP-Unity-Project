@@ -75,6 +75,8 @@ namespace GSP.States
 
 				m_fadeoutTimer.Unlock();
 				m_thisObject.Disable();
+
+				Debug.Log(m_thisObject.name + " sent a teleport event");
 			}
 
 			return;

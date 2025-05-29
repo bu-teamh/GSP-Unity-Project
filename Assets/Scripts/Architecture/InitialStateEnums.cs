@@ -27,7 +27,8 @@ namespace GSP.States
 		PortcullisInitialState,
 		GooInitialState,
 		RingMenuInitialState,
-		ScrapbookInitialState
+		ScrapbookInitialState,
+		TeleportFloatState
 	}
 
 	public class InitialStates
@@ -57,7 +58,8 @@ namespace GSP.States
 				{ InitialState.PortcullisInitialState, typeof(PortcullisInitialState) },
 				{ InitialState.GooInitialState, typeof(GooIdleState) },
 				{ InitialState.RingMenuInitialState, typeof(RingMenuIdleState) },
-				{ InitialState.ScrapbookInitialState, typeof(ScrapbookIdleState) }
+				{ InitialState.ScrapbookInitialState, typeof(ScrapbookIdleState) },
+				{ InitialState.TeleportFloatState, typeof(TeleportFloatState) }
 			};
 	}
 }

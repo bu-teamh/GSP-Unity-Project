@@ -44,11 +44,11 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.27633637, g: 0, b: 0.7169812, a: 1}
-  m_Intensity: 50
+  m_Color: {r: 0.011764706, g: 0.00048949925, b: 0.043137256, a: 1}
+  m_Intensity: 150
   m_Range: 10
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
+  m_SpotAngle: 40.76538
+  m_InnerSpotAngle: 35.347298
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -249,3 +249,4 @@ MonoBehaviour:
     m_Bits: 0
   m_volume: {fileID: 0}
   m_tooltip: {fileID: 0}
+  m_pausable: 1

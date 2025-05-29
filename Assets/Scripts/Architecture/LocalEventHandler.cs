@@ -48,7 +48,8 @@ namespace GSP.Events
 			if (Peek(ref ev))
 			{
 				Debug.Log(m_owner + " handler peeked " + ev.m_type + ev.m_subtype + ev.m_flag + " // sent by: " + ev.m_author + " // id : " + ev.m_id);
-				if (ev.m_type == EventArchetype.Trigger)
+				if (ev.m_type == EventArchetype.Trigger &&
+					ev.m_subject == m_owner)
 				{
 					Dequeue(ref ev);
 
