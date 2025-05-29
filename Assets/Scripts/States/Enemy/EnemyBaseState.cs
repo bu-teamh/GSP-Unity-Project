@@ -21,8 +21,8 @@ namespace GSP.States
 		protected float m_health = 100;
 
 		protected float m_stunTime = 2.0f;
-		protected float m_bashWaitTime = 0.7f;
-		protected float m_bashTime = 0.5f;
+		protected float m_bashWaitTime = 1.0f;
+		protected float m_bashTime = 2.0f;
 		protected GameTimer m_waitTimer;
 		protected GameTimer m_bashTimer;
 		protected Vector3 m_pushDirection;
@@ -69,8 +69,7 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
-			if (m_thisObject.m_enemyRanged) { m_attackRange = m_sightRange; }
-			else m_attackDelay = 0.5f;
+			if(m_thisObject.m_enemyRanged) { m_attackRange = m_sightRange;}
 			m_attackEffect = m_thisObject.GetComponent<ParticleSystem>();
 			m_attackEffect.Stop();
 			m_animator = m_thisObject.GetComponentInChildren<Animator>();
