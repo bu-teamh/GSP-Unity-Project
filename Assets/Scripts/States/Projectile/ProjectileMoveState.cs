@@ -79,7 +79,7 @@ namespace GSP.States
 
 					m_thisObject.Remove();
 				}
-				else m_thisObject.Remove();
+				//else m_thisObject.Remove();
 				
 			}
 			return;
