@@ -18,6 +18,7 @@ namespace GSP.States
 			base.Awake();
 			m_switchStateMap[SwitchState.Combat] = typeof(CompanionCombatState);
 			m_timer = new GameTimer(m_attackTime);
+			m_soundFX.PlaySound2();
 			m_lineRenderer.enabled = false;
 		}
 

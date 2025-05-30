@@ -6080,6 +6080,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8451812501238865871}
+  - component: {fileID: 8790962220650657993}
+  - component: {fileID: 3176172373034922078}
   m_Layer: 6
   m_Name: Boss_Bod
   m_TagString: Untagged
@@ -6104,6 +6106,44 @@ Transform:
   - {fileID: 5481710449032103134}
   m_Father: {fileID: 6569119919185665909}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &8790962220650657993
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7967803860192439099}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9bd165ae345465c40ba1c7e9a56cc1d4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3176172373034922078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7967803860192439099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4234f69fb6011f94e8cac317c442537c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sound1FX: {fileID: 0}
+  m_sound2FX: {fileID: 0}
+  m_sound3FX: {fileID: 0}
+  m_sound4FX: {fileID: 0}
+  m_sound5FX: {fileID: 0}
 --- !u!1 &7996719834073640013
 GameObject:
   m_ObjectHideFlags: 0

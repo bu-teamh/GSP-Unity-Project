@@ -26,6 +26,8 @@ namespace GSP.States
 		protected GameTimer m_fadeoutTimer;
 		protected GameTimer m_blackoutTimer;
 
+		protected AudioSource m_audioSource;
+
 		//Constructor doesn't need touching
 		public TeleportBaseState(ControllerComponent _object) : base(_object) { }
 
@@ -35,7 +37,11 @@ namespace GSP.States
 		//Here, assign the mediated objects like so
 		protected override void GetMediations()
 		{
+		}
 
+		protected override void Awake()
+		{
+			m_audioSource = m_thisObject.GetComponent<AudioSource>();
 		}
 
 		public override void Update()
