@@ -65,7 +65,7 @@ namespace GSP.States
 		{
 			bool near = false;
 
-			Collider[] nearby = Physics.OverlapSphere(m_thisObject.transform.position, 2.0f);
+			Collider[] nearby = Physics.OverlapSphere(m_thisObject.transform.position, 4.0f);
 
 			foreach (Collider collider in nearby)
 			{
