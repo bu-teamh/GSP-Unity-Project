@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f710891684ce5054985cabce50d155e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_liveOnAwake: 0
+  m_liveOnAwake: 1
   m_declaredMediatedObject: 0
   m_declaredMediatedGroups: 00000000
   m_requestedMediatedObjects: 01000000020000000500000006000000
