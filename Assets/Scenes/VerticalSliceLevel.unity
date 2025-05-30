@@ -1936,6 +1936,30 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1897067339}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &70176168 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3349173556737332769, guid: e0c00a6772fc2d24f813b6cc0652dae5,
+    type: 3}
+  m_PrefabInstance: {fileID: 5206076519549528667}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &70176172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70176168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 628232db44195fd4682f219db5d0bec0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllSoundFX:
+  - Type: 0
+    Clip: {fileID: 8300000, guid: d054bf565ae96df48ba1d936ca92c8c1, type: 3}
+    Volume: 1
+    AudioSource: {fileID: 0}
+  SelectedSoundFX: 0
 --- !u!1001 &70297099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59636,6 +59660,16 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8160789466765686039, guid: e0c00a6772fc2d24f813b6cc0652dae5,
+        type: 3}
+      propertyPath: m_subscribedEvents.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8160789466765686039, guid: e0c00a6772fc2d24f813b6cc0652dae5,
+        type: 3}
+      propertyPath: m_subscribedEvents.Array.data[2]
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8524389072939744796, guid: e0c00a6772fc2d24f813b6cc0652dae5,
         type: 3}
       propertyPath: m_CastShadows
@@ -59644,7 +59678,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3349173556737332769, guid: e0c00a6772fc2d24f813b6cc0652dae5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 70176172}
   m_SourcePrefab: {fileID: 100100000, guid: e0c00a6772fc2d24f813b6cc0652dae5, type: 3}
 --- !u!1001 &7105963977557300690
 PrefabInstance:

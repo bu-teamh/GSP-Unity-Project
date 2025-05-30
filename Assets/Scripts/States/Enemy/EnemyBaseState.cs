@@ -20,7 +20,7 @@ namespace GSP.States
 
 		protected float m_health = 100;
 
-		protected float m_stunTime = 2.0f;
+		protected float m_stunTime = 1.0f;
 		protected float m_bashWaitTime = 0.8f;
 		protected float m_bashTime = 0.4f;
 		protected GameTimer m_waitTimer;

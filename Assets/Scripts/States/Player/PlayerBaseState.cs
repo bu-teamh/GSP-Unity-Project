@@ -34,6 +34,7 @@ namespace GSP.States
 		protected float m_defendResetTime = 0.6f;
 
 		protected Animator m_animator;
+		protected SoundFX m_soundFXManager;
 
 		protected Vector3 m_velocity = Vector3.zero;
 		protected Quaternion m_targetRot;
@@ -59,6 +60,7 @@ namespace GSP.States
 			m_defendSphereRenderer.enabled = false;
 			m_animator = m_thisObject.GetComponentInChildren<Animator>();
 			m_defendTimer = new GameTimer(m_defendResetTime);
+			m_soundFXManager = m_thisObject.GetComponent<SoundFX>();
 		}
 
 		public override void Update()
@@ -82,6 +84,7 @@ namespace GSP.States
 			else if(m_thisObject.GetState() == typeof(PlayerMoveState))
 			{
 				m_animator.SetBool("IsMoving", true);
+				m_soundFXManager.PlayFX(SoundFX.SoundType.Footsteps);
 			}
 
 			if(!(m_thisObject.GetState() == typeof(PlayerDashState)))
