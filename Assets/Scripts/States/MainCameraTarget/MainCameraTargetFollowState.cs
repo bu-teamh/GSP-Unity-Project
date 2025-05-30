@@ -13,7 +13,7 @@ namespace GSP.States
 
 		protected override void InitializeMap()
 		{
-			SetTransition(typeof(MainCameraTargetCombatState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
+			//SetTransition(typeof(MainCameraTargetCombatState), EventArchetype.Gameplay, EventSubtype.Combat, EventFlag.Active);
 			SetTransition(typeof(MainCameraTargetMenuState), EventArchetype.UI, EventSubtype.Menu, EventFlag.Active);
 		}
 

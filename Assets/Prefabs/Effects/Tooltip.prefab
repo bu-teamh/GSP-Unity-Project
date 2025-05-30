@@ -64,8 +64,15 @@ MonoBehaviour:
   m_enemyMask:
     serializedVersion: 2
     m_Bits: 0
+  m_ultMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_enemyRanged: 0
+  m_AOE: {fileID: 0}
+  m_parry: 0
   m_volume: {fileID: 0}
   m_tooltip: {fileID: 0}
+  m_pausable: 1
 --- !u!1 &7651162190962140278
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +134,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 5a87159430abfea4590e711a8b712884, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

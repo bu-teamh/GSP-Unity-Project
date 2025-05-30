@@ -30,7 +30,8 @@ namespace GSP.States
 		ScrapbookInitialState,
 		TeleportFloatState,
 		BossInitialState,
-		AudioManagerInitialState
+		AudioManagerInitialState,
+		UnlockedWoodenDoorInitialState
 	}
 
 	public class InitialStates
@@ -62,8 +63,9 @@ namespace GSP.States
 				{ InitialState.ScrapbookInitialState, typeof(ScrapbookIdleState) },
 				{ InitialState.TeleportFloatState, typeof(TeleportFloatState) },
 				{ InitialState.MandelaInitialState, typeof(MandelaIdleState) },
-				{InitialState.BossInitialState, typeof(BossIdleState) },
-				{ InitialState.AudioManagerInitialState, typeof(AudioManagerPlayState) }
+				{ InitialState.BossInitialState, typeof(BossIdleState) },
+				{ InitialState.AudioManagerInitialState, typeof(AudioManagerPlayState) },
+				{ InitialState.UnlockedWoodenDoorInitialState, typeof(WoodenDoorOpeningState) }
 			};
 	}
 }

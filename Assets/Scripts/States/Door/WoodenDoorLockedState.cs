@@ -40,10 +40,15 @@ namespace GSP.States
 		{
 			if (CompareEvent(_event, EventArchetype.GameplayInput, EventSubtype.Interact, EventFlag.KeyDown))
 			{
-				if (m_inRange && typeof(NormalGameplayState).IsAssignableFrom(m_gameStateManager.GetGameState()))
+				if (m_inRange &&
+					typeof(NormalGameplayState).IsAssignableFrom(m_gameStateManager.GetGameState()) &&
+					m_gameStateManager.GetGlobalValue(GlobalValue.InventoryKey) == 1
+					)
 				{
 					m_unlocked = true;
 					m_thisObject.m_tooltip.Remove();
+
+					m_gameStateManager.AddToGlobalValue(GlobalValue.InventoryKey, -1);
 
 					InternalEvent(EventSubtype.Transition, EventFlag.Open);
 				}
