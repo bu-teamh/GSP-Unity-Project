@@ -15,6 +15,7 @@ namespace GSP.States
 
 		protected override void Awake()
 		{
+			base.Awake();
 			Ray ray = new Ray(m_thisObject.transform.position, Vector3.down);
 			RaycastHit hit;
 
@@ -51,6 +52,7 @@ namespace GSP.States
 
 			if (m_fadeoutTimer.Check())
 			{
+				m_audioSource.Play();
 				m_blackoutTimer.Start();
 			}
 

@@ -50,6 +50,8 @@ namespace GSP.States
 
 		protected ParticleSystem m_AOEeffect;
 
+		protected PlayFX m_soundFX;
+
 		//stored stuff (physics, not globals)
 		protected Vector3 m_velocity = Vector3.zero;
 		protected Quaternion m_targetRot;
@@ -83,6 +85,7 @@ namespace GSP.States
 			m_lightsModule = m_particleSystem.lights;
 			m_attackDelayTimer = new GameTimer(m_attackDelayTime);
 			m_AOEeffect = m_thisObject.m_AOE.GetComponentInChildren<ParticleSystem>();
+			m_soundFX = m_thisObject.GetComponent<PlayFX>();
 		}
 
 		public override void Update()

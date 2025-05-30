@@ -34,6 +34,8 @@ namespace GSP.States
 			m_thisObject.m_parry = true;
 			m_canDefend = false;
 
+			m_playSoundFX.PlaySound4();
+
 		}
 
 		public override void Update()

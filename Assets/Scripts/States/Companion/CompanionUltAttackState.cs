@@ -21,6 +21,7 @@ namespace GSP.States
 			//m_thisObject.m_AOE.SetActive(false);
 			m_AOEeffect.Play();
 			m_gameStateManager.AddToGlobalValue(GlobalValue.PlayerCharge, (int)-(m_gameStateManager.GetGlobalMaximum(GlobalValue.PlayerCharge)));
+			m_soundFX.PlaySound3();
 		}
 
 		protected override void InitializeMap()

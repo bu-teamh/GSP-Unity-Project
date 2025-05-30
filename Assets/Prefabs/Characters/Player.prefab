@@ -126,6 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 605635626916721015}
   - component: {fileID: 7664861276387597229}
+  - component: {fileID: 3837588177277817385}
   m_Layer: 0
   m_Name: arnion_bod
   m_TagString: Untagged
@@ -171,6 +172,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3837588177277817385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228688283780082637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4234f69fb6011f94e8cac317c442537c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sound1FX: {fileID: 0}
+  m_sound2FX: {fileID: 0}
+  m_sound3FX: {fileID: 0}
+  m_sound4FX: {fileID: 0}
+  m_sound5FX: {fileID: 0}
 --- !u!1 &261200672254593039
 GameObject:
   m_ObjectHideFlags: 0
