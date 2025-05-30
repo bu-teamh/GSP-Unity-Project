@@ -67467,6 +67467,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (Boss)
       objectReference: {fileID: 0}
+    - target: {fileID: 3176172373034922078, guid: 46849c707d4ff5d4b809aac60d5b2d98,
+        type: 3}
+      propertyPath: m_sound1FX
+      value: 
+      objectReference: {fileID: 1564474917}
+    - target: {fileID: 3176172373034922078, guid: 46849c707d4ff5d4b809aac60d5b2d98,
+        type: 3}
+      propertyPath: m_sound2FX
+      value: 
+      objectReference: {fileID: 67814337}
     - target: {fileID: 6569119919185665909, guid: 46849c707d4ff5d4b809aac60d5b2d98,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -86620,6 +86630,36 @@ PrefabInstance:
       propertyPath: m_sound4FX
       value: 
       objectReference: {fileID: 954644976}
+    - target: {fileID: 4015392311708296165, guid: e0c00a6772fc2d24f813b6cc0652dae5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015392311708296165, guid: e0c00a6772fc2d24f813b6cc0652dae5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015392311708296165, guid: e0c00a6772fc2d24f813b6cc0652dae5,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4671350813627179500, guid: e0c00a6772fc2d24f813b6cc0652dae5,
+        type: 3}
+      propertyPath: m_sound1FX
+      value: 
+      objectReference: {fileID: 2015064464}
+    - target: {fileID: 4671350813627179500, guid: e0c00a6772fc2d24f813b6cc0652dae5,
+        type: 3}
+      propertyPath: m_sound3FX
+      value: 
+      objectReference: {fileID: 1528192832}
+    - target: {fileID: 4671350813627179500, guid: e0c00a6772fc2d24f813b6cc0652dae5,
+        type: 3}
+      propertyPath: m_sound4FX
+      value: 
+      objectReference: {fileID: 954644976}
     - target: {fileID: 5141531727763492958, guid: e0c00a6772fc2d24f813b6cc0652dae5,
         type: 3}
       propertyPath: m_CastShadows
@@ -86688,6 +86728,11 @@ PrefabInstance:
     - target: {fileID: 8524389072939744796, guid: e0c00a6772fc2d24f813b6cc0652dae5,
         type: 3}
       propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8621733314240459605, guid: e0c00a6772fc2d24f813b6cc0652dae5,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

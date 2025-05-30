@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 using GSP.Controller;
 using GSP.Events;
@@ -21,6 +22,7 @@ namespace GSP.States
 			base.Awake();
 
 			m_animator.SetBool("IsDead", true);
+			SceneManager.LoadScene("Main Menu");
 			
 		}
 
