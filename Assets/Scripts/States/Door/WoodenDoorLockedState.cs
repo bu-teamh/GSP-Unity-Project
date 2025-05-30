@@ -22,7 +22,11 @@ namespace GSP.States
 
 		public override void Update()
 		{
-			if (m_inRange && !m_tooltipped && typeof(NormalGameplayState).IsAssignableFrom(m_gameStateManager.GetGameState()))
+			if (m_inRange &&
+				!m_tooltipped &&
+				typeof(NormalGameplayState).IsAssignableFrom(m_gameStateManager.GetGameState()) &&
+				m_gameStateManager.GetGlobalValue(GlobalValue.InventoryKey) == 1
+				)
 			{
 				m_thisObject.m_tooltip.Spawn();
 				m_tooltipped = true;
