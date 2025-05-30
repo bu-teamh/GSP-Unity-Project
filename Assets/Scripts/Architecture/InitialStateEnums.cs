@@ -29,7 +29,8 @@ namespace GSP.States
 		RingMenuInitialState,
 		ScrapbookInitialState,
 		TeleportFloatState,
-		BossInitialState
+		BossInitialState,
+		AudioManagerInitialState
 	}
 
 	public class InitialStates
@@ -61,7 +62,8 @@ namespace GSP.States
 				{ InitialState.ScrapbookInitialState, typeof(ScrapbookIdleState) },
 				{ InitialState.TeleportFloatState, typeof(TeleportFloatState) },
 				{ InitialState.MandelaInitialState, typeof(MandelaIdleState) },
-				{InitialState.BossInitialState, typeof(BossIdleState) }
+				{InitialState.BossInitialState, typeof(BossIdleState) },
+				{ InitialState.AudioManagerInitialState, typeof(AudioManagerPlayState) }
 			};
 	}
 }

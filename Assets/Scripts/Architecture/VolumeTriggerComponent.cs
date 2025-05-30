@@ -163,7 +163,7 @@ namespace GSP.Triggers
 
 			foreach (var bundle in m_eventGroup)
 			{
-				if (bundle.m_execution != _execution)
+				if (bundle.m_execution == _execution)
 				{
 					TriggerEvent(bundle);
 				}

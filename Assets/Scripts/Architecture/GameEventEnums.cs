@@ -13,7 +13,8 @@ namespace GSP.Events
 		Trigger,
 		GameplayInput,
 		MenuInput,
-		UI
+		UI,
+		Audio
     }
 
     public enum EventPriority
@@ -82,7 +83,12 @@ namespace GSP.Events
 		Fade,
 		Clear,
 		Menu,
-		Item
+		Item,
+
+		//Audio
+
+		Ambient,
+		Music
     }
 
     public enum EventFlag
@@ -112,6 +118,12 @@ namespace GSP.Events
 		Health,
 		Fuel,
 		Revive,
-		Use
+		Use,
+
+		//AudioManager
+		School,
+		Caves,
+		Lab
+
 	}
 }
