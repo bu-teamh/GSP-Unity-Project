@@ -73,7 +73,7 @@ namespace GSP.States
 				Vector3 intersect = hit.point;
 
 				//normalise y to current height of player
-				intersect.y = m_player.transform.position.y;
+				intersect.y = m_thisObject.transform.position.y;
 
 				m_thisObject.m_AOE.transform.position = intersect;
 			}
