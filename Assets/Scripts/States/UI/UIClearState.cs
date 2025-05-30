@@ -41,7 +41,6 @@ namespace GSP.States
 			m_thisObject.m_component.m_sceneFader.SetActive(false);
 			m_thisObject.m_component.m_menuLayer.SetActive(false);
 			m_ringMenu.Remove();
-			m_scrapbook.Remove();
 		}
 
 		public override void Update()

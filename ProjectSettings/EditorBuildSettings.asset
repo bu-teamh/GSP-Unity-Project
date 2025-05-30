@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/VerticalSliceLevel.unity
     guid: c336acf2286d38e4082dc17074b6edd8
+  - enabled: 1
+    path: Assets/Scenes/Attract Mode.unity
+    guid: 504fae7c6769b56498a17800d69f61c0
   m_configObjects: {}

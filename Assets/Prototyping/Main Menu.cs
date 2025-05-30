@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
 	public void AttractButton()
 	{
 		Debug.Log("Attract Mode");
+		SceneManager.LoadScene("Attract Mode");
 	}
 
 	public void QuitButton()
